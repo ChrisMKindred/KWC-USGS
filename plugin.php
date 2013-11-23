@@ -31,8 +31,11 @@ class KWCUSGS {
 	function __construct() {
 
 		add_action( 'init', array( $this, 'plugin_textdomain' ) );
+		
 		add_action( 'admin_print_styles', array( $this, 'register_admin_styles' ) );
+		
 		add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_scripts' ) );
+		
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_plugin_styles' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_plugin_scripts' ) );
 
@@ -48,14 +51,14 @@ class KWCUSGS {
 
 		add_action( 'admin_footer', 'my_action_javascript' );
 		
-		add_action('wp_ajax_my_action', 'my_action_callback');
+		add_action( 'wp_ajax_my_action', 'my_action_callback');
 
 		function my_action_callback() {
 			$state = $_POST['state'];
 
 			$url = "http://waterservices.usgs.gov/nwis/iv?stateCd=$state&format=waterml&parameterCd=00060";
 			$data = file_get_contents( $url );
-			if ( !$data ){
+			if ( ! $data ){
 		 		echo 'Error retrieving: ' . $url;
 		 		exit;
 			}
@@ -86,12 +89,12 @@ class KWCUSGS {
 						        <th>Longitude<th>
 							</tr>
 						</tfoot>";
-			foreach ($xml_tree->timeSeries as $site_data){	
+			foreach ( $xml_tree->timeSeries as $site_data ) {	
 				$cnt = ++$cnt;
   				$page .= "<tbody>
 							    <tr>
 							      	<td>". $cnt ."</td>
-							      	<td>". ucwords(strtolower($site_data->sourceInfo->siteName)) ."</td>
+							      	<td>". ucwords( strtolower( $site_data->sourceInfo->siteName ) ) ."</td>
 							      	<td>". $site_data->sourceInfo->siteCode ."</td>
 							      	<td>". $site_data->sourceInfo->geoLocation->geogLocation->latitude ."</td>
 							      	<td>". $site_data->sourceInfo->geoLocation->geogLocation->longitude ."</td>
@@ -101,6 +104,7 @@ class KWCUSGS {
   			echo $page;
 			die();
 		}	
+
 	} // end constructor
 
 	public function activate( $network_wide ) {
@@ -141,6 +145,8 @@ class KWCUSGS {
 	public function register_plugin_scripts() {
 		wp_enqueue_script( 'kwc-usgs-plugin-script', plugins_url( 'kwcusgs/js/display.js' ), array('jquery') );
 	} // end register_plugin_scripts
+
+
 
 	function USGS($atts, $content = null ) {
 	   	extract( shortcode_atts( 
@@ -287,10 +293,10 @@ class KWCUSGS {
     );
 
 	function listUSStates( $state_values, $dropdown_name, $key_selected ) {
-	    $string = "<select id='state' class='state' name=\"" . $dropdown_name . "\">\n";
+	    $string = "<select id='state' class='state' name='$dropdown_name'>";
     	if ( !empty( $state_values ) ) {
         	if ( $key_selected == "" || !isset( $key_selected ) ) {
-            	$string .= "<option value=\"\"></option>\n";
+            	$string .= "<option value=''></option>";
         	}
         	foreach( $state_values as $state_short=>$state_full ) {
             	if ( $key_selected != "" && $key_selected == $state_short ) {
@@ -298,10 +304,10 @@ class KWCUSGS {
             	} else {
                 	$additional = "";
             	}
-                $string.="<option value=\"" . $state_short . "\"" . $additional . ">" . $state_full . "</option>\n";
+                $string.="<option value='$state_short' $additional >$state_full</option>";
         	}
     	}
-    	$string .= "</select>\n";
+    	$string .= "</select>";
     	return $string;
 	}
 	function my_action_javascript() {
@@ -325,7 +331,6 @@ class KWCUSGS {
 		</script>
 		<?php
 	}
-
 	?>
 		<div class="wrap">
 			<?php screen_icon(); ?> <h2>USGS Stream Flow Data</h2>
