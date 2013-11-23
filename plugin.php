@@ -74,7 +74,7 @@ class KWCUSGS {
 						        <th>Site Name</th>
 						        <th>Site Code</th>       
 						        <th>Latitude</th>
-						        <th>longitude<th>
+						        <th>Longitude<th>
 						    </tr>
 						</thead>
 						<tfoot>
@@ -83,7 +83,7 @@ class KWCUSGS {
 						        <th>Site Name</th>
 						        <th>Site Code</th>       
 						        <th>Latitude</th>
-						        <th>longitude<th>
+						        <th>Longitude<th>
 							</tr>
 						</tfoot>";
 			foreach ($xml_tree->timeSeries as $site_data){	
@@ -329,7 +329,7 @@ class KWCUSGS {
 	?>
 		<div class="wrap">
 			<?php screen_icon(); ?> <h2>USGS Stream Flow Data</h2>
-			<h3>Get River ID</h3>
+			<h3>Search Site Codes</h3>
 			<label>Select State</label>
 			<?php 
 				$select_box_name = "state";
