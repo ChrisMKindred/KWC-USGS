@@ -3,10 +3,11 @@
 Plugin Name: USGS Steam Flow
 Plugin URI: http://www.kindredwebconsulting.com
 Description: Display USGS Stream Flow Data
-Version: 1.0
+Version: 0.01
 Author: Chris Kindred - Kindred Web Consulting
 Author URI: http://www.kindredwebconsulting.com
 Author Email: Support@kindredwebconsulting.com
+
 License:
 
   Copyright 2013 Kindred Web Consulting (support@kindredwebconsulting.com)
