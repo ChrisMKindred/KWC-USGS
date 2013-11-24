@@ -1,0 +1,32 @@
+/* This stylesheet is used to style the public view of the plugin. */
+div .KWC_USGS {
+	border: 1px solid #eee;
+	margin: 4px;
+	padding: 5px;
+}
+
+div .KWC_USGS h3.header {
+	margin: 0px;
+	margin-bottom: 1px;
+	padding: 5px;
+}
+
+div .KWC_USGS ul.sitevalues {
+	list-style-type: none;
+	padding: 0px;
+	margin: 0px;
+}
+div .KWC_USGS ul.sitevalues li {
+	margin: 0px;
+	padding-left: 14px; 
+}
+
+div .KWC_USGS a {
+	float: right; 
+}
+
+.clearfix:after {
+	content:"";
+	display:table;
+	clear:both;
+}
