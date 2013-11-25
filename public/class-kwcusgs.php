@@ -13,7 +13,7 @@ class kwc_usgs {
 	 * Plugin version, used for cache-busting of style and script file references.
 	 *
 	 * @since   1.0.0
-	 *
+	 * 
 	 * @var     string
 	 */
 	const VERSION = '1.0.0';
@@ -60,7 +60,7 @@ class kwc_usgs {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
 	    add_shortcode( "USGS", array( $this, 'USGS' ) );
-	    add_filter( 'widget_text', 'do_shortcode');
+
 
 		/* Define custom functionality.
 		 * Refer To http://codex.wordpress.org/Plugin_API#Hooks.2C_Actions_and_Filters
