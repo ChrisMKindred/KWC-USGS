@@ -1,8 +1,6 @@
 <?php
 /**
- * USGS Steam Flow.
- *
- * @package   USGS Steam Flow
+ * @package   USGS Steam Flow Data
  * @author    Chris Kindred <Chris@kindredwebconsulting.com>
  * @license   GPL-2.0+
  * @link      http://www.kindredwebconsulting.com
@@ -14,11 +12,11 @@ class kwc_usgs {
 	/**
 	 * Plugin version, used for cache-busting of style and script file references.
 	 *
-	 * @since   0.0.1
+	 * @since   1.0.0
 	 *
 	 * @var     string
 	 */
-	const VERSION = '0.0.1';
+	const VERSION = '1.0.0';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -28,7 +26,7 @@ class kwc_usgs {
 	 * of text. Its value should match the Text Domain file header in the main
 	 * plugin file.
 	 *
-	 * @since    0.0.1
+	 * @since    1.0.0
 	 *
 	 * @var      string
 	 */
@@ -37,7 +35,7 @@ class kwc_usgs {
 	/**
 	 * Instance of this class.
 	 *
-	 * @since    0.0.1
+	 * @since    1.0.0
 	 *
 	 * @var      object
 	 */
@@ -47,7 +45,7 @@ class kwc_usgs {
 	 * Initialize the plugin by setting localization and loading public scripts
 	 * and styles.
 	 *
-	 * @since     0.0.1
+	 * @since     1.0.0
 	 */
 	private function __construct() {
 
@@ -62,7 +60,7 @@ class kwc_usgs {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
 	    add_shortcode( "USGS", array( $this, 'USGS' ) );
-	    add_filter( 'widget_text', array( $this, 'do_shortcode' ) );
+	    add_filter( 'widget_text', 'do_shortcode');
 
 		/* Define custom functionality.
 		 * Refer To http://codex.wordpress.org/Plugin_API#Hooks.2C_Actions_and_Filters
@@ -75,7 +73,7 @@ class kwc_usgs {
 	/**
 	 * Return the plugin slug.
 	 *
-	 * @since    0.0.1
+	 * @since    1.0.0
 	 *
 	 *@return    Plugin slug variable.
 	 */
@@ -86,7 +84,7 @@ class kwc_usgs {
 	/**
 	 * Return an instance of this class.
 	 *
-	 * @since     0.0.1
+	 * @since     1.0.0
 	 *
 	 * @return    object    A single instance of this class.
 	 */
@@ -103,7 +101,7 @@ class kwc_usgs {
 	/**
 	 * Fired when the plugin is activated.
 	 *
-	 * @since    0.0.1
+	 * @since    1.0.0
 	 *
 	 * @param    boolean    $network_wide    True if WPMU superadmin uses
 	 *                                       "Network Activate" action, false if
@@ -140,7 +138,7 @@ class kwc_usgs {
 	/**
 	 * Fired when the plugin is deactivated.
 	 *
-	 * @since    0.0.1
+	 * @since    1.0.0
 	 *
 	 * @param    boolean    $network_wide    True if WPMU superadmin uses
 	 *                                       "Network Deactivate" action, false if
@@ -178,7 +176,7 @@ class kwc_usgs {
 	/**
 	 * Fired when a new site is activated with a WPMU environment.
 	 *
-	 * @since    0.0.1
+	 * @since    1.0.0
 	 *
 	 * @param    int    $blog_id    ID of the new blog.
 	 */
@@ -200,7 +198,7 @@ class kwc_usgs {
 	 * - not spam
 	 * - not deleted
 	 *
-	 * @since    0.0.1
+	 * @since    1.0.0
 	 *
 	 * @return   array|false    The blog ids, false if no matches.
 	 */
@@ -220,7 +218,7 @@ class kwc_usgs {
 	/**
 	 * Fired for each blog when the plugin is activated.
 	 *
-	 * @since    0.0.1
+	 * @since    1.0.0
 	 */
 	private static function single_activate() {
 
@@ -229,7 +227,7 @@ class kwc_usgs {
 	/**
 	 * Fired for each blog when the plugin is deactivated.
 	 *
-	 * @since    0.0.1
+	 * @since    1.0.0
 	 */
 	private static function single_deactivate() {
 
@@ -238,7 +236,7 @@ class kwc_usgs {
 	/**
 	 * Load the plugin text domain for translation.
 	 *
-	 * @since    0.0.1
+	 * @since    1.0.0
 	 */
 	public function load_plugin_textdomain() {
 
@@ -252,7 +250,7 @@ class kwc_usgs {
 	/**
 	 * Register and enqueue public-facing style sheet.
 	 *
-	 * @since    0.0.1
+	 * @since    1.0.0
 	 */
 	public function enqueue_styles() {
 
@@ -263,7 +261,7 @@ class kwc_usgs {
 	/**
 	 * Register and enqueues public-facing JavaScript files.
 	 *
-	 * @since    0.0.1
+	 * @since    1.0.0
 	 */
 	public function enqueue_scripts() {
 
@@ -278,7 +276,7 @@ class kwc_usgs {
 	 *        Actions:    http://codex.wordpress.org/Plugin_API#Actions
 	 *        Reference:  http://codex.wordpress.org/Plugin_API/Action_Reference
 	 *
-	 * @since    0.0.1
+	 * @since    1.0.0
 	 */
 
 	public function USGS( $atts, $content = null ) {
@@ -305,17 +303,21 @@ class kwc_usgs {
 		if ( False === $xml_tree ){
 			return 'Unable to parse USGS\'s XML';
 		}
-		if (!isset($title)){
+
+		if ( ! isset( $title )  ){
 			$SiteName = $xml_tree->timeSeries->sourceInfo->siteName;
 		} else {
-			$SiteName = $title;
+			if ( $title == '' ) {
+				$SiteName = $xml_tree->timeSeries->sourceInfo->siteName;
+			} else {
+				$SiteName = $title;
+			}
 		}
-		$latitude  = (double) $xml_tree->timeSeries->sourceInfo->geoLocation->geogLocation->latitude; //North
-		$longitude = (double) $xml_tree->timeSeries->sourceInfo->geoLocation->geogLocation->longitude; //West
-		$time_format = 'h:i:s A';
+
 		$thePage = "<div class='KWC_USGS clearfix'>
 						<h3 class='header'>$SiteName</h3>
 							<ul class='sitevalues'>";
+
 	  	foreach ( $xml_tree->timeSeries as $site_data ){	
 	    	if ( $site_data->values->value == '' ) {
 	      		$value = '-';
@@ -327,7 +329,7 @@ class kwc_usgs {
 	      		switch ( $site_data->variable->variableCode ) {
 	        		case "00010":
 	          			$value  = $site_data->values->value;
-	          			$degf   = (9/5) * $value + 32;          			       
+	          			$degf   = ( 9 / 5 ) * $value + 32;          			       
 	          			$watertemp      = $degf;
 	          			$watertempdesc  = "&deg; F"; 
 	          			$thePage .= "<li class='watertemp'>Water Temp: $watertemp $watertempdesc</li>";
@@ -353,7 +355,7 @@ class kwc_usgs {
 	  	}
 		$thePage .=		"</ul>";
 		if ( isset( $graph ) ){
-			if ( true == $graph ){
+			if ( $graph == 'show' ){
 				$thePage .= "<img src='http://waterdata.usgs.gov/nwisweb/graph?site_no=$location&parm_cd=00060'/>";
 				$thePage .= "<img src='http://waterdata.usgs.gov/nwisweb/graph?site_no=$location&parm_cd=00065'/>";
 			}
@@ -370,7 +372,7 @@ class kwc_usgs {
 	 *        Filters: http://codex.wordpress.org/Plugin_API#Filters
 	 *        Reference:  http://codex.wordpress.org/Plugin_API/Filter_Reference
 	 *
-	 * @since    0.0.1
+	 * @since    1.0.0
 	 */
 //	public function filter_method_name() {
 //

@@ -1,28 +1,30 @@
-=== USGS Steam Flow ===
+=== USGS Steam Flow Data ===
 Contributors: ChrisMKindred
 Donate link: http://www.kindredwebconsulting.com
-Tags: USGS, River Flow, Stream Flow
+Tags: USGS, River Flow, Stream Flow, Fly Fishing, Water Level
 Requires at least: 3.7
 Tested up to: 3.7.1
-Stable tag: 0.0.1
+Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Using shortcodes you can get the usgs for a site location.
+This plugin uses shortcodes you can get the USGS river flow data for a site location.  It also includes a easy to use Site Code Search.
 
 == Description ==
 
-This is the long description.  No limit, and you can use Markdown (as well as in the following sections).
+This plugin allows you to use a shortcode to display the USGS River Data for a site location.  The shortcode can be included in Posts, Pages and Text Widgets.
 
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
+The shortcode allows you to set your own title and whether or not to show a graph with it.
+
+Example Shortcode:
+[USGS location='09080400' title='Great Place To Fish' graph='true']
 
 == Installation ==
 
 = Using The WordPress Dashboard =
 
 1. Navigate to the 'Add New' in the plugins dashboard
-2. Search for 'plugin-name'
+2. Search for 'USGS Steam Flow Data'
 3. Click 'Install Now'
 4. Activate the plugin on the Plugin dashboard
 
@@ -45,22 +47,25 @@ Markdown parsed.
 
 = How do I use the short code? =
 
-Enter [USGS location='09080400' graph='true' title='The Title'].  The location is the Site Code for the station, graph is either 'true' (show the graphs) or 'false' (don't show the graphs), the title is what you want to display as a title.  If this is blank it will display the location name.
+Enter [USGS location='09080400' graph='show' title='The Title'].  The location is the Site Code for the station, graph is set to 'show' to show the graphs, the title is what you want to display as a title.  If this is blank it will display the location name.
+
+= How do I find the Site Code? = 
+
+You can find the Site Code quickly and easily by searching for it based on state in the easy to use Site Code Search tab on the plugin settings page.
 
 == Screenshots ==
 
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets
-directory take precedence. For example, `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png`
-(or jpg, jpeg, gif).
-2. This is the second screen shot
+1. Site Code Search
+2. Admin Page
+3. Showing USGS Data in Widget
+4. Showing USGS Without Graphs in a Post
 
 == Changelog ==
 
-= 0.0.1 =
-This version fixes a security related bug.  Upgrade immediately.
+= 1.0.0 =
+Starting Version
 
 == Upgrade Notice ==
 
-= 0.0.1 =
-This is the first upgrade.  Why would you not upgrade?
+= 1.0.0 =
+Starting Version

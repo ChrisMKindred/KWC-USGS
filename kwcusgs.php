@@ -1,28 +1,22 @@
 <?php
 /**
- * The WordPress Plugin Boilerplate.
- *
- * A foundation off of which to build well-documented WordPress plugins that
- * also follow WordPress Coding Standards and PHP best practices.
- *
- * @package   USGS Steam Flow
+ * @package   USGS Steam Flow Data
  * @author    Chris Kindred <chris@kindredwebconsulting.com>
  * @license   GPL-2.0+
  * @link      http://www.kindredwebconsulting.com
  * @copyright 2013 Kindred Web Consulting
  *
  * @wordpress-plugin
- * Plugin Name:       USGS Steam Flow
+ * Plugin Name:       USGS Steam Flow Data
  * Plugin URI:        http://www.kindredwebconsulting.com
  * Description:       USGS Stream Flow Data
- * Version:           0.0.1
+ * Version:           1.0.0
  * Author:            Chris Kindred
  * Author URI:        http://www.kindredwebconsulting
  * Text Domain:       kwcusgs-locale
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path:       /languages
- * GitHub Plugin URI: https://github.com/kindredwebconsulting/kwcusgs
  */
 
 // If this file is called directly, abort.
@@ -43,7 +37,8 @@ require_once( plugin_dir_path( __FILE__ ) . 'public/class-kwcusgs.php' );
 register_activation_hook( __FILE__, array( 'kwc_usgs', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'kwc_usgs', 'deactivate' ) );
 
-add_action( 'plugins_loaded', array( 'kwc_usgs', 'get_instance' ) );
+add_action( 'plugins_loaded', array( 'kwc_usgs', 'get_instance' ) );	    
+add_filter( 'widget_text', 'do_shortcode');
 
 /*----------------------------------------------------------------------------*
  * Dashboard and Administrative Functionality

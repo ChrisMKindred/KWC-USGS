@@ -1,8 +1,6 @@
 <?php
 /**
- * USGS Steam Flow.
- *
- * @package   USGS Steam Flow
+ * @package   USGS Steam Flow Data
  * @author    Chris Kindred <Chris@kindredwebconsulting.com>
  * @license   GPL-2.0+
  * @link      http://www.kindredwebconsulting.com
@@ -14,7 +12,7 @@ class kwc_usgs_admin {
 	/**
 	 * Instance of this class.
 	 *
-	 * @since    0.0.1
+	 * @since    1.0.0
 	 *
 	 * @var      object
 	 */
@@ -23,7 +21,7 @@ class kwc_usgs_admin {
 	/**
 	 * Slug of the plugin screen.
 	 *
-	 * @since    0.0.1
+	 * @since    1.0.0
 	 *
 	 * @var      string
 	 */
@@ -33,7 +31,7 @@ class kwc_usgs_admin {
 	 * Initialize the plugin by loading admin scripts & styles and adding a
 	 * settings page and menu.
 	 *
-	 * @since     0.0.1
+	 * @since     1.0.0
 	 */
 	private function __construct() {
 
@@ -59,8 +57,8 @@ class kwc_usgs_admin {
 		add_filter( 'plugin_action_links_' . $plugin_basename, array( $this, 'add_action_links' ) );
 
 
-		add_action( 'admin_footer', array( $this, 'my_action_javascript' ) );
-		add_action( 'wp_ajax_my_action', array( $this, 'my_action_callback') );
+		add_action( 'admin_footer', array( $this, 'kwcusgsajax_javascript' ) );
+		add_action( 'wp_ajax_kwcusgsajax', array( $this, 'kwcusgsajax_callback') );
 
 		
 		/*
@@ -77,7 +75,7 @@ class kwc_usgs_admin {
 	/**
 	 * Return an instance of this class.
 	 *
-	 * @since     0.0.1
+	 * @since     1.0.0
 	 *
 	 * @return    object    A single instance of this class.
 	 */
@@ -98,7 +96,7 @@ class kwc_usgs_admin {
 	/**
 	 * Register and enqueue admin-specific style sheet.
 	 *
-	 * @since     0.0.1
+	 * @since     1.0.0
 	 *
 	 * @return    null    Return early if no settings page is registered.
 	 */
@@ -118,7 +116,7 @@ class kwc_usgs_admin {
 	/**
 	 * Register and enqueue admin-specific JavaScript.
 	 *
-	 * @since     0.0.1
+	 * @since     1.0.0
 	 *
 	 * @return    null    Return early if no settings page is registered.
 	 */
@@ -138,7 +136,7 @@ class kwc_usgs_admin {
 	/**
 	 * Register the administration menu for this plugin into the WordPress Dashboard menu.
 	 *
-	 * @since    0.0.1
+	 * @since    1.0.0
 	 */
 	public function add_plugin_admin_menu() {
 
@@ -151,7 +149,7 @@ class kwc_usgs_admin {
 		 *
 		 */
 		$this->plugin_screen_hook_suffix = add_options_page(
-			__( 'USGS Stream Flow Data', $this->plugin_slug ),
+			__( 'USGS Fly Fishing Steam Flow', $this->plugin_slug ),
 			__( 'USGS', $this->plugin_slug ),
 			'manage_options',
 			$this->plugin_slug,
@@ -163,7 +161,7 @@ class kwc_usgs_admin {
 	/**
 	 * Render the settings page for this plugin.
 	 *
-	 * @since    0.0.1
+	 * @since    1.0.0
 	 */
 	public function display_plugin_admin_page() {
 		include_once( 'views/admin.php' );
@@ -172,7 +170,7 @@ class kwc_usgs_admin {
 	/**
 	 * Add settings action link to the plugins page.
 	 *
-	 * @since    0.0.1
+	 * @since    1.0.0
 	 */
 	public function add_action_links( $links ) {
 
@@ -192,14 +190,15 @@ class kwc_usgs_admin {
 	 *           Actions:    http://codex.wordpress.org/Plugin_API#Actions
 	 *           Reference:  http://codex.wordpress.org/Plugin_API/Action_Reference
 	 *
-	 * @since    0.0.1
+	 * @since    1.0.0
 	 */
-	public function action_method_name() {
+//	public function action_method_name() {
 		// @TODO: Define your action hook callback here
-	}
+//	}
 
-		
-	public function my_action_javascript() {
+	
+	
+	public function kwcusgsajax_javascript() {
 ?>
 		<script type="text/javascript" >
 		$j=jQuery.noConflict();
@@ -207,7 +206,7 @@ class kwc_usgs_admin {
 			$j('.button-secondary').click(function() {
 				$j( "#results" ).html("Loading Stations...")
 				var data = {
-					action: 'my_action',
+					action: 'kwcusgsajax',
 					state: $j( ".state" ).val()
 				};
 
@@ -221,7 +220,7 @@ class kwc_usgs_admin {
 <?php
 	}
 
-	public function my_action_callback() {
+	public function kwcusgsajax_callback() {
 		$state = $_POST['state'];
 
 		$url = "http://waterservices.usgs.gov/nwis/iv?stateCd=$state&format=waterml&parameterCd=00060";
@@ -241,31 +240,29 @@ class kwc_usgs_admin {
 		$page = "<table class='widefat'>
 					<thead>
 					    <tr>
-					        <th></th>
-					        <th>Site Name</th>
-					        <th>Site Code</th>       
-					        <th>Latitude</th>
-					        <th>Longitude<th>
+					        <th>Site Code</th>
+					        <th>Site Name</th>     
+					        <th>Latitude / Longitude</th>
 					    </tr>
 					</thead>
 					<tfoot>
 						<tr>
-					        <th></th>
-					        <th>Site Name</th>
-					        <th>Site Code</th>       
-					        <th>Latitude</th>
-					        <th>Longitude<th>
+					        <th>Site Code</th>
+					        <th>Site Name</th>      
+					        <th>Latitude / Longitude</th>
 						</tr>
 					</tfoot>";
 		foreach ( $xml_tree->timeSeries as $site_data ) {	
 			$cnt = ++$cnt;
+			$site = $site_data->sourceInfo->siteCode;
+			$name = ucwords( strtolower( $site_data->sourceInfo->siteName ) );
+			$lat = $site_data->sourceInfo->geoLocation->geogLocation->latitude;
+			$long = $site_data->sourceInfo->geoLocation->geogLocation->longitude;
 				$page .= "<tbody>
 						    <tr>
-						      	<td>". $cnt ."</td>
-						      	<td>". ucwords( strtolower( $site_data->sourceInfo->siteName ) ) ."</td>
 						      	<td>". $site_data->sourceInfo->siteCode ."</td>
-						      	<td>". $site_data->sourceInfo->geoLocation->geogLocation->latitude ."</td>
-						      	<td>". $site_data->sourceInfo->geoLocation->geogLocation->longitude ."</td>
+						      	<td><a href='http://waterdata.usgs.gov/nwis/uv?" . $site . "' target='_blank'>". ucwords( strtolower( $site_data->sourceInfo->siteName ) ) ."</a></td>
+						      	<td><a href='http://maps.google.com/?q=" . $lat . "," . $long ."' target='_blank'>" . $lat . " / " . $long . "</a></td>
 						    </tr>";
 		}
 			$page .= "</tbody></table>";
@@ -285,8 +282,8 @@ class kwc_usgs_admin {
 	 *
 	 * @since    0.0.1
 	 */
-	public function filter_method_name() {
+//	public function filter_method_name() {
 		// @TODO: Define your filter hook callback here
-	}
+//	}
 
 }
