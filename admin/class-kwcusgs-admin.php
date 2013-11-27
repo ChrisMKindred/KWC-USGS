@@ -149,7 +149,7 @@ class kwc_usgs_admin {
 		 *
 		 */
 		$this->plugin_screen_hook_suffix = add_options_page(
-			__( 'USGS Fly Fishing Steam Flow', $this->plugin_slug ),
+			__( 'USGS Steam Flow Data', $this->plugin_slug ),
 			__( 'USGS', $this->plugin_slug ),
 			'manage_options',
 			$this->plugin_slug,

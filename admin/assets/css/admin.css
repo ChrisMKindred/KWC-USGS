@@ -1,1 +1,6 @@
 /* This stylesheet is used to style the admin option form of the plugin. */
+.sidebar {
+	float: right;
+	width: 400px;
+	padding: 0px 10px;
+}
