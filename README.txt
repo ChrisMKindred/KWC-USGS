@@ -1,6 +1,6 @@
 === USGS Steam Flow Data ===
 Contributors: ChrisMKindred
-Donate link: http://www.kindredwebconsulting.com
+Donate link: http://www.kindredwebconsulting.com/wp-plugins/usgs
 Tags: USGS, River Flow, Stream Flow, Fly Fishing, Water Level
 Requires at least: 3.7
 Tested up to: 3.7.1
@@ -17,7 +17,7 @@ This plugin allows you to use a shortcode to display the USGS River Data for a s
 The shortcode allows you to set your own title and whether or not to show a graph with it.
 
 Example Shortcode:
-[USGS location='09080400' title='Great Place To Fish' graph='true']
+[USGS location='09080400' title='Great Place To Fish' graph='show']
 
 == Installation ==
 

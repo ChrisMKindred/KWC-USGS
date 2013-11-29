@@ -136,6 +136,12 @@ $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'home-settings';
                 <div class="sidebar">
                     <h2 class="">Support</h2>
                     <p class="">Thanks for using our plugin.  We are happy to address any bugs you might find and address suggestions you have by either posting on the plugin page at WordPress.org or through the <a href="http://www.kindredwebconsulting.com/contactus/">Contact Us</a> at our website.</p>
+                    <p class="">
+                        <a href="http://www.facebook.com/kindredwebconsulting/" ><img src="<?php echo plugins_url( '../assets/facebook.png', __FILE__ ) ?>" alt="Kindred Web Consulting on Facebook" width="" height="32px" border="" align="" /></a>
+                        <a href="http://www.twitter.com/KindredWeb"><img src="<?php echo plugins_url( '../assets/twitter.png', __FILE__ ) ?>" alt="Kindred Web Consulting on Twitter" width="" height="32" border="" align="" /></a>
+                        <a href="http://www.google.com/+KindredWebConsulting"><img src="<?php echo plugins_url( '../assets/google.png', __FILE__ ) ?>" alt="Kindred Web Consulting on Google+" width="" height="32px" border="" align="" /></a>
+                        <a href="http://www.kindredwebconsulting.com/"><img src="<?php echo plugins_url( '../assets/kwc.png', __FILE__ ) ?>" alt="Kindred Web Consulting" width="" height="32px" border="" align="" /></a>
+                        </p>
                     <h2 class="">Donations</h2>
                     <p class="">If you are interested in helping us to add new features and fix bugs please consider donating a few dollars. 
                     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
@@ -152,12 +158,13 @@ $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'home-settings';
                     <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_paynow_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
                     <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
                     </form></p>
+
                 </div>
                 <h2 class="">About the Plugin</h2>
                 <p class="">We are avid fly fishermen.  We wanted an easier way to find out what the rivers and streams were flowing at besides to going to the USGS website and looking each one up individually every day.  We decided the easiest way would be to write our own plugin to get the data.  We hope you enjoy using it and if you have any suggestions please let us know!</p>
                 <h2 class="">USGS</h2>
                 <p class="">We are dependent on the <a href="http://www.usgs.gov/water/">USGS website</a> for the data that this plugin uses.  They do a good job of notifying developers of any updates.  We will quickly update the plugin any time there are updates that effect the API calls.</p>
-                <a href="http://www.usgs.gov/water/"><img src="<?php echo plugins_url( '../assets/usgs.jpg', __FILE__ ) ?>" alt="USGS" border="0" /></a>
+                <a href="http://www.usgs.gov/water/"><img src="<?php echo plugins_url( '../assets/usgs.jpg', __FILE__ ) ?>" alt="USGS" border="0" height="32px" /></a>
 <?php
                 break;
         } 
