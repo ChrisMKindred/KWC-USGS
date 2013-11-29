@@ -38,7 +38,7 @@ Example Shortcode:
 
 = Using FTP =
 
-1. Download `kwcusgs.zip.zip`
+1. Download `kwcusgs.zip`
 2. Extract the `kwcusgs.zip` directory to your computer
 3. Upload the `kwcusgs.zip` directory to the `/wp-content/plugins/` directory
 4. Activate the plugin in the Plugin dashboard
