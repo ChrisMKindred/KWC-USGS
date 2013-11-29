@@ -32,15 +32,15 @@ Example Shortcode:
 
 1. Navigate to the 'Add New' in the plugins dashboard
 2. Navigate to the 'Upload' area
-3. Select `kwcusgs.zip` from your computer
+3. Select `usgs-stream-flow-data.zip` from your computer
 4. Click 'Install Now'
 5. Activate the plugin in the Plugin dashboard
 
 = Using FTP =
 
-1. Download `kwcusgs.zip`
-2. Extract the `kwcusgs.zip` directory to your computer
-3. Upload the `kwcusgs.zip` directory to the `/wp-content/plugins/` directory
+1. Download `usgs-stream-flow-data.zip`
+2. Extract the `usgs-stream-flow-data.zip` directory to your computer
+3. Upload the `usgs-stream-flow-data.zip` directory to the `/wp-content/plugins/` directory
 4. Activate the plugin in the Plugin dashboard
 
 == Frequently Asked Questions ==
