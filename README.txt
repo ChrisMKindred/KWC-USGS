@@ -62,10 +62,16 @@ You can find the Site Code quickly and easily by searching for it based on state
 
 == Changelog ==
 
+= 1.0.1 =
+Updated the zip file name to match WordPress created zip file.
+
 = 1.0.0 =
 Starting Version
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Updated the zip file name to match WordPress created zip file.
 
 = 1.0.0 =
 Starting Version
