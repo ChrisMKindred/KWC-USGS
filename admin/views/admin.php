@@ -15,11 +15,23 @@ $tabs = array( 'home-settings' => 'Usage', 'search' => 'Search Site Codes', 'cre
 $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'home-settings';  
 ?>
 <div class="wrap">
+<?php
+if ( MP6 ) {
+?>
+    <h2 class="icon-plugins"> <?php echo esc_html( get_admin_page_title() ); ?> </h2>
+    <h2 class="nav-tab-wrapper icon-networking"> 
+<?php
+    } else {
+?>
+        <div id="icon-plugins" class="icon32"><br></div>
+        <h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
+        <div id="icon-options-general" class="icon32"><br></div>
+        <h2 class="nav-tab-wrapper"> 
+<?php
+    }
+?>
 
-	<div id="icon-plugins" class="icon32"><br></div>
-	<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
-    <div id="icon-options-general" class="icon32"><br></div>
-    <h2 class="nav-tab-wrapper"> 
+
     <?php 
     foreach( $tabs as $tab => $name ){
         $class = ( $tab == $active_tab ) ? ' nav-tab-active' : '';

@@ -4,3 +4,13 @@
 	width: 400px;
 	padding: 0px 10px;
 }
+
+.icon-plugins:before {
+	font-family: "dashicons";
+	content: "\f106";
+}
+
+.icon-networking:before {
+	font-family: "dashicons";
+	content: "\f325";
+}
