@@ -1,16 +1,18 @@
 <?php
 /**
+ *
+ *
  * @package   USGS Steam Flow Data
  * @author    Chris Kindred <chris@kindredwebconsulting.com>
  * @license   GPL-2.0+
  * @link      http://www.kindredwebconsulting.com
- * @copyright 2013 Kindred Web Consulting
+ * @copyright 2014 Kindred Web Consulting
  *
  * @wordpress-plugin
  * Plugin Name:       USGS Steam Flow Data
  * Plugin URI:        http://wordpress.org/plugins/usgs-stream-flow-data/
  * Description:       USGS Stream Flow Data
- * Version:           1.0.2
+ * Version:           1.0.7
  * Author:            Chris Kindred
  * Author URI:        http://www.kindredwebconsulting.com
  * Text Domain:       kwcusgs-locale
@@ -28,7 +30,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Public-Facing Functionality
  *----------------------------------------------------------------------------*/
 
-require_once( plugin_dir_path( __FILE__ ) . 'public/class-kwcusgs.php' );
+require_once plugin_dir_path( __FILE__ ) . 'public/class-kwcusgs.php';
 
 /*
  * Register hooks that are fired when the plugin is activated or deactivated.
@@ -37,8 +39,8 @@ require_once( plugin_dir_path( __FILE__ ) . 'public/class-kwcusgs.php' );
 register_activation_hook( __FILE__, array( 'kwc_usgs', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'kwc_usgs', 'deactivate' ) );
 
-add_action( 'plugins_loaded', array( 'kwc_usgs', 'get_instance' ) );	    
-add_filter( 'widget_text', 'do_shortcode');
+add_action( 'plugins_loaded', array( 'kwc_usgs', 'get_instance' ) );
+add_filter( 'widget_text', 'do_shortcode' );
 
 /*----------------------------------------------------------------------------*
  * Dashboard and Administrative Functionality
@@ -49,7 +51,7 @@ add_filter( 'widget_text', 'do_shortcode');
  */
 if ( is_admin() ) {
 
-	require_once( plugin_dir_path( __FILE__ ) . 'admin/class-kwcusgs-admin.php' );
+	require_once plugin_dir_path( __FILE__ ) . 'admin/class-kwcusgs-admin.php';
 	add_action( 'plugins_loaded', array( 'kwc_usgs_admin', 'get_instance' ) );
 
 }

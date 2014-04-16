@@ -1,10 +1,12 @@
 <?php
 /**
+ *
+ *
  * @package   USGS Steam Flow Data
  * @author    Chris Kindred <Chris@kindredwebconsulting.com>
  * @license   GPL-2.0+
  * @link      http://www.kindredwebconsulting.com
- * @copyright 2013 Kindred Web Consulting
+ * @copyright 2014 Kindred Web Consulting
  */
 
 class kwc_usgs {
@@ -13,7 +15,7 @@ class kwc_usgs {
 	 * Plugin version, used for cache-busting of style and script file references.
 	 *
 	 * @since   1.0.0
-	 * 
+	 *
 	 * @var     string
 	 */
 	const VERSION = '1.0.0';
@@ -59,14 +61,14 @@ class kwc_usgs {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
-	    add_shortcode( "USGS", array( $this, 'USGS' ) );
+		add_shortcode( "USGS", array( $this, 'USGS' ) );
 
 
 		/* Define custom functionality.
 		 * Refer To http://codex.wordpress.org/Plugin_API#Hooks.2C_Actions_and_Filters
 		 */
-//		add_action( '@TODO', array( $this, 'action_method_name' ) );
-//		add_filter( '@TODO', array( $this, 'filter_method_name' ) );
+		//  add_action( '@TODO', array( $this, 'action_method_name' ) );
+		//  add_filter( '@TODO', array( $this, 'filter_method_name' ) );
 
 	}
 
@@ -75,7 +77,7 @@ class kwc_usgs {
 	 *
 	 * @since    1.0.0
 	 *
-	 *@return    Plugin slug variable.
+	 * @return    Plugin slug variable.
 	 */
 	public function get_plugin_slug() {
 		return $this->plugin_slug;
@@ -103,7 +105,7 @@ class kwc_usgs {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param    boolean    $network_wide    True if WPMU superadmin uses
+	 * @param boolean $network_wide True if WPMU superadmin uses
 	 *                                       "Network Activate" action, false if
 	 *                                       WPMU is disabled or plugin is
 	 *                                       activated on an individual blog.
@@ -140,7 +142,7 @@ class kwc_usgs {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param    boolean    $network_wide    True if WPMU superadmin uses
+	 * @param boolean $network_wide True if WPMU superadmin uses
 	 *                                       "Network Deactivate" action, false if
 	 *                                       WPMU is disabled or plugin is
 	 *                                       deactivated on an individual blog.
@@ -178,7 +180,7 @@ class kwc_usgs {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param    int    $blog_id    ID of the new blog.
+	 * @param int     $blog_id ID of the new blog.
 	 */
 	public function activate_new_site( $blog_id ) {
 
@@ -280,31 +282,31 @@ class kwc_usgs {
 	 */
 
 	public function USGS( $atts, $content = null ) {
-	   	extract( shortcode_atts( 
-	   		array(
-	   			'location' 	=> '09080400',
-	   			'title'		=> null,
-	   			'graph'		=> null
-	   			), $atts ) );
-	
+		extract( shortcode_atts(
+				array(
+					'location'  => '09080400',
+					'title'  => null,
+					'graph'  => null
+				), $atts ) );
+
 		$url = "http://waterservices.usgs.gov/nwis/iv?site=$location&parameterCd=00010,00060,00065&format=waterml";
-		
+
 		$response = wp_remote_get( $url );
-	  	$data = wp_remote_retrieve_body( $response );
-	  	
-	  	if ( ! $data ){
-	   		return 'USGS Not Responding.';
-	  	}
+		$data = wp_remote_retrieve_body( $response );
+
+		if ( ! $data ) {
+			return 'USGS Not Responding.';
+		}
 
 		$data = str_replace( 'ns1:', '', $data );
 
 		$xml_tree = simplexml_load_string( $data );
-		
-		if ( False === $xml_tree ){
+
+		if ( False === $xml_tree ) {
 			return 'Unable to parse USGS\'s XML';
 		}
 
-		if ( ! isset( $title )  ){
+		if ( ! isset( $title )  ) {
 			$SiteName = $xml_tree->timeSeries->sourceInfo->siteName;
 		} else {
 			if ( $title == '' ) {
@@ -318,51 +320,51 @@ class kwc_usgs {
 						<h3 class='header'>$SiteName</h3>
 							<ul class='sitevalues'>";
 
-	  	foreach ( $xml_tree->timeSeries as $site_data ){	
-	    	if ( $site_data->values->value == '' ) {
-	      		$value = '-';
-	    	} else if ( $site_data->values->value == -999999 ){
-	      		$value = 'UNKNOWN';
-	      		$provisional = '-';
-	    	} else {
-	      		$desc = $site_data->variable->variableName;
-	      		switch ( $site_data->variable->variableCode ) {
-	        		case "00010":
-	          			$value  = $site_data->values->value;
-	          			$degf   = ( 9 / 5 ) * $value + 32;          			       
-	          			$watertemp      = $degf;
-	          			$watertempdesc  = "&deg; F"; 
-	          			$thePage .= "<li class='watertemp'>Water Temp: $watertemp $watertempdesc</li>";
-	          			break;
+		foreach ( $xml_tree->timeSeries as $site_data ) {
+			if ( $site_data->values->value == '' ) {
+				$value = '-';
+			} else if ( $site_data->values->value == -999999 ) {
+					$value = 'UNKNOWN';
+					$provisional = '-';
+				} else {
+				$desc = $site_data->variable->variableName;
+				switch ( $site_data->variable->variableCode ) {
+				case "00010":
+					$value  = $site_data->values->value;
+					$degf   = ( 9 / 5 ) * $value + 32;
+					$watertemp      = $degf;
+					$watertempdesc  = "&deg; F";
+					$thePage .= "<li class='watertemp'>Water Temp: $watertemp $watertempdesc</li>";
+					break;
 
-			        case "00060":
-			          	$splitDesc = explode( ",", $desc );
-			          	$value  = $site_data->values->value;
-			          	$streamflow     = $value;
-			          	$streamflowdesc = $splitDesc[1];
-	          			$thePage .= "<li class='flow'>Flow: $streamflow $streamflowdesc</li>";
-			          	break;
+				case "00060":
+					$splitDesc = explode( ",", $desc );
+					$value  = $site_data->values->value;
+					$streamflow     = $value;
+					$streamflowdesc = $splitDesc[1];
+					$thePage .= "<li class='flow'>Flow: $streamflow $streamflowdesc</li>";
+					break;
 
-			        case "00065":
-			          	$splitDesc = explode( ",", $desc );
-			          	$value  = $site_data->values->value;
-			          	$gageheight = $value;  
-			          	$gageheightdesc = $splitDesc[1];          
-	          			$thePage .= "<li class='gageheight'>Water Level: $gageheight $gageheightdesc</li>";
-			          	break;	
-	      		}
-	    	}
-	  	}
-		$thePage .=		"</ul>";
-		if ( isset( $graph ) ){
-			if ( $graph == 'show' ){
+				case "00065":
+					$splitDesc = explode( ",", $desc );
+					$value  = $site_data->values->value;
+					$gageheight = $value;
+					$gageheightdesc = $splitDesc[1];
+					$thePage .= "<li class='gageheight'>Water Level: $gageheight $gageheightdesc</li>";
+					break;
+				}
+			}
+		}
+		$thePage .=  "</ul>";
+		if ( isset( $graph ) ) {
+			if ( $graph == 'show' ) {
 				$thePage .= "<img src='http://waterdata.usgs.gov/nwisweb/graph?site_no=$location&parm_cd=00060'/>";
 				$thePage .= "<img src='http://waterdata.usgs.gov/nwisweb/graph?site_no=$location&parm_cd=00065'/>";
 			}
 		}
 		$thePage .= "<a href='http://waterdata.usgs.gov/nwis/uv?$location' target='_blank'>USGS</a>";
-		$thePage .=	"</div>";
-	   	return $thePage;	
+		$thePage .= "</div>";
+		return $thePage;
 	}
 
 	/**
@@ -374,8 +376,8 @@ class kwc_usgs {
 	 *
 	 * @since    1.0.0
 	 */
-//	public function filter_method_name() {
-//
-//	}
+	// public function filter_method_name() {
+	//
+	// }
 
 }
