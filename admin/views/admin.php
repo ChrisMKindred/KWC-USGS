@@ -15,32 +15,16 @@ $tabs = array( 'home-settings' => 'Usage', 'search' => 'Search Site Codes', 'cre
 $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'home-settings';  
 ?>
 <div class="wrap">
-<?php
-if ( MP6 ) {
-?>
     <h2 class="icon-plugins"> <?php echo esc_html( get_admin_page_title() ); ?> </h2>
     <h2 class="nav-tab-wrapper icon-networking"> 
-<?php
-    } else {
-?>
-        <div id="icon-plugins" class="icon32"><br></div>
-        <h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
-        <div id="icon-options-general" class="icon32"><br></div>
-        <h2 class="nav-tab-wrapper"> 
-<?php
-    }
-?>
-
-
-    <?php 
+<?php 
     foreach( $tabs as $tab => $name ){
         $class = ( $tab == $active_tab ) ? ' nav-tab-active' : '';
         echo "<a class='nav-tab$class' href='?page=kwcusgs&tab=$tab'>$name</a>";
     }
-    ?>
+?>
     </h2>  	
-    <?php
-
+<?php
         switch ( $active_tab ){
             case 'search':
                 $state_values=array(
@@ -127,33 +111,23 @@ if ( MP6 ) {
 ?>
                 <h3 class="">Using USGS Steam Flow Data</h3>
                 <p class="">This plugin uses short codes to allow you to include the USGS infromation for a location on any post or in a Text Widget.</p>
-                <p class="">You can copy and paste the shortcode below to get started.<br />
-                <br />
-                [USGS location='09080400' title='Great Place To Fish' graph='show'] <br />
-                <br />
+                <p class="">You can copy and paste the shortcode below to get started.</p>
+                <p>[USGS location='09080400' title='Great Place To Fish' graph='show'] </p>
                 <h4 class="">Location</h4>
-                The location is the Site Code for the location you want to show. You can get the Site Code by using the Search tab or by finding it on the USGS website.<br />
+                <p>The location is the Site Code for the location you want to show. You can get the Site Code by using the Search tab or by finding it on the USGS website.</p>
                 <h4 class="">Title</h4>
-                The title is what you would like to use as a title for the location information.  The title defaults to the Site Name if you leave it blank. <br />
+                <p>The title is what you would like to use as a title for the location information.  The title defaults to the Site Name if you leave it blank. </p>
                 <h4 class="">Graph</h4>
-                Graph is for showing graphs with the information (true) or not (false).  If you leave Graph blank it will default to false.
- </p>
+                <p>Graph is for showing graphs with the information (true) or not (false).  If you leave Graph blank it will default to false.</p>
 <?php
                 break;
 
             default:
 ?>
-                <a href="http://www.kindredwebconsulting.com/"><img src="<?php echo plugins_url( '../assets/kwclogo.png', __FILE__ ) ?>" alt="Kindred Web Consulting Logo" height="75px" width="350px" border="0" /></a>
-                <div class="clearfix">&nbsp;</div>
+                <center><a href="http://www.kindredwebconsulting.com/"><img src="<?php echo plugins_url( '../assets/kwc-logo.png', __FILE__ ) ?>" alt="Kindred Web Consulting Logo" border="0" /></a><p>Development by: <a href="http://www.kindredwebconsulting.com">Kindred Web Consulting</a></p></center>
                 <div class="sidebar">
                     <h2 class="">Support</h2>
-                    <p class="">Thanks for using our plugin.  We are happy to address any bugs you might find and address suggestions you have by either posting on the plugin page at WordPress.org or through the <a href="http://www.kindredwebconsulting.com/contactus/">Contact Us</a> at our website.</p>
-                    <p class="">
-                        <a href="http://www.facebook.com/kindredwebconsulting/" ><img src="<?php echo plugins_url( '../assets/facebook.png', __FILE__ ) ?>" alt="Kindred Web Consulting on Facebook" width="" height="32px" border="" align="" /></a>
-                        <a href="http://www.twitter.com/KindredWeb"><img src="<?php echo plugins_url( '../assets/twitter.png', __FILE__ ) ?>" alt="Kindred Web Consulting on Twitter" width="" height="32" border="" align="" /></a>
-                        <a href="http://www.google.com/+KindredWebConsulting"><img src="<?php echo plugins_url( '../assets/google.png', __FILE__ ) ?>" alt="Kindred Web Consulting on Google+" width="" height="32px" border="" align="" /></a>
-                        <a href="http://www.kindredwebconsulting.com/"><img src="<?php echo plugins_url( '../assets/kwc.png', __FILE__ ) ?>" alt="Kindred Web Consulting" width="" height="32px" border="" align="" /></a>
-                        </p>
+                    <p class="">Thanks for using our plugin.  We are happy to address any bugs you might find and address suggestions you have by either posting on the plugin page at WordPress.org or through the <a href="http://www.kindredwebconsulting.com/contactus/">Contact Us</a> on our website.</p>
                     <h2 class="">Donations</h2>
                     <p class="">If you are interested in helping us to add new features and fix bugs please consider donating a few dollars. 
                     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
@@ -170,6 +144,12 @@ if ( MP6 ) {
                     <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_paynow_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
                     <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
                     </form></p>
+                    <h2 class="">Social Media</h2>
+                    <p class="">
+                        <a href="http://www.facebook.com/kindredwebconsulting/" ><img src="<?php echo plugins_url( '../assets/facebook.png', __FILE__ ) ?>" alt="Kindred Web Consulting on Facebook" width="" height="32px" border="" align="" /></a>
+                        <a href="http://www.google.com/+KindredWebConsulting"><img src="<?php echo plugins_url( '../assets/google.png', __FILE__ ) ?>" alt="Kindred Web Consulting on Google+" width="" height="32px" border="" align="" /></a>
+                        <a href="http://www.kindredwebconsulting.com/"><img src="<?php echo plugins_url( '../assets/kwc.png', __FILE__ ) ?>" alt="Kindred Web Consulting" width="" height="32px" border="" align="" /></a>
+                    </p>
 
                 </div>
                 <h2 class="">About the Plugin</h2>
