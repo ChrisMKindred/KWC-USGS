@@ -19,7 +19,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 
 #: class-kwcusgs-admin.php:154
-msgid "USGS Steam Flow Data"
+msgid "USGS Stream Flow Data"
 msgstr ""
 
 #: class-kwcusgs-admin.php:155
