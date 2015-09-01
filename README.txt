@@ -65,6 +65,9 @@ There is a built in cache for the data.  The data will update every 15 minutes i
 4. Showing USGS Without Graphs in a Post
 
 == Changelog ==
+= 2.3 = 
+Tested up to 4.3
+
 = 2.2.1 = 
 Tested Up To 4.2.3
 
