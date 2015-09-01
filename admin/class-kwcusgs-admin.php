@@ -252,6 +252,7 @@ class kwc_usgs_admin {
 					        <th>Latitude / Longitude</th>
 						</tr>
 					</tfoot>";
+		$cnt = 0;
 		foreach ( $xml_tree->timeSeries as $site_data ) {	
 			$cnt = ++$cnt;
 			$site = $site_data->sourceInfo->siteCode;
@@ -269,21 +270,4 @@ class kwc_usgs_admin {
 			echo $page;
 		die();
 	}	
-
-
-
-
-	/**
-	 * NOTE:     Filters are points of execution in which WordPress modifies data
-	 *           before saving it or sending it to the browser.
-	 *
-	 *           Filters: http://codex.wordpress.org/Plugin_API#Filters
-	 *           Reference:  http://codex.wordpress.org/Plugin_API/Filter_Reference
-	 *
-	 * @since    0.0.1
-	 */
-//	public function filter_method_name() {
-		// @TODO: Define your filter hook callback here
-//	}
-
 }
