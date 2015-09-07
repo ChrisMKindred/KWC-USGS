@@ -281,6 +281,12 @@ class kwc_usgs {
 	 * @since    1.0.0
 	 */
 
+	/**
+	 * This needs to be split into different functions
+	 *
+	 * @since 	1.0.0 
+	 */
+
 	public function USGS( $atts, $content = null ) {
 		extract( shortcode_atts(
 				array(
@@ -375,18 +381,5 @@ class kwc_usgs {
 		}
 		return $thePage;
 	}
-
-	/**
-	 * NOTE:  Filters are points of execution in which WordPress modifies data
-	 *        before saving it or sending it to the browser.
-	 *
-	 *        Filters: http://codex.wordpress.org/Plugin_API#Filters
-	 *        Reference:  http://codex.wordpress.org/Plugin_API/Filter_Reference
-	 *
-	 * @since    1.0.0
-	 */
-	// public function filter_method_name() {
-	//
-	// }
 
 }
