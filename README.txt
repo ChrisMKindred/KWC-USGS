@@ -3,8 +3,8 @@ Contributors: ChrisMKindred
 Donate link: http://www.kindredwebconsulting.com/wp-plugins/usgs
 Tags: USGS, River Flow, Stream Flow, Fly Fishing, Water Level
 Requires at least: 3.7
-Tested up to: 4.3
-Stable tag: 2.3
+Tested up to: 4.5
+Stable tag: 2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,11 +49,11 @@ Example Shortcode:
 
 Enter [USGS location='09080400' graph='show' title='The Title'].  The location is the Site Code for the station, graph is set to 'show' to show the graphs, the title is what you want to display as a title.  If this is blank it will display the location name.
 
-= How do I find the Site Code? = 
+= How do I find the Site Code? =
 
 You can find the Site Code quickly and easily by searching for it based on state in the easy to use Site Code Search tab on the plugin settings page.
 
-= Why is the data not updating? = 
+= Why is the data not updating? =
 
 There is a built in cache for the data.  The data will update every 15 minutes in order to help with site speed and limit the calls to USGS.
 
@@ -65,13 +65,17 @@ There is a built in cache for the data.  The data will update every 15 minutes i
 4. Showing USGS Without Graphs in a Post
 
 == Changelog ==
-= 2.3 = 
+
+= 2.4 =
+Tested up to 4.5
+
+= 2.3 =
 Tested up to 4.3
 
-= 2.2.1 = 
+= 2.2.1 =
 Tested Up To 4.2.3
 
-= 2.2 = 
+= 2.2 =
 Tested Up To 4.2
 
 = 2.1 =
@@ -96,7 +100,7 @@ Updated ScreenShots to match 3.9
 = 1.0.4 =
 Updated Plugin Description
 
-= 1.0.3 = 
+= 1.0.3 =
 Tested with 3.9
 
 = 1.0.2 =
@@ -119,7 +123,7 @@ Updated ScreenShots to match 3.9
 Verifies compatibility with Core 3.9
 Update to plugin Description
 
-= 1.0.3 = 
+= 1.0.3 =
 Verifies compatibility with Core 3.9
 
 = 1.0.2 =

@@ -7,23 +7,23 @@
  * @copyright 2015 Kindred Web Consulting
  */
 ?>
-<?php  
+<?php
 if ( !current_user_can( 'manage_options' ) )  {
     wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 }
 $tabs = array( 'home-settings' => 'Usage', 'search' => 'Search Site Codes', 'credits' => 'Credits' );
-$active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'home-settings';  
+$active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'home-settings';
 ?>
 <div class="wrap">
-    <h2 class="icon-plugins"> <?php echo esc_html( get_admin_page_title() ); ?> </h2>
-    <h2 class="nav-tab-wrapper icon-networking"> 
-<?php 
+    <h2><span style="padding-top: 5px;" class="dashicons dashicons-location"></span> <?php echo esc_html( get_admin_page_title() ); ?> </h2><br />
+    <h2 class="nav-tab-wrapper">
+<?php
     foreach( $tabs as $tab => $name ){
         $class = ( $tab == $active_tab ) ? ' nav-tab-active' : '';
         echo "<a class='nav-tab$class' href='?page=kwcusgs&tab=$tab'>$name</a>";
     }
 ?>
-    </h2>  	
+    </h2>
 <?php
         switch ( $active_tab ){
             case 'search':
@@ -86,7 +86,7 @@ $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'home-settings';
             <p class="">Click the Site Name link to go directly to the site on the USGS website.</p>
             <p class="">Click the Latitude / Longitude link to view the site location in google maps.  The location in google maps is an aproximation.</p>
             <label>Select State:</label>
-            <?php 
+            <?php
                 echo "<select id='state' class='state' name='state'>";
                 if ( !empty( $state_values ) ) {
                     $blnfirst = true;
@@ -124,12 +124,12 @@ $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'home-settings';
 
             default:
 ?>
-                <center><a href="http://www.kindredwebconsulting.com/"><img src="<?php echo plugins_url( '../assets/kwc-logo.png', __FILE__ ) ?>" alt="Kindred Web Consulting Logo" border="0" /></a><p>Development by: <a href="http://www.kindredwebconsulting.com">Kindred Web Consulting</a></p></center>
+                <center><a href="https://www.kindredwebconsulting.com/"><img src="<?php echo plugins_url( '../assets/kwc-logo.png', __FILE__ ) ?>" alt="Kindred Web Consulting Logo" border="0" /></a><p>Development by: <a href="https://www.kindredwebconsulting.com">Kindred Web Consulting</a></p></center>
                 <div class="sidebar">
                     <h2 class="">Support</h2>
-                    <p class="">Thanks for using our plugin.  We are happy to address any bugs you might find and address suggestions you have by either posting on the plugin page at WordPress.org or through the <a href="http://www.kindredwebconsulting.com/contactus/">Contact Us</a> on our website.</p>
+                    <p class="">Thanks for using our plugin.  We are happy to address any bugs you might find and address suggestions you have by either posting on the plugin page at WordPress.org or through the <a href="https://www.kindredwebconsulting.com/contact-us/">Contact Us</a> on our website.</p>
                     <h2 class="">Donations</h2>
-                    <p class="">If you are interested in helping us to add new features and fix bugs please consider donating a few dollars. 
+                    <p class="">If you are interested in helping us to add new features and fix bugs please consider donating a few dollars.
                     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                     <input type="hidden" name="cmd" value="_s-xclick">
                     <input type="hidden" name="hosted_button_id" value="BUFMZVZ6L358J">
@@ -146,9 +146,9 @@ $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'home-settings';
                     </form></p>
                     <h2 class="">Social Media</h2>
                     <p class="">
-                        <a href="http://www.facebook.com/kindredwebconsulting/" ><img src="<?php echo plugins_url( '../assets/facebook.png', __FILE__ ) ?>" alt="Kindred Web Consulting on Facebook" width="" height="32px" border="" align="" /></a>
-                        <a href="http://www.google.com/+KindredWebConsulting"><img src="<?php echo plugins_url( '../assets/google.png', __FILE__ ) ?>" alt="Kindred Web Consulting on Google+" width="" height="32px" border="" align="" /></a>
-                        <a href="http://www.kindredwebconsulting.com/"><img src="<?php echo plugins_url( '../assets/kwc.png', __FILE__ ) ?>" alt="Kindred Web Consulting" width="" height="32px" border="" align="" /></a>
+                        <a href="https://www.facebook.com/kindredwebconsulting/" ><img src="<?php echo plugins_url( '../assets/facebook.png', __FILE__ ) ?>" alt="Kindred Web Consulting on Facebook" width="" height="32px" border="" align="" /></a>
+                        <a href="https://www.google.com/+KindredWebConsulting"><img src="<?php echo plugins_url( '../assets/google.png', __FILE__ ) ?>" alt="Kindred Web Consulting on Google+" width="" height="32px" border="" align="" /></a>
+                        <a href="https://www.kindredwebconsulting.com/"><img src="<?php echo plugins_url( '../assets/kwc.png', __FILE__ ) ?>" alt="Kindred Web Consulting" width="" height="32px" border="" align="" /></a>
                     </p>
 
                 </div>
@@ -160,6 +160,6 @@ $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'home-settings';
                 <a href="http://www.usgs.gov/water/"><img src="<?php echo plugins_url( '../assets/usgs.jpg', __FILE__ ) ?>" alt="USGS" border="0" height="32px" /></a>
 <?php
                 break;
-        } 
+        }
 ?>
 </div>
