@@ -18,7 +18,7 @@ class kwc_usgs {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '1.0.0';
+	const VERSION = '2.4.0';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -284,7 +284,7 @@ class kwc_usgs {
 	/**
 	 * This needs to be split into different functions
 	 *
-	 * @since 	1.0.0 
+	 * @since 	1.0.0
 	 */
 
 	public function USGS( $atts, $content = null ) {
@@ -376,7 +376,7 @@ class kwc_usgs {
 			}
 			$thePage .= "<a class='clearfix' href='http://waterdata.usgs.gov/nwis/uv?$location' target='_blank'>USGS</a>";
 			$thePage .= "</div>";
-			
+
 			set_transient( 'kwc_usgs-' . $location . $graph . $title, $thePage, 60 * 15 );
 		}
 		return $thePage;
