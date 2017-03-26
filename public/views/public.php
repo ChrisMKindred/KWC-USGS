@@ -3,7 +3,7 @@
  * @package   USGS Steam Flow Data
  * @author    Chris Kindred <Chris@kindredwebconsulting.com>
  * @license   GPL-2.0+
- * @link      http://www.kindredwebconsulting.com
+ * @link      //www.kindredwebconsulting.com
  * @copyright 2015 Kindred Web Consulting
  */
 ?>

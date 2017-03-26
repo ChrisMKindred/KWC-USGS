@@ -1,12 +1,12 @@
 === USGS Steam Flow Data ===
 Contributors: ChrisMKindred
-Donate link: http://www.kindredwebconsulting.com/wp-plugins/usgs
+Donate link: //www.kindredwebconsulting.com/wp-plugins/usgs
 Tags: USGS, River Flow, Stream Flow, Fly Fishing, Water Level
 Requires at least: 3.7
-Tested up to: 4.5
-Stable tag: 2.4
+Tested up to: 4.7
+Stable tag: 2.4.1
 License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License URI: //www.gnu.org/licenses/gpl-2.0.html
 
 This plugin uses shortcodes so you can get the USGS river flow data for a site location.  It also includes a easy to use Site Code Search.
 

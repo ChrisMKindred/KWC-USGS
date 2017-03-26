@@ -5,7 +5,7 @@
  * @package   USGS Steam Flow Data
  * @author    Chris Kindred <Chris@kindredwebconsulting.com>
  * @license   GPL-2.0+
- * @link      http://www.kindredwebconsulting.com
+ * @link      //www.kindredwebconsulting.com
  * @copyright 2015 Kindred Web Consulting
  */
 
@@ -18,7 +18,7 @@ class kwc_usgs {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '2.4.0';
+	const VERSION = '2.4.1';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -61,11 +61,9 @@ class kwc_usgs {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
-		add_shortcode( "USGS", array( $this, 'USGS' ) );
-
-
+		add_shortcode( 'USGS', array( $this, 'USGS' ) );
 		/* Define custom functionality.
-		 * Refer To http://codex.wordpress.org/Plugin_API#Hooks.2C_Actions_and_Filters
+		 * Refer To //codex.wordpress.org/Plugin_API#Hooks.2C_Actions_and_Filters
 		 */
 		//  add_action( '@TODO', array( $this, 'action_method_name' ) );
 		//  add_filter( '@TODO', array( $this, 'filter_method_name' ) );
@@ -275,8 +273,8 @@ class kwc_usgs {
 	 * NOTE:  Actions are points in the execution of a page or process
 	 *        lifecycle that WordPress fires.
 	 *
-	 *        Actions:    http://codex.wordpress.org/Plugin_API#Actions
-	 *        Reference:  http://codex.wordpress.org/Plugin_API/Action_Reference
+	 *        Actions:    //codex.wordpress.org/Plugin_API#Actions
+	 *        Reference:  //codex.wordpress.org/Plugin_API/Action_Reference
 	 *
 	 * @since    1.0.0
 	 */
@@ -298,7 +296,7 @@ class kwc_usgs {
 		$thePage = get_transient( 'kwc_usgs-' . $location . $graph . $title );
 
 		if ( !$thePage ) {
-			$url = "http://waterservices.usgs.gov/nwis/iv?site=$location&parameterCd=00010,00060,00065&format=waterml";
+			$url = "https://waterservices.usgs.gov/nwis/iv?site=$location&parameterCd=00010,00060,00065&format=waterml";
 
 			$response = wp_remote_get( $url );
 			$data = wp_remote_retrieve_body( $response );
@@ -352,7 +350,7 @@ class kwc_usgs {
 						$streamflow     = $value;
 						$streamflowdesc = $splitDesc[1];
 						$thePage .= "<li class='flow'>Flow: $streamflow $streamflowdesc</li>";
-						$graphflow = "<img src='http://waterdata.usgs.gov/nwisweb/graph?site_no=$location&parm_cd=00060" . "&" . rand() . "'/>";
+						$graphflow = "<img src='https://waterdata.usgs.gov/nwisweb/graph?site_no=$location&parm_cd=00060" . "&" . rand() . "'/>";
 						break;
 
 					case "00065":
@@ -361,7 +359,7 @@ class kwc_usgs {
 						$gageheight = $value;
 						$gageheightdesc = $splitDesc[1];
 						$thePage .= "<li class='gageheight'>Water Level: $gageheight $gageheightdesc</li>";
-						$graphgage = "<img src='http://waterdata.usgs.gov/nwisweb/graph?site_no=$location&parm_cd=00065" . "&" . rand() . "'/>";
+						$graphgage = "<img src='https://waterdata.usgs.gov/nwisweb/graph?site_no=$location&parm_cd=00065" . "&" . rand() . "'/>";
 						break;
 					}
 				}
@@ -374,7 +372,7 @@ class kwc_usgs {
 					$thePage .= "</div>";
 				}
 			}
-			$thePage .= "<a class='clearfix' href='http://waterdata.usgs.gov/nwis/uv?$location' target='_blank'>USGS</a>";
+			$thePage .= "<a class='clearfix' href='https://waterdata.usgs.gov/nwis/uv?$location' target='_blank'>USGS</a>";
 			$thePage .= "</div>";
 
 			set_transient( 'kwc_usgs-' . $location . $graph . $title, $thePage, 60 * 15 );
