@@ -3,7 +3,7 @@
  * @package   USGS Steam Flow Data
  * @author    Chris Kindred <Chris@kindredwebconsulting.com>
  * @license   GPL-2.0+
- * @link      http://www.kindredwebconsulting.com
+ * @link      //www.kindredwebconsulting.com
  * @copyright 2015 Kindred Web Consulting
  */
 ?>
@@ -154,10 +154,10 @@ $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'home-settings';
                 </div>
                 <h2 class="">About the Plugin</h2>
                 <p class="">We are avid fly fishermen.  We wanted an easier way to find out what the rivers and streams were flowing at besides to going to the USGS website and looking each one up individually every day.  We decided the easiest way would be to write our own plugin to get the data.  We hope you enjoy using it and if you have any suggestions please let us know!</p>
-                <p class="">If you would like to receive updates about development and features of USGS Stream Flow Data please <a href="http://eepurl.com/JQ68X">click here</a> and enter your email.</p>
+                <p class="">If you would like to receive updates about development and features of USGS Stream Flow Data please <a href="//eepurl.com/JQ68X">click here</a> and enter your email.</p>
                 <h2 class="">USGS</h2>
-                <p class="">We are dependent on the <a href="http://www.usgs.gov/water/">USGS website</a> for the data that this plugin uses.  They do a good job of notifying developers of any updates.  We will quickly update the plugin any time there are updates that effect the API calls.</p>
-                <a href="http://www.usgs.gov/water/"><img src="<?php echo plugins_url( '../assets/usgs.jpg', __FILE__ ) ?>" alt="USGS" border="0" height="32px" /></a>
+                <p class="">We are dependent on the <a href="//www.usgs.gov/water/">USGS website</a> for the data that this plugin uses.  They do a good job of notifying developers of any updates.  We will quickly update the plugin any time there are updates that effect the API calls.</p>
+                <a href="//www.usgs.gov/water/"><img src="<?php echo plugins_url( '../assets/usgs.jpg', __FILE__ ) ?>" alt="USGS" border="0" height="32px" /></a>
 <?php
                 break;
         }

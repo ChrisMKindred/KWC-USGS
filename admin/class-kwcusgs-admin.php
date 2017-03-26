@@ -3,7 +3,7 @@
  * @package   USGS Steam Flow Data
  * @author    Chris Kindred <Chris@kindredwebconsulting.com>
  * @license   GPL-2.0+
- * @link      http://www.kindredwebconsulting.com
+ * @link      //www.kindredwebconsulting.com
  * @copyright 2015 Kindred Web Consulting
  */
 
@@ -55,21 +55,8 @@ class kwc_usgs_admin {
 		// Add an action link pointing to the options page.
 		$plugin_basename = plugin_basename( plugin_dir_path( __DIR__ ) . $this->plugin_slug . '.php' );
 		add_filter( 'plugin_action_links_' . $plugin_basename, array( $this, 'add_action_links' ) );
-
-
 		add_action( 'admin_footer', array( $this, 'kwcusgsajax_javascript' ) );
-		add_action( 'wp_ajax_kwcusgsajax', array( $this, 'kwcusgsajax_callback') );
-
-		
-		/*
-		 * Define custom functionality.
-		 *
-		 * Read more about actions and filters:
-		 * http://codex.wordpress.org/Plugin_API#Hooks.2C_Actions_and_Filters
-		 */
-//		add_action( '@TODO', array( $this, 'action_method_name' ) );
-//		add_filter( '@TODO', array( $this, 'filter_method_name' ) );
-
+		add_action( 'wp_ajax_kwcusgsajax', array( $this, 'kwcusgsajax_callback' ) );
 	}
 
 	/**
@@ -145,7 +132,7 @@ class kwc_usgs_admin {
 		 *
 		 * NOTE:  Alternative menu locations are available via WordPress administration menu functions.
 		 *
-		 *        Administration Menus: http://codex.wordpress.org/Administration_Menus
+		 *        Administration Menus: //codex.wordpress.org/Administration_Menus
 		 *
 		 */
 		$this->plugin_screen_hook_suffix = add_options_page(
@@ -187,8 +174,8 @@ class kwc_usgs_admin {
 	 * NOTE:     Actions are points in the execution of a page or process
 	 *           lifecycle that WordPress fires.
 	 *
-	 *           Actions:    http://codex.wordpress.org/Plugin_API#Actions
-	 *           Reference:  http://codex.wordpress.org/Plugin_API/Action_Reference
+	 *           Actions:    //codex.wordpress.org/Plugin_API#Actions
+	 *           Reference:  //codex.wordpress.org/Plugin_API/Action_Reference
 	 *
 	 * @since    1.0.0
 	 */
@@ -223,7 +210,7 @@ class kwc_usgs_admin {
 	public function kwcusgsajax_callback() {
 		$state = $_POST['state'];
 
-		$url = "http://waterservices.usgs.gov/nwis/iv?stateCd=$state&format=waterml&parameterCd=00060";
+		$url = "//waterservices.usgs.gov/nwis/iv?stateCd=$state&format=waterml&parameterCd=00060";
 		$data = file_get_contents( $url );
 		if ( ! $data ){
 	 		echo 'Error retrieving: ' . $url;
@@ -262,8 +249,8 @@ class kwc_usgs_admin {
 				$page .= "<tbody>
 						    <tr>
 						      	<td>". $site_data->sourceInfo->siteCode ."</td>
-						      	<td><a href='http://waterdata.usgs.gov/nwis/uv?" . $site . "' target='_blank'>". ucwords( strtolower( $site_data->sourceInfo->siteName ) ) ."</a></td>
-						      	<td><a href='http://maps.google.com/?q=" . $lat . "," . $long ."' target='_blank'>" . $lat . " / " . $long . "</a></td>
+						      	<td><a href='//waterdata.usgs.gov/nwis/uv?" . $site . "' target='_blank'>". ucwords( strtolower( $site_data->sourceInfo->siteName ) ) ."</a></td>
+						      	<td><a href='//maps.google.com/?q=" . $lat . "," . $long ."' target='_blank'>" . $lat . " / " . $long . "</a></td>
 						    </tr>";
 		}
 			$page .= "</tbody></table>";

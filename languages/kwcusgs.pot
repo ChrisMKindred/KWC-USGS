@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: USGS Steam Flow 0.0.1\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/plugins/USGS-Stream-Flow\n"
+"Report-Msgid-Bugs-To: //wordpress.org/plugins/USGS-Stream-Flow\n"
 "POT-Creation-Date: 2013-05-10 11:23:19+00:00\n"
 "PO-Revision-Date: 2013-05-10 10:37-0500\n"
 "Last-Translator: Chris Kindred <Chris@kindredwebconsulting.com >\n"
