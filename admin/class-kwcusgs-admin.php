@@ -210,7 +210,7 @@ class kwc_usgs_admin {
 	public function kwcusgsajax_callback() {
 		$state = $_POST['state'];
 
-		$url = "//waterservices.usgs.gov/nwis/iv?stateCd=$state&format=waterml&parameterCd=00060";
+		$url = "https://waterservices.usgs.gov/nwis/iv?stateCd=$state&format=waterml&parameterCd=00060";
 		$data = file_get_contents( $url );
 		if ( ! $data ){
 	 		echo 'Error retrieving: ' . $url;
