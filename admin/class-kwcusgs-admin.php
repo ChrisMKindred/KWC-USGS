@@ -211,14 +211,17 @@ class kwc_usgs_admin {
 		$state = $_POST['state'];
 
 		$url = "https://waterservices.usgs.gov/nwis/iv?stateCd=$state&format=waterml&parameterCd=00060";
-		$data = file_get_contents( $url );
+		$data = wp_remote_get( $url );
 		if ( ! $data ){
-	 		echo 'Error retrieving: ' . $url;
+	 		echo 'Error retrieving: ' . esc_url($url);
 	 		exit;
 		}
+		$data = $data['body'];
 	 	$data = str_replace( 'ns1:', '', $data );
 	  	// Load the XML returned into an object for easy parsing
-	  	$xml_tree = simplexml_load_string( $data );
+		
+		$xml_tree = simplexml_load_string( $data );
+
 	  	if ( false === $xml_tree ){
 	  		echo 'Unable to parse USGS\'s XML';
 	  	  	exit;
