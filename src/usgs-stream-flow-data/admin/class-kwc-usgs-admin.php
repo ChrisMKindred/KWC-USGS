@@ -1,5 +1,7 @@
 <?php
 /**
+ * Admin class for plugin
+ *
  * @package   USGS Steam Flow Data
  * @author    Chris Kindred <Chris@kindredwebconsulting.com>
  * @license   GPL-2.0+
@@ -183,8 +185,8 @@ class kwc_usgs_admin {
 		// @TODO: Define your action hook callback here
 //	}
 
-	
-	
+
+
 	public function kwcusgsajax_javascript() {
 ?>
 		<script type="text/javascript" >
@@ -219,7 +221,7 @@ class kwc_usgs_admin {
 		$data = $data['body'];
 	 	$data = str_replace( 'ns1:', '', $data );
 	  	// Load the XML returned into an object for easy parsing
-		
+
 		$xml_tree = simplexml_load_string( $data );
 
 	  	if ( false === $xml_tree ){
@@ -231,19 +233,19 @@ class kwc_usgs_admin {
 					<thead>
 					    <tr>
 					        <th>Site Code</th>
-					        <th>Site Name</th>     
+					        <th>Site Name</th>
 					        <th>Latitude / Longitude</th>
 					    </tr>
 					</thead>
 					<tfoot>
 						<tr>
 					        <th>Site Code</th>
-					        <th>Site Name</th>      
+					        <th>Site Name</th>
 					        <th>Latitude / Longitude</th>
 						</tr>
 					</tfoot>";
 		$cnt = 0;
-		foreach ( $xml_tree->timeSeries as $site_data ) {	
+		foreach ( $xml_tree->timeSeries as $site_data ) {
 			$cnt = ++$cnt;
 			$site = $site_data->sourceInfo->siteCode;
 			$name = ucwords( strtolower( $site_data->sourceInfo->siteName ) );
@@ -259,5 +261,5 @@ class kwc_usgs_admin {
 			$page .= "</tbody></table>";
 			echo $page;
 		die();
-	}	
+	}
 }

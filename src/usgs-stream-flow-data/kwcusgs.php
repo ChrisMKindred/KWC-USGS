@@ -1,6 +1,6 @@
 <?php
 /**
- *
+ * A plugin for calling USGS Stream Flow Data Shortcodes
  *
  * @package   USGS Steam Flow Data
  * @author    Chris Kindred <chris@kindredwebconsulting.com>
@@ -26,11 +26,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-/*----------------------------------------------------------------------------*
- * Public-Facing Functionality
- *----------------------------------------------------------------------------*/
-
-require_once plugin_dir_path( __FILE__ ) . 'public/class-kwcusgs.php';
+require_once plugin_dir_path( __FILE__ ) . 'public/class-kwc-usgs.php';
 
 /*
  * Register hooks that are fired when the plugin is activated or deactivated.
@@ -42,16 +38,12 @@ register_deactivation_hook( __FILE__, array( 'kwc_usgs', 'deactivate' ) );
 add_action( 'plugins_loaded', array( 'kwc_usgs', 'get_instance' ) );
 add_filter( 'widget_text', 'do_shortcode' );
 
-/*----------------------------------------------------------------------------*
- * Dashboard and Administrative Functionality
- *----------------------------------------------------------------------------*/
-
 /*
  * The code below is intended to to give the lightest footprint possible.
  */
 if ( is_admin() ) {
 
-	require_once plugin_dir_path( __FILE__ ) . 'admin/class-kwcusgs-admin.php';
+	require_once plugin_dir_path( __FILE__ ) . 'admin/class-kwc-usgs-admin.php';
 	add_action( 'plugins_loaded', array( 'kwc_usgs_admin', 'get_instance' ) );
 
 }

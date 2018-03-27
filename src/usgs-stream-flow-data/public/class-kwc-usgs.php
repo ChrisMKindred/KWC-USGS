@@ -1,6 +1,6 @@
 <?php
 /**
- *
+ * The main class for the plugin
  *
  * @package   USGS Steam Flow Data
  * @author    Chris Kindred <Chris@kindredwebconsulting.com>
@@ -10,7 +10,6 @@
  */
 
 class kwc_usgs {
-
 	/**
 	 * Plugin version, used for cache-busting of style and script file references.
 	 *
@@ -300,7 +299,7 @@ class kwc_usgs {
 
 			$response = wp_remote_get( $url );
 			$data = wp_remote_retrieve_body( $response );
-			
+
 			if ( ! $data ) {
 				return 'USGS Not Responding.';
 			}

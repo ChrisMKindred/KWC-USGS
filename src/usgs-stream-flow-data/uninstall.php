@@ -9,7 +9,7 @@
  * @copyright 2014 Kindred Web Consulting
  */
 
-// If uninstall not called from WordPress, then exit
+// If uninstall not called from WordPress, then exit.
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
