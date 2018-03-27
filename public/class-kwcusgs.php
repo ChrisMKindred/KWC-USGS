@@ -300,7 +300,7 @@ class kwc_usgs {
 
 			$response = wp_remote_get( $url );
 			$data = wp_remote_retrieve_body( $response );
-
+			
 			if ( ! $data ) {
 				return 'USGS Not Responding.';
 			}
@@ -350,7 +350,7 @@ class kwc_usgs {
 						$streamflow     = $value;
 						$streamflowdesc = $splitDesc[1];
 						$thePage .= "<li class='flow'>Flow: $streamflow $streamflowdesc</li>";
-						$graphflow = "<img src='https://waterdata.usgs.gov/nwisweb/graph?site_no=$location&parm_cd=00060" . "&" . rand() . "'/>";
+						$graphflow = "<img src='https://waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no=$location&parm_cd=00060" . "&rand=" . rand() . "'/>";
 						break;
 
 					case "00065":
@@ -359,7 +359,7 @@ class kwc_usgs {
 						$gageheight = $value;
 						$gageheightdesc = $splitDesc[1];
 						$thePage .= "<li class='gageheight'>Water Level: $gageheight $gageheightdesc</li>";
-						$graphgage = "<img src='https://waterdata.usgs.gov/nwisweb/graph?site_no=$location&parm_cd=00065" . "&" . rand() . "'/>";
+						$graphgage = "<img src='https://waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no=$location&parm_cd=00065" . "&rand=" . rand() . "'/>";
 						break;
 					}
 				}
