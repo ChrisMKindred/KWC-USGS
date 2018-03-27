@@ -65,6 +65,9 @@ There is a built in cache for the data.  The data will update every 15 minutes i
 4. Showing USGS Without Graphs in a Post
 
 == Changelog ==
+= 2.5.1 =
+Fixes error with Graph Loading
+
 = 2.5 =
 Updated URL Fetch to use the `wp_remote_get()` function
 Tested up to 4.9.4

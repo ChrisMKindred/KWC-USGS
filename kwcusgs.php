@@ -12,7 +12,7 @@
  * Plugin Name:       USGS Steam Flow Data
  * Plugin URI:        //wordpress.org/plugins/usgs-stream-flow-data/
  * Description:       USGS Stream Flow Data
- * Version:           2.5
+ * Version:           2.5.1
  * Author:            Chris Kindred
  * Author URI:        //www.kindredwebconsulting.com
  * Text Domain:       kwcusgs-locale
