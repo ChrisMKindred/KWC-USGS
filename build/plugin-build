@@ -15,7 +15,6 @@ foreach ( $argv as $arg ) {
 
 $build_cfg_dir = getcwd();
 $parent_dir = dirname( $build_cfg_dir );
-var_dump( $build_cfg_dir );
 // Defaults - override in config.php
 $src_dir = $parent_dir;
 $zip_dir = $build_cfg_dir;
@@ -23,6 +22,8 @@ $tmp_dir = "$build_cfg_dir/tmp";
 $cleanup = true;
 
 $config_file = "$build_cfg_dir/config.php";
+var_dump( $build_cfg_dir, $parent_dir , $config_file);
+
 if ( ! file_exists( $config_file ) ) {
 	echo "Could not find the config.php file in the current folder.\n";
 	exit;
