@@ -5,7 +5,7 @@ if ( $argc < 2 ) {
 }
 
 $version = $argv[2];
-
+var_dump( $argv );
 $publish = false;
 foreach ( $argv as $arg ) {
 	if ( '-p' === $arg ) {
@@ -15,7 +15,7 @@ foreach ( $argv as $arg ) {
 
 $build_cfg_dir = getcwd();
 $parent_dir = dirname( $build_cfg_dir );
-
+var_dump( $build_cfg_dir );
 // Defaults - override in config.php
 $src_dir = $parent_dir;
 $zip_dir = $build_cfg_dir;
