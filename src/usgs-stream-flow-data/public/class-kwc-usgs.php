@@ -8,8 +8,7 @@
  * @link      //www.kindredwebconsulting.com
  * @copyright 2015 Kindred Web Consulting
  */
-
-class kwc_usgs {
+class Kwc_Usgs {
 	/**
 	 * Plugin version, used for cache-busting of style and script file references.
 	 *

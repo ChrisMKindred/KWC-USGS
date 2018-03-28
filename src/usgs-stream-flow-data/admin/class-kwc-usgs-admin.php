@@ -8,8 +8,7 @@
  * @link      //www.kindredwebconsulting.com
  * @copyright 2015 Kindred Web Consulting
  */
-
-class kwc_usgs_admin {
+class Kwc_Usgs_Admin {
 
 	/**
 	 * Instance of this class.
@@ -36,15 +35,10 @@ class kwc_usgs_admin {
 	 * @since     1.0.0
 	 */
 	private function __construct() {
-
-		/* if( ! is_super_admin() ) {
-			return;
-		} */
-
 		/*
 		 * Call $plugin_slug from public plugin class.
 		 */
-		$plugin = kwc_usgs::get_instance();
+		$plugin = Kwc_Usgs::get_instance();
 		$this->plugin_slug = $plugin->get_plugin_slug();
 
 		// Load admin style sheet and JavaScript.
@@ -69,11 +63,6 @@ class kwc_usgs_admin {
 	 * @return    object    A single instance of this class.
 	 */
 	public static function get_instance() {
-
-		/* if( ! is_super_admin() ) {
-			return;
-		} */
-
 		// If the single instance hasn't been set, set it now.
 		if ( null == self::$instance ) {
 			self::$instance = new self;
@@ -97,7 +86,7 @@ class kwc_usgs_admin {
 
 		$screen = get_current_screen();
 		if ( $this->plugin_screen_hook_suffix == $screen->id ) {
-			wp_enqueue_style( $this->plugin_slug .'-admin-styles', plugins_url( 'assets/css/admin.css', __FILE__ ), array(), kwc_usgs::VERSION );
+			wp_enqueue_style( $this->plugin_slug . '-admin-styles', plugins_url( 'assets/css/admin.css', __FILE__ ), array(), kwc_usgs::VERSION );
 		}
 
 	}
@@ -117,7 +106,7 @@ class kwc_usgs_admin {
 
 		$screen = get_current_screen();
 		if ( $this->plugin_screen_hook_suffix == $screen->id ) {
-			wp_enqueue_script( $this->plugin_slug . '-admin-script', plugins_url( 'assets/js/admin.js', __FILE__ ), array( 'jquery' ), kwc_usgs::VERSION );
+			wp_enqueue_script( $this->plugin_slug . '-admin-script', plugins_url( 'assets/js/admin.js', __FILE__ ), array( 'jquery' ), Kwc_Usgs::VERSION );
 		}
 
 	}
@@ -181,12 +170,16 @@ class kwc_usgs_admin {
 	 *
 	 * @since    1.0.0
 	 */
-//	public function action_method_name() {
+	// public function action_method_name() {
 		// @TODO: Define your action hook callback here
-//	}
+	// }
 
 
-
+	/**
+	 * The kwcusgsajax_javascript function
+	 *
+	 * @return void
+	 */
 	public function kwcusgsajax_javascript() {
 ?>
 		<script type="text/javascript" >
@@ -203,31 +196,34 @@ class kwc_usgs_admin {
 				$j.post(ajaxurl, data, function(response) {
 					$j( "#results" ).html( response );
 				});
-  			});
+			});
 		});
 		</script>
 <?php
 	}
-
+	/**
+	 * The kwcusgsajax_callback function
+	 *
+	 * @return void
+	 */
 	public function kwcusgsajax_callback() {
 		$state = $_POST['state'];
 
-		$url = "https://waterservices.usgs.gov/nwis/iv?stateCd=$state&format=waterml&parameterCd=00060";
+		$url  = "https://waterservices.usgs.gov/nwis/iv?stateCd=$state&format=waterml&parameterCd=00060";
 		$data = wp_remote_get( $url );
-		if ( ! $data ){
-	 		echo 'Error retrieving: ' . esc_url($url);
-	 		exit;
+		if ( ! $data ) {
+			echo 'Error retrieving: ' . esc_url( $url );
+			exit;
 		}
 		$data = $data['body'];
-	 	$data = str_replace( 'ns1:', '', $data );
-	  	// Load the XML returned into an object for easy parsing
-
+		$data = str_replace( 'ns1:', '', $data );
+		// Load the XML returned into an object for easy parsing.
 		$xml_tree = simplexml_load_string( $data );
 
-	  	if ( false === $xml_tree ){
-	  		echo 'Unable to parse USGS\'s XML';
-	  	  	exit;
-	  	}
+		if ( false === $xml_tree ) {
+			echo 'Unable to parse USGS\'s XML';
+			exit;
+		}
 
 		$page = "<table class='widefat'>
 					<thead>
@@ -258,7 +254,7 @@ class kwc_usgs_admin {
 						      	<td><a href='//maps.google.com/?q=" . $lat . "," . $long ."' target='_blank'>" . $lat . " / " . $long . "</a></td>
 						    </tr>";
 		}
-			$page .= "</tbody></table>";
+			$page .= '</tbody></table>';
 			echo $page;
 		die();
 	}
