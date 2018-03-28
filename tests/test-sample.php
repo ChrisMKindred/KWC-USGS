@@ -15,7 +15,8 @@ class SampleTest extends WP_UnitTestCase {
 	 */
 	function test_plugin_slug() {
 		// Replace this with some actual testing code.
-		$plugin_slug = kwc_usgs::get_plguin_slug();
+		$kwcusgs = Kwc_Usgs::get_instance();
+		$plugin_slug = $kwcusgs->get_plugin_slug();
 		$this->assertEquals( 'kwcusgs', $plugin_slug );
 	}
 }
