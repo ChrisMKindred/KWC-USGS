@@ -72,9 +72,8 @@ script:
     fi
 
 deploy:
-  # provider: script
-  # skip_cleanup: true
-  # script: ./scripts/deploy.sh
-  # on:
-    # branch: master
-    # php: 7.0
+  provider: script
+  skip_cleanup: true
+  script: php build/plugin-build usgs-stream-flow-data 2.5.1
+  on:
+    php: 7.0

@@ -37,7 +37,7 @@ if [ $error == 0 ]; then
     echo "Tag already exists for version $VERSION, aborting deployment"
     exit 1
 fi
-  
+
 cd "$PLUGIN_BUILDS_PATH"
 # Remove any unzipped dir so we start from scratch
 rm -fR "$PLUGIN"
