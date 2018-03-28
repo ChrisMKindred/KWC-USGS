@@ -15,7 +15,8 @@ cache:
   directories:
     - vendor
     - $HOME/.composer/cache
-
+env: # important!
+php: 7.1
 matrix:
   include:
     - php: 7.1
