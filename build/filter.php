@@ -1,3 +1,3 @@
 <?php
 $filter_file = "$tmp_dir/filter";
-`cat "filter-all" > "$filter_file"`;
+`cat "$build_cfg_dir/filter-all" > "$filter_file"`;

@@ -56,7 +56,7 @@ if ( !file_exists( $main_plugin_file ) ) {
  * );
  *
 */
-$version_check_hook = "$build_cfg_dir/build/version-check.php";
+$version_check_hook = "$build_cfg_dir/version-check.php";
 if ( file_exists( $version_check_hook ) ) {
 	include $version_check_hook;
 
