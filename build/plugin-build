@@ -56,6 +56,12 @@ foreach ( $version_checks as $file => $regexes ) {
 		$version = trim( $matches[1] );
 	}
 
+	$tags = exec( "svn list http://svn.wp-plugins.org/$PLUGIN_SLUG/tags/ --non-interactive 2>&1", $arrOutput );
+	if( array_search( "$version/", $arrOutput, false ) !== false ) {
+		echo "Tag already exists in repo, no deployment will be made.";
+		exit();
+	}
+
 	if ( $messages ) {
 		echo $messages;
 		exit(1);
