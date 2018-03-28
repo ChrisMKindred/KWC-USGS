@@ -1,5 +1,5 @@
 <?php
-// $root_dir = $parent_dir . '/KWC-USGS' ;
+$root_dir = $parent_dir;
 $src_dir = $root_dir . '/src/usgs-stream-flow-data';
 $tmp_dir = $root_dir . '/wp-build';
 $zip_dir = $tmp_dir;
