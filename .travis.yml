@@ -76,4 +76,5 @@ deploy:
   skip_cleanup: true
   script: php build/plugin-build usgs-stream-flow-data 2.5.1
   on:
+    branch: feature/travis-ci-deployment
     php: 7.0
