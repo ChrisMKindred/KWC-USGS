@@ -77,3 +77,4 @@ deploy:
   script: php build/plugin-build usgs-stream-flow-data 2.5.1
   on:
     all_branches: true
+    php: 7.0
