@@ -87,7 +87,7 @@ echo `rsync -r $PLUGIN_SLUG/* svn/tags/$version`;
 echo `svn stat svn/ | grep '^\?' | awk '{print $2}' | xargs -I x svn add x@`;
 echo `svn stat svn/ | grep '^\!' | awk '{print $2}' | xargs -I x svn rm --force x@`;
 echo `svn stat svn/`;
-echo `svn ci --no-auth-cache --username $WP_ORG_USERNAME --password $WP_ORG_PASSWORD svn -m "Deploy version $VERSION"`;
+echo `svn ci --no-auth-cache --username $WP_ORG_USERNAME --password $WP_ORG_PASSWORD svn -m "Deploy version $version"`;
 
 if ( $cleanup ) {
 	`rm -Rf "$dest_dir"`;
