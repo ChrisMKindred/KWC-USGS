@@ -7,9 +7,9 @@ notifications:
     on_success: never
     on_failure: change
 
-# branches:
-  # only:
-    # - master
+branches:
+  only:
+    - master
 
 cache:
   directories:
@@ -18,24 +18,24 @@ cache:
 matrix:
   fast_finish: true
   include:
-    # - php: 7.1
-    #   env: WP_VERSION=latest
+    - php: 7.1
+      env: WP_VERSION=latest
     - php: 7.0
       env: WP_VERSION=latest
-  #   - php: 5.6
-  #     env: WP_VERSION=4.4
-  #   - php: 5.6
-  #     env: WP_VERSION=latest
-  #   - php: 5.6
-  #     env: WP_VERSION=trunk
-  #   - php: 5.3
-  #     dist: precise
-  #     env: WP_VERSION=latest
-  #   - php: 5.6
-  #     env: WP_TRAVISCI=phpcs
-  # allow_failures:
-  #   - php: 5.6
-  #     env: WP_TRAVISCI=phpcs
+    - php: 5.6
+      env: WP_VERSION=4.4
+    - php: 5.6
+      env: WP_VERSION=latest
+    - php: 5.6
+      env: WP_VERSION=trunk
+    - php: 5.3
+      dist: precise
+      env: WP_VERSION=latest
+    - php: 5.6
+      env: WP_TRAVISCI=phpcs
+  allow_failures:
+    - php: 5.6
+      env: WP_TRAVISCI=phpcs
 
 before_script:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
@@ -74,7 +74,8 @@ script:
 deploy:
   provider: script
   skip_cleanup: true
-  script: php build/plugin-build usgs-stream-flow-data 2.5.1
+  script:
+    - php build/plugin-build $WP_ORG_PASSWORD ChrisMKindred usgs-stream-flow-data
   on:
-    all_branches: true
+    branch: master
     php: 7.0
