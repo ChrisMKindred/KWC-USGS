@@ -9,11 +9,12 @@
  * Sample test case.
  */
 class SampleTest extends WP_UnitTestCase {
-
 	/**
 	 * Tests for plugin slug.
+	 * @covers Kwc_Usgs::get_instance
+	 * @covers Kwc_Usgs::get_plugin_slug
 	 */
-	function test_plugin_slug() {
+	public function test_plugin_slug() {
 		// Replace this with some actual testing code.
 		$kwcusgs = Kwc_Usgs::get_instance();
 		$plugin_slug = $kwcusgs->get_plugin_slug();
