@@ -3,8 +3,8 @@ Contributors: ChrisMKindred
 Donate link: //www.kindredwebconsulting.com/wp-plugins/usgs
 Tags: USGS, River Flow, Stream Flow, Fly Fishing, Water Level
 Requires at least: 3.7
-Tested up to: 4.9.4
-Stable tag: 2.6.2
+Tested up to: 5.0
+Stable tag: 2.6.3
 License: GPLv2 or later
 License URI: //www.gnu.org/licenses/gpl-2.0.html
 

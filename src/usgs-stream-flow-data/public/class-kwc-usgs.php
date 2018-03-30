@@ -16,7 +16,7 @@ class Kwc_Usgs {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '2.6.2';
+	const VERSION = '2.6.3';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -291,7 +291,7 @@ class Kwc_Usgs {
 					'graph'  => null
 				), $atts ) );
 
-		//$thePage = get_transient( 'kwc_usgs-' . $location . $graph . $title );
+		$thePage = get_transient( 'kwc_usgs-' . $location . $graph . $title );
 
 		if ( !$thePage ) {
 			$response = $this->get_usgs( $location );
@@ -374,7 +374,7 @@ class Kwc_Usgs {
 			$thePage .= "<a class='clearfix' href='https://waterdata.usgs.gov/nwis/uv?$location' target='_blank'>USGS</a>";
 			$thePage .= "</div>";
 
-			// set_transient( 'kwc_usgs-' . $location . $graph . $title, $thePage, 60 * 15 );
+			set_transient( 'kwc_usgs-' . $location . $graph . $title, $thePage, 60 * 15 );
 		}
 		return $thePage;
 	}
