@@ -16,7 +16,7 @@ class Kwc_Usgs {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '2.5.1';
+	const VERSION = '2.6.2';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -291,19 +291,20 @@ class Kwc_Usgs {
 					'graph'  => null
 				), $atts ) );
 
-		$thePage = get_transient( 'kwc_usgs-' . $location . $graph . $title );
+		//$thePage = get_transient( 'kwc_usgs-' . $location . $graph . $title );
 
 		if ( !$thePage ) {
-			$url = "https://waterservices.usgs.gov/nwis/iv?site=$location&parameterCd=00010,00060,00065&format=waterml";
+			$response = $this->get_usgs( $location );
 
-			$response = wp_remote_get( $url );
-			$data = wp_remote_retrieve_body( $response );
-
-			if ( ! $data ) {
-				return 'USGS Not Responding.';
+			if( is_wp_error( $response ) ) {
+				return get_error_message( $response );
 			}
 
-			$data = str_replace( 'ns1:', '', $data );
+			if ( ! $response['response_code'] ) {
+				return $response['response_message'];
+			}
+
+			$data = str_replace( 'ns1:', '', $response['data'] );
 
 			$xml_tree = simplexml_load_string( $data );
 			if ( False === $xml_tree ) {
@@ -373,9 +374,28 @@ class Kwc_Usgs {
 			$thePage .= "<a class='clearfix' href='https://waterdata.usgs.gov/nwis/uv?$location' target='_blank'>USGS</a>";
 			$thePage .= "</div>";
 
-			set_transient( 'kwc_usgs-' . $location . $graph . $title, $thePage, 60 * 15 );
+			// set_transient( 'kwc_usgs-' . $location . $graph . $title, $thePage, 60 * 15 );
 		}
 		return $thePage;
+	}
+
+	/**
+	 * Makes USGS Call
+	 *
+	 * @param string $location
+	 * @return mixed|array|WP_Error
+	 */
+	public function get_usgs( $location ) {
+		$url = "https://waterservices.usgs.gov/nwis/iv?site=$location&parameterCd=00010,00060,00065&format=waterml";
+		$response = wp_remote_get( $url );
+		if ( is_wp_error( $response ) ) {
+			return $response;
+		}
+		return array(
+			'response_code' => wp_remote_retrieve_response_code( $response ),
+			'response_message' => wp_remote_retrieve_response_message( $response ),
+			'data' => wp_remote_retrieve_body( $response ),
+		);
 	}
 
 }
