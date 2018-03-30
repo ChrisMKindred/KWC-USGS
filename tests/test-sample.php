@@ -39,7 +39,6 @@ class SampleTest extends WP_UnitTestCase {
 	 */
 	public function test_get_usgs_call( $location, $response_code ) {
 		$response = $this->plugin->get_usgs( $location );
-		var_dump( $response );
 		$this->assertEquals( $response_code, $response['response_code'] );
 	}
 }
