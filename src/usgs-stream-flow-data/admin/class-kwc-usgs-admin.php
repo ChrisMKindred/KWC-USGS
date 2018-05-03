@@ -44,6 +44,7 @@ class Kwc_Usgs_Admin {
 		// Load admin style sheet and JavaScript.
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
+		add_action( 'enqueue_block_editor_assets', array( $this, 'kwcusgs_block' ) );
 
 		// Add the options page and menu item.
 		add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ) );
@@ -108,7 +109,10 @@ class Kwc_Usgs_Admin {
 		if ( $this->plugin_screen_hook_suffix == $screen->id ) {
 			wp_enqueue_script( $this->plugin_slug . '-admin-script', plugins_url( 'assets/js/admin.js', __FILE__ ), array( 'jquery' ), Kwc_Usgs::VERSION );
 		}
+	}
 
+	public function kwcusgs_block() {
+		wp_enqueue_script( $this->plugin_slug . '-block', plugins_url( 'assets/js/block.build.js', __FILE__ ), array( 'wp-blocks', 'wp-i18n', 'wp-element' ), time() );
 	}
 
 	/**
