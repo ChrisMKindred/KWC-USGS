@@ -18,11 +18,11 @@ div .KWC_USGS ul.sitevalues {
 }
 div .KWC_USGS ul.sitevalues li {
 	margin: 0px;
-	padding-left: 14px; 
+	padding-left: 14px;
 }
 
 div .KWC_USGS a {
-	float: right; 
+	float: right;
 }
 
 .clearfix:after {

@@ -1,12 +1,22 @@
 <?php
 /**
- * Admin class for plugin
+ * Admin
  *
- * @package   USGS Steam Flow Data
- * @author    Chris Kindred <Chris@kindredwebconsulting.com>
- * @license   GPL-2.0+
- * @link      //www.kindredwebconsulting.com
- * @copyright 2015 Kindred Web Consulting
+ * @package    USGS Steam Flow Data
+ * @author     Chris Kindred <Chris@kindredwebconsulting.com>
+ * @license    GPL-2.0+
+ * @link       //www.kindredwebconsulting.com
+ * @copyright  2015 Kindred Web Consulting
+ */
+
+/**
+ * The admin-specific functionality of the plugin.
+ *
+ * Defines the plugin name, version, and two examples hooks for how to
+ * enqueue the admin-specific stylesheet and JavaScript.
+ *
+ * @package    USGS Steam Flow Data
+ * @subpackage usgs_stream_flow_data/admin
  */
 class Kwc_Usgs_Admin {
 
@@ -38,8 +48,7 @@ class Kwc_Usgs_Admin {
 		/*
 		 * Call $plugin_slug from public plugin class.
 		 */
-		$plugin = Kwc_Usgs::get_instance();
-		$this->plugin_slug = $plugin->get_plugin_slug();
+		$this->plugin_slug = Kwc_Usgs::get_instance()->get_plugin_slug();
 
 		// Load admin style sheet and JavaScript.
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
@@ -117,18 +126,9 @@ class Kwc_Usgs_Admin {
 	 * @since    1.0.0
 	 */
 	public function add_plugin_admin_menu() {
-
-		/*
-		 * Add a settings page for this plugin to the Settings menu.
-		 *
-		 * NOTE:  Alternative menu locations are available via WordPress administration menu functions.
-		 *
-		 *        Administration Menus: //codex.wordpress.org/Administration_Menus
-		 *
-		 */
 		$this->plugin_screen_hook_suffix = add_options_page(
-			__( 'USGS Stream Flow Data', $this->plugin_slug ),
-			__( 'Stream Flow Data', $this->plugin_slug ),
+			__( 'USGS Stream Flow Data', 'kwc_usgs' ),
+			__( 'Stream Flow Data', 'kwc_usgs' ),
 			'manage_options',
 			$this->plugin_slug,
 			array( $this, 'display_plugin_admin_page' )
@@ -148,32 +148,19 @@ class Kwc_Usgs_Admin {
 	/**
 	 * Add settings action link to the plugins page.
 	 *
-	 * @since    1.0.0
+	 * @since 1.0.0
+	 * @param array $links      The links array.
 	 */
 	public function add_action_links( $links ) {
 
 		return array_merge(
 			array(
-				'settings' => '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_slug ) . '">' . __( 'Settings', $this->plugin_slug ) . '</a>'
+				'settings' => '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_slug ) . '">' . __( 'Settings', 'kwc_usgs' ) . '</a>',
 			),
 			$links
 		);
 
 	}
-
-	/**
-	 * NOTE:     Actions are points in the execution of a page or process
-	 *           lifecycle that WordPress fires.
-	 *
-	 *           Actions:    //codex.wordpress.org/Plugin_API#Actions
-	 *           Reference:  //codex.wordpress.org/Plugin_API/Action_Reference
-	 *
-	 * @since    1.0.0
-	 */
-	// public function action_method_name() {
-		// @TODO: Define your action hook callback here
-	// }
-
 
 	/**
 	 * The kwcusgsajax_javascript function
@@ -199,7 +186,7 @@ class Kwc_Usgs_Admin {
 			});
 		});
 		</script>
-<?php
+	<?php
 	}
 	/**
 	 * The kwcusgsajax_callback function
@@ -208,9 +195,8 @@ class Kwc_Usgs_Admin {
 	 */
 	public function kwcusgsajax_callback() {
 		$state = $_POST['state'];
-
-		$url  = "https://waterservices.usgs.gov/nwis/iv?stateCd=$state&format=waterml&parameterCd=00060";
-		$data = wp_remote_get( $url );
+		$url   = "https://waterservices.usgs.gov/nwis/iv?stateCd=$state&format=waterml&parameterCd=00060";
+		$data  = wp_remote_get( $url );
 		if ( ! $data ) {
 			echo 'Error retrieving: ' . esc_url( $url );
 			exit;
@@ -240,7 +226,12 @@ class Kwc_Usgs_Admin {
 					        <th>Latitude / Longitude</th>
 						</tr>
 					</tfoot>";
-		$cnt = 0;
+		$cnt  = 0;
+		// phpcs:disable
+		/**
+		 * phpcs is disabled because the data coming from the api is not formed
+		 * correctly to match the valid snake_case format required by the CS.
+		 */
 		foreach ( $xml_tree->timeSeries as $site_data ) {
 			$cnt = ++$cnt;
 			$site = $site_data->sourceInfo->siteCode;
@@ -255,7 +246,8 @@ class Kwc_Usgs_Admin {
 						    </tr>";
 		}
 			$page .= '</tbody></table>';
-			echo $page;
+		// phpcs:enable
+		echo $page;
 		die();
 	}
 }
