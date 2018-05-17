@@ -13,7 +13,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
 	wp_die( __( 'You do not have sufficient permissions to access this page.', 'kwc_usgs' ) );
 }
 
-$usgs_usgs_tabs = array(
+$usgs_tabs = array(
 	'home-settings' => 'Usage',
 	'search'        => 'Search Site Codes',
 	'credits'       => 'Credits',
@@ -34,7 +34,7 @@ $usgs_active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'home-settings';
 	<?php
 	switch ( $usgs_active_tab ) {
 		case 'search':
-			$usgs_usgs_state_values = array(
+			$usgs_state_values = array(
 				'AL' => 'Alabama',
 				'AK' => 'Alaska',
 				'AZ' => 'Arizona',
@@ -119,7 +119,9 @@ $usgs_active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'home-settings';
 			<h3 class="">Using USGS Steam Flow Data</h3>
 			<p class="">This plugin uses short codes to allow you to include the USGS infromation for a location on any post or in a Text Widget.</p>
 			<p class="">You can copy and paste the shortcode below to get started.</p>
-			<p>[USGS location='09080400' title='Great Place To Fish' graph='show'] </p>
+			<p>
+				<code>[USGS location='09080400' title='Great Place To Fish' graph='show' /]</code>
+			</p>
 			<h4 class="">Location</h4>
 			<p>The location is the Site Code for the location you want to show. You can get the Site Code by using the Search tab or by finding it on the USGS website.</p>
 			<h4 class="">Title</h4>

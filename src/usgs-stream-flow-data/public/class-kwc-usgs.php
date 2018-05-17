@@ -261,13 +261,12 @@ class Kwc_Usgs {
 	 * @return string           the html for the shortcode.
 	 */
 	public function USGS( $atts, $content = null ) { //phpcs:ignore
-		shortcode_atts(
-			array(
-				'location' => '09080400',
-				'title'    => null,
-				'graph'    => null,
-			),
-		$atts );
+		$defaults = array(
+			'location' => '09080400',
+			'title'    => null,
+			'graph'    => null,
+		);
+		$atts     = shortcode_atts( $defaults, $atts );
 		$location = $atts['location'];
 		$title    = $atts['title'];
 		$graph    = $atts['graph'];
@@ -342,9 +341,6 @@ class Kwc_Usgs {
 							break;
 					}
 				}
-			}
-			if ( $content ) {
-				$the_page = "<li>$content</li>";
 			}
 			$the_page .= '</ul>';
 			if ( isset( $graph ) ) {
