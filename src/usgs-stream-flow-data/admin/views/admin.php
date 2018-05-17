@@ -13,28 +13,28 @@ if ( ! current_user_can( 'manage_options' ) ) {
 	wp_die( __( 'You do not have sufficient permissions to access this page.', 'kwc_usgs' ) );
 }
 
-$tabs = array(
+$usgs_usgs_tabs = array(
 	'home-settings' => 'Usage',
 	'search'        => 'Search Site Codes',
 	'credits'       => 'Credits',
 );
 
-$active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'home-settings';
+$usgs_active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'home-settings';
 ?>
 <div class="wrap">
 	<h2><span style="padding-top: 5px;" class="dashicons dashicons-location"></span> <?php echo esc_html( get_admin_page_title() ); ?> </h2><br />
 	<h2 class="nav-tab-wrapper">
 	<?php
-	foreach ( $tabs as $tab => $name ) {
-		$class = ( $tab == $active_tab ) ? ' nav-tab-active' : '';
-		echo "<a class='nav-tab$class' href='?page=kwcusgs&tab=$tab'>$name</a>";
+	foreach ( $usgs_tabs as $usgs_tab => $name ) {
+		$usgs_class = ( $usgs_tab == $usgs_active_tab ) ? ' nav-tab-active' : '';
+		echo "<a class='nav-tab$usgs_class' href='?page=kwcusgs&tab=$usgs_tab'>$name</a>";
 	}
 	?>
 	</h2>
 	<?php
-	switch ( $active_tab ) {
+	switch ( $usgs_active_tab ) {
 		case 'search':
-			$state_values = array(
+			$usgs_usgs_state_values = array(
 				'AL' => 'Alabama',
 				'AK' => 'Alaska',
 				'AZ' => 'Arizona',
@@ -95,14 +95,14 @@ $active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'home-settings';
 			<label>Select State:</label>
 			<?php
 			echo "<select id='state' class='state' name='state'>";
-			if ( ! empty( $state_values ) ) {
-				$blnfirst = true;
-				foreach ( $state_values as $state_short => $state_full ) {
-					if ( true == $blnfirst ) {
-						echo "<option value='$state_short' SELECTED >$state_full</option>";
-						$blnfirst = false;
+			if ( ! empty( $usgs_state_values ) ) {
+				$usgs_blnfirst = true;
+				foreach ( $usgs_state_values as $usgs_state_short => $usgs_state_full ) {
+					if ( true == $usgs_blnfirst ) {
+						echo "<option value='$usgs_state_short' SELECTED >$usgs_state_full</option>";
+						$usgs_blnfirst = false;
 					} else {
-						echo "<option value='$state_short' >$state_full</option>";
+						echo "<option value='$usgs_state_short' >$usgs_state_full</option>";
 					}
 				}
 			}
