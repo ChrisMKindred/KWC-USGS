@@ -1,8 +1,19 @@
 <?php
 /**
+ * Public
+ *
+ * @package    USGS Steam Flow Data
+ * @author     Chris Kindred <Chris@kindredwebconsulting.com>
+ * @license    GPL-2.0+
+ * @link       //www.kindredwebconsulting.com
+ * @copyright  2015 Kindred Web Consulting
+ */
+
+/**
  * The main class for the plugin
  *
  * @package   USGS Steam Flow Data
+ * @subpackage public
  * @author    Chris Kindred <Chris@kindredwebconsulting.com>
  * @license   GPL-2.0+
  * @link      //www.kindredwebconsulting.com
@@ -20,7 +31,6 @@ class Kwc_Usgs {
 
 	/**
 	 * Unique identifier for your plugin.
-	 *
 	 *
 	 * The variable name is used as the text domain when internationalizing strings
 	 * of text. Its value should match the Text Domain file header in the main
@@ -49,23 +59,11 @@ class Kwc_Usgs {
 	 */
 	private function __construct() {
 
-		// Load plugin text domain
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
-
-		// Activate plugin when new blog is added
 		add_action( 'wpmu_new_blog', array( $this, 'activate_new_site' ) );
-
-		// Load public-facing style sheet and JavaScript.
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-
 		add_shortcode( 'USGS', array( $this, 'USGS' ) );
-		/* Define custom functionality.
-		 * Refer To //codex.wordpress.org/Plugin_API#Hooks.2C_Actions_and_Filters
-		 */
-		//  add_action( '@TODO', array( $this, 'action_method_name' ) );
-		//  add_filter( '@TODO', array( $this, 'filter_method_name' ) );
-
 	}
 
 	/**
@@ -107,30 +105,20 @@ class Kwc_Usgs {
 	 *                                       activated on an individual blog.
 	 */
 	public static function activate( $network_wide ) {
-
 		if ( function_exists( 'is_multisite' ) && is_multisite() ) {
-
-			if ( $network_wide  ) {
-
-				// Get all blog ids
+			if ( $network_wide ) {
 				$blog_ids = self::get_blog_ids();
-
 				foreach ( $blog_ids as $blog_id ) {
-
 					switch_to_blog( $blog_id );
 					self::single_activate();
 				}
-
 				restore_current_blog();
-
 			} else {
 				self::single_activate();
 			}
-
 		} else {
 			self::single_activate();
 		}
-
 	}
 
 	/**
@@ -148,27 +136,18 @@ class Kwc_Usgs {
 		if ( function_exists( 'is_multisite' ) && is_multisite() ) {
 
 			if ( $network_wide ) {
-
-				// Get all blog ids
 				$blog_ids = self::get_blog_ids();
-
 				foreach ( $blog_ids as $blog_id ) {
-
 					switch_to_blog( $blog_id );
 					self::single_deactivate();
-
 				}
-
 				restore_current_blog();
-
 			} else {
 				self::single_deactivate();
 			}
-
 		} else {
 			self::single_deactivate();
 		}
-
 	}
 
 	/**
@@ -176,7 +155,7 @@ class Kwc_Usgs {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param int     $blog_id ID of the new blog.
+	 * @param int $blog_id ID of the new blog.
 	 */
 	public function activate_new_site( $blog_id ) {
 
@@ -201,16 +180,8 @@ class Kwc_Usgs {
 	 * @return   array|false    The blog ids, false if no matches.
 	 */
 	private static function get_blog_ids() {
-
 		global $wpdb;
-
-		// get an array of blog ids
-		$sql = "SELECT blog_id FROM $wpdb->blogs
-			WHERE archived = '0' AND spam = '0'
-			AND deleted = '0'";
-
-		return $wpdb->get_col( $sql );
-
+		return $wpdb->get_col( $wpdb->prepare( "SELECT blog_id FROM $wpdb->blogs WHERE archived = %s AND spam = %s AND deleted = %s", array( '0', '0', '0' ) ) );
 	}
 
 	/**
@@ -239,7 +210,7 @@ class Kwc_Usgs {
 	public function load_plugin_textdomain() {
 
 		$domain = $this->plugin_slug;
-		$locale = apply_filters( 'plugin_locale', get_locale(), $domain );
+		$locale = apply_filters( 'kwc_usgs_plugin_locale', get_locale(), $domain );
 
 		load_textdomain( $domain, trailingslashit( WP_LANG_DIR ) . $domain . '/' . $domain . '-' . $locale . '.mo' );
 
@@ -280,23 +251,32 @@ class Kwc_Usgs {
 	/**
 	 * This needs to be split into different functions
 	 *
-	 * @since 	1.0.0
+	 * @since 1.0.0
 	 */
+	/**
+	 * Undocumented function
+	 *
+	 * @param array  $atts      the attributes passed to the shortcode.
+	 * @param string $content   the content.
+	 * @return string           the html for the shortcode.
+	 */
+	public function USGS( $atts, $content = null ) { //phpcs:ignore
+		shortcode_atts(
+			array(
+				'location' => '09080400',
+				'title'    => null,
+				'graph'    => null,
+			),
+		$atts );
+		$location = $atts['location'];
+		$title    = $atts['title'];
+		$graph    = $atts['graph'];
+		$the_page = get_transient( 'kwc_usgs-' . $location . $graph . $title );
 
-	public function USGS( $atts, $content = null ) {
-		extract( shortcode_atts(
-				array(
-					'location'  => '09080400',
-					'title'  => null,
-					'graph'  => null
-				), $atts ) );
-
-		$thePage = get_transient( 'kwc_usgs-' . $location . $graph . $title );
-
-		if ( !$thePage ) {
+		if ( ! $the_page ) {
 			$response = $this->get_usgs( $location );
 
-			if( is_wp_error( $response ) ) {
+			if ( is_wp_error( $response ) ) {
 				return get_error_message( $response );
 			}
 
@@ -307,94 +287,95 @@ class Kwc_Usgs {
 			$data = str_replace( 'ns1:', '', $response['data'] );
 
 			$xml_tree = simplexml_load_string( $data );
-			if ( False === $xml_tree ) {
+			if ( false === $xml_tree ) {
 				return 'Unable to parse USGS\'s XML';
 			}
 
-			if ( ! isset( $title )  ) {
-				$SiteName = $xml_tree->timeSeries->sourceInfo->siteName;
+			if ( ! isset( $title ) ) {
+				$site_name = $xml_tree->timeSeries->sourceInfo->siteName; //phpcs:ignore
 			} else {
-				if ( $title == '' ) {
-					$SiteName = $xml_tree->timeSeries->sourceInfo->siteName;
+				if ( '' == $title ) {
+					$site_name = $xml_tree->timeSeries->sourceInfo->siteName; //phpcs:ignore
 				} else {
-					$SiteName = $title;
+					$site_name = $title;
 				}
 			}
 
-			$thePage = "<div class='KWC_USGS clearfix'>
-							<h3 class='header'>$SiteName</h3>
+			$the_page  = "<div class='KWC_USGS clearfix'>
+							<h3 class='header'>$site_name</h3>
 								<ul class='sitevalues'>";
-			$graphflow = "";
-			$graphgage = "";
-			foreach ( $xml_tree->timeSeries as $site_data ) {
-				if ( $site_data->values->value == '' ) {
+			$graphflow = '';
+			$graphgage = '';
+			foreach ( $xml_tree->timeSeries as $site_data ) { //phpcs:ignore
+				if ( '' == $site_data->values->value ) {
 					$value = '-';
-				} else if ( $site_data->values->value == -999999 ) {
-						$value = 'UNKNOWN';
+				} elseif ( -999999 == $site_data->values->value ) {
+						$value       = 'UNKNOWN';
 						$provisional = '-';
 				} else {
 					$desc = $site_data->variable->variableName;
 					switch ( $site_data->variable->variableCode ) {
-					case "00010":
-						$value  = $site_data->values->value;
-						$degf   = ( 9 / 5 ) * (float)$value + 32;
-						$watertemp      = $degf;
-						$watertempdesc  = "&deg; F";
-						$thePage .= "<li class='watertemp'>Water Temp: $watertemp $watertempdesc</li>";
-						break;
+						case '00010':
+							$value         = $site_data->values->value;
+							$degf          = ( 9 / 5 ) * (float) $value + 32;
+							$watertemp     = $degf;
+							$watertempdesc = '&deg; F';
+							$the_page     .= "<li class='watertemp'>Water Temp: $watertemp $watertempdesc</li>";
+							break;
 
-					case "00060":
-						$splitDesc = explode( ",", $desc );
-						$value  = $site_data->values->value;
-						$streamflow     = $value;
-						$streamflowdesc = $splitDesc[1];
-						$thePage .= "<li class='flow'>Flow: $streamflow $streamflowdesc</li>";
-						$graphflow = "<img src='https://waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no=$location&parm_cd=00060" . "&rand=" . rand() . "'/>";
-						break;
+						case '00060':
+							$split_desc     = explode( ',', $desc );
+							$value          = $site_data->values->value;
+							$streamflow     = $value;
+							$streamflowdesc = $split_desc[1];
+							$the_page      .= "<li class='flow'>Flow: $streamflow $streamflowdesc</li>";
+							$graphflow      = "<img src='https://waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no=$location&parm_cd=00060&rand=" . rand() . "'/>";
+							break;
 
-					case "00065":
-						$splitDesc = explode( ",", $desc );
-						$value  = $site_data->values->value;
-						$gageheight = $value;
-						$gageheightdesc = $splitDesc[1];
-						$thePage .= "<li class='gageheight'>Water Level: $gageheight $gageheightdesc</li>";
-						$graphgage = "<img src='https://waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no=$location&parm_cd=00065" . "&rand=" . rand() . "'/>";
-						break;
+						case '00065':
+							$split_desc     = explode( ',', $desc );
+							$value          = $site_data->values->value;
+							$gageheight     = $value;
+							$gageheightdesc = $split_desc[1];
+							$the_page      .= "<li class='gageheight'>Water Level: $gageheight $gageheightdesc</li>";
+							$graphgage      = "<img src='https://waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no=$location&parm_cd=00065&rand=" . rand() . "'/>";
+							break;
 					}
 				}
 			}
-			$thePage .=  "</ul>";
+			if ( $content ) {
+				$the_page = "<li>$content</li>";
+			}
+			$the_page .= '</ul>';
 			if ( isset( $graph ) ) {
-				if ( $graph == 'show' ) {
-					$thePage .= "<div class='clearfix'>";
-					$thePage .= $graphgage . $graphflow;
-					$thePage .= "</div>";
+				if ( 'show' == $graph ) {
+					$the_page .= "<div class='clearfix'>$graphgage . $graphflow</div>";
 				}
 			}
-			$thePage .= "<a class='clearfix' href='https://waterdata.usgs.gov/nwis/uv?$location' target='_blank'>USGS</a>";
-			$thePage .= "</div>";
+			$the_page .= "<a class='clearfix' href='https://waterdata.usgs.gov/nwis/uv?$location' target='_blank'>USGS</a>";
+			$the_page .= '</div>';
 
-			set_transient( 'kwc_usgs-' . $location . $graph . $title, $thePage, 60 * 15 );
+			set_transient( 'kwc_usgs-' . $location . $graph . $title, $the_page, 60 * 15 );
 		}
-		return $thePage;
+		return $the_page;
 	}
 
 	/**
 	 * Makes USGS Call
 	 *
-	 * @param string $location
+	 * @param string $location  the location to make call with.
 	 * @return mixed|array|WP_Error
 	 */
 	public function get_usgs( $location ) {
-		$url = "https://waterservices.usgs.gov/nwis/iv?site=$location&parameterCd=00010,00060,00065&format=waterml";
+		$url      = "https://waterservices.usgs.gov/nwis/iv?site=$location&parameterCd=00010,00060,00065&format=waterml";
 		$response = wp_remote_get( $url );
 		if ( is_wp_error( $response ) ) {
 			return $response;
 		}
 		return array(
-			'response_code' => wp_remote_retrieve_response_code( $response ),
+			'response_code'    => wp_remote_retrieve_response_code( $response ),
 			'response_message' => wp_remote_retrieve_response_message( $response ),
-			'data' => wp_remote_retrieve_body( $response ),
+			'data'             => wp_remote_retrieve_body( $response ),
 		);
 	}
 
