@@ -42,8 +42,6 @@ add_filter( 'widget_text', 'do_shortcode' );
  * The code below is intended to to give the lightest footprint possible.
  */
 if ( is_admin() ) {
-
 	require_once plugin_dir_path( __FILE__ ) . 'admin/class-kwc-usgs-admin.php';
 	add_action( 'plugins_loaded', array( 'kwc_usgs_admin', 'get_instance' ) );
-
 }
