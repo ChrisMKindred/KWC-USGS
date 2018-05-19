@@ -1,60 +1,65 @@
 const { __ } = wp.i18n;
-const {
-	registerBlockType,
-	RichText,
-} = wp.blocks;
-
-const {
-	CheckboxControl
-} = wp.components;
-
+const { registerBlockType, RichText,} = wp.blocks;
+const { CheckboxControl } = wp.components;
 
 registerBlockType( 'usgs-stream-flow-data/usgs-block', {
     title: 'usgs',
     icon: 'carrot',
 	category: 'common',
 	attributes: {
-		title: {
-			type: 'array',
-			source: 'children',
-			selector: 'h2',
+		url: {
+			source: 'attribute',
+			type: 'string',
+			selector: '.o_microlink',
+			attribute: 'href',
 		},
-
+		title: {
+			type: 'string',
+			source: 'text',
+			selector: '.o_microlink',
+		}
 	},
-    edit: props => {
-		const focusedEditable = props.focus ? props.focus.editable || 'title' : null;
-		const attributes = props.attributes;
-		const onChangeTitle = value => {
-			props.setAttributes( { title: value } );
+
+    edit: ( { attributes, setAttributes, className } ) => { 
+		const onChangeURL = ( value ) => {
+			
+			console.log( 'here1' );	
+			const response = fetch( `https://waterservices.usgs.gov/nwis/dv/?site=09080400&format=JSON`,
+				{
+				cache: 'no-cache',
+				headers: {
+					'user-agent': 'WP Block',
+					'content-type': 'application/json'
+				  },
+				method: 'GET',
+				redirect: 'follow', 
+				referrer: 'no-referrer', 
+			})
+			.then(
+				returned => {
+					if (returned.ok) return returned;
+					throw new Error('Network response was not ok.');
+				}
+			);
+			console.log( response );
+			let data = response;
+			setAttributes( { url: value[0] } );
+			setAttributes( { title: data.value } );
 		};
-		const onFocusTitle = focus => {
-			props.setFocus( _.extend( {}, focus, { editable: 'title' } ) );
-		};
+	return <div className={className}>
+					<RichText
+						tagName="div"
+						placeholder={__('Add URL here.')}
+						value={attributes.url}
+						onChange={onChangeURL}
+					/>
+					{!attributes.title ? __('Add URL') : <div> {attributes.title} </div>}
+				</div>;
+	},
 
-
-
-		return (
-			<div className={ props.className }>
-				<RichText
-					tagName="h2"
-					placeholder={ __( 'a title goes here' ) }
-					value={ attributes.title }
-					onChange={ onChangeTitle }
-					focus={ focusedEditable === 'title' }
-					onFocus={ onFocusTitle }
-				/>
-				<CheckboxControl
-					heading="User"
-					label="Is author"
-					help="Is the user a author or not?"
-				/>
-			</div>
-		);
-
-    },
-    save: props => {
-        return (
-			<p> { props.attributes.title } </p>
-		);
-    },
+	save: ({ attributes, className }) => {
+		return <div className={ className }>
+				<a className="o_microlink" href={ attributes.url }> { attributes.title } </a>
+			</div>;
+	}
 } );
