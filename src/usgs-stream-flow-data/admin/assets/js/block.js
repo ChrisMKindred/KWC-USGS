@@ -1,65 +1,111 @@
 const { __ } = wp.i18n;
-const { registerBlockType, RichText,} = wp.blocks;
-const { CheckboxControl } = wp.components;
+const { registerBlockType,} = wp.blocks;
+const { CheckboxControl, SelectControl } = wp.components;
 
 registerBlockType( 'usgs-stream-flow-data/usgs-block', {
     title: 'usgs',
     icon: 'carrot',
 	category: 'common',
 	attributes: {
-		url: {
+		state: {
 			source: 'attribute',
 			type: 'string',
-			selector: '.o_microlink',
-			attribute: 'href',
 		},
 		title: {
-			type: 'string',
-			source: 'text',
-			selector: '.o_microlink',
+			type: 'text',
+			selector: 'sitename'
 		}
 	},
 
     edit: ( { attributes, setAttributes, className } ) => { 
-		const onChangeURL = ( value ) => {
-			
-			console.log( 'here1' );	
-			const response = fetch( `https://waterservices.usgs.gov/nwis/dv/?site=09080400&format=JSON`,
-				{
-				cache: 'no-cache',
-				headers: {
-					'user-agent': 'WP Block',
-					'content-type': 'application/json'
-				  },
-				method: 'GET',
-				redirect: 'follow', 
-				referrer: 'no-referrer', 
-			})
-			.then(
-				returned => {
-					if (returned.ok) return returned;
-					throw new Error('Network response was not ok.');
+		var html;
+		function onChangeURL(e){
+			fetch( 'https://waterservices.usgs.gov/nwis/iv?stateCd='+ e +'&format=JSON&parameterCd=00060')
+			.then(function(response) {
+			if (response.status >= 400) {
+				throw new Error("Bad response from server");
 				}
-			);
-			console.log( response );
-			let data = response;
-			setAttributes( { url: value[0] } );
-			setAttributes( { title: data.value } );
-		};
+				return response.json();
+			})
+			.then( function( data ) {
+				 setAttributes( { title: data.value.timeSeries } );	
+			});
+			setAttributes( { state: this.value } );
+		}
 	return <div className={className}>
-					<RichText
-						tagName="div"
-						placeholder={__('Add URL here.')}
-						value={attributes.url}
-						onChange={onChangeURL}
-					/>
-					{!attributes.title ? __('Add URL') : <div> {attributes.title} </div>}
-				</div>;
+				<SelectControl
+					label={ __( 'State' ) }
+					value={ attributes.url }
+					options={ [
+						{value:'AL', label:'Alabama'},
+						{value:'AK', label:'Alaska'},
+						{value:'AZ', label:'Arizona'},
+						{value:'AR', label:'Arkansas'},
+						{value:'CA', label:'California'},
+						{value:'CO', label:'Colorado'},
+						{value:'CT', label:'Connecticut'},
+						{value:'DE', label:'Delaware'},
+						{value:'DC', label:'District Of Columbia'},
+						{value:'FL', label:'Florida'},
+						{value:'GA', label:'Georgia'},
+						{value:'HI', label:'Hawaii'},
+						{value:'ID', label:'Idaho'},
+						{value:'IL', label:'Illinois'},
+						{value:'IN', label:'Indiana'},
+						{value:'IA', label:'Iowa'},
+						{value:'KS', label:'Kansas'},
+						{value:'KY', label:'Kentucky'},
+						{value:'LA', label:'Louisiana'},
+						{value:'ME', label:'Maine'},
+						{value:'MD', label:'Maryland'},
+						{value:'MA', label:'Massachusetts'},
+						{value:'MI', label:'Michigan'},
+						{value:'MN', label:'Minnesota'},
+						{value:'MS', label:'Mississippi'},
+						{value:'MO', label:'Missouri'},
+						{value:'MT', label:'Montana'},
+						{value:'NE', label:'Nebraska'},
+						{value:'NV', label:'Nevada'},
+						{value:'NH', label:'New Hampshire'},
+						{value:'NJ', label:'New Jersey'},
+						{value:'NM', label:'New Mexico'},
+						{value:'NY', label:'New York'},
+						{value:'NC', label:'North Carolina'},
+						{value:'ND', label:'North Dakota'},
+						{value:'OH', label:'Ohio'},
+						{value:'OK', label:'Oklahoma'},
+						{value:'OR', label:'Oregon'},
+						{value:'PA', label:'Pennsylvania'},
+						{value:'RI', label:'Rhode Island'},
+						{value:'SC', label:'South Carolina'},
+						{value:'SD', label:'South Dakota'},
+						{value:'TN', label:'Tennessee'},
+						{value:'TX', label:'Texas'},
+						{value:'UT', label:'Utah'},
+						{value:'VT', label:'Vermont'},
+						{value:'VA', label:'Virginia'},
+						{value:'WA', label:'Washington'},
+						{value:'WV', label:'West Virginia'},
+						{value:'WI', label:'Wisconsin'},
+						{value:'WY', label:'Wyoming'},
+					] }
+					onChange={ onChangeURL }
+				/>
+				Total Sites: {(attributes.title ) ? ( attributes.title.length ) : '0' }
+				<ul class='sitename'>
+				{(attributes.title ) ? (
+
+						attributes.title.map( (value) => {
+							return <li> { value.sourceInfo.siteName } </li>;
+						}) ) : ''
+				}
+				</ul>
+			</div>;
 	},
 
 	save: ({ attributes, className }) => {
 		return <div className={ className }>
-				<a className="o_microlink" href={ attributes.url }> { attributes.title } </a>
+				{ attributes.title.timeSeries }
 			</div>;
 	}
 } );
