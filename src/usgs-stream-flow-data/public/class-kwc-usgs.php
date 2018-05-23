@@ -64,6 +64,9 @@ class Kwc_Usgs {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		add_shortcode( 'USGS', array( $this, 'USGS' ) );
+		register_block_type( 'usgs-stream-flow-data/usgs-block', array(
+			'render_callback' => array( $this, 'USGS' ),
+	) );
 	}
 
 	/**
@@ -271,10 +274,8 @@ class Kwc_Usgs {
 		$title    = $atts['title'];
 		$graph    = $atts['graph'];
 		$the_page = get_transient( 'kwc_usgs-' . $location . $graph . $title );
-
 		if ( ! $the_page ) {
 			$response = $this->get_usgs( $location );
-
 			if ( is_wp_error( $response ) ) {
 				return get_error_message( $response );
 			}
@@ -299,7 +300,6 @@ class Kwc_Usgs {
 					$site_name = $title;
 				}
 			}
-
 			$the_page  = "<div class='KWC_USGS clearfix'>
 							<h3 class='header'>$site_name</h3>
 								<ul class='sitevalues'>";

@@ -13,30 +13,37 @@ registerBlockType( 'usgs-stream-flow-data/usgs-block', {
 		},
 		title: {
 			type: 'text',
-			selector: 'sitename'
+			default: '',
+		},
+		graph: {
+			type: 'text',
+			default: 'false',
+		},
+		siteID: {
+			type: 'text',
+			default: '09080400',
 		}
 	},
 
-    edit: ( { attributes, setAttributes, className } ) => { 
-		var html;
+    edit: ({attributes,setAttributes,className,sitedata}) => { 
 		function onChangeURL(e){
-			fetch( 'https://waterservices.usgs.gov/nwis/iv?stateCd='+ e +'&format=JSON&parameterCd=00060')
-			.then(function(response) {
-			if (response.status >= 400) {
-				throw new Error("Bad response from server");
+			fetch('https://waterservices.usgs.gov/nwis/iv?stateCd='+ e +'&format=JSON&parameterCd=00060')
+			.then(function(response){
+				if (response.status >= 400) {
+					throw new Error("Bad response from server");
 				}
 				return response.json();
 			})
-			.then( function( data ) {
-				 setAttributes( { title: data.value.timeSeries } );	
+			.then(function(data){
+				sitedata = data.value.timeSeries;	
 			});
-			setAttributes( { state: this.value } );
+			setAttributes({state: this.value});
 		}
 	return <div className={className}>
 				<SelectControl
-					label={ __( 'State' ) }
-					value={ attributes.url }
-					options={ [
+					label={ __('State')}
+					value={attributes.url}
+					options={[
 						{value:'AL', label:'Alabama'},
 						{value:'AK', label:'Alaska'},
 						{value:'AZ', label:'Arizona'},
@@ -88,24 +95,18 @@ registerBlockType( 'usgs-stream-flow-data/usgs-block', {
 						{value:'WV', label:'West Virginia'},
 						{value:'WI', label:'Wisconsin'},
 						{value:'WY', label:'Wyoming'},
-					] }
-					onChange={ onChangeURL }
+					]}
+					onChange={onChangeURL}
 				/>
-				Total Sites: {(attributes.title ) ? ( attributes.title.length ) : '0' }
+				Total Sites: {(sitedata) ? ( sitedata.length ) : '0' }
 				<ul class='sitename'>
-				{(attributes.title ) ? (
-
-						attributes.title.map( (value) => {
+					{(sitedata) ? (
+						sitedata.map( (value) => {
 							return <li> { value.sourceInfo.siteName } </li>;
-						}) ) : ''
-				}
+						}) ) : ''}
 				</ul>
 			</div>;
 	},
 
-	save: ({ attributes, className }) => {
-		return <div className={ className }>
-				{ attributes.title.timeSeries }
-			</div>;
-	}
+	save: () => {return null;}
 } );
