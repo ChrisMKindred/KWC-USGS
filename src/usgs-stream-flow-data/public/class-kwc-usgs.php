@@ -364,7 +364,10 @@ class Kwc_Usgs {
 	 */
 	public function get_usgs( $location ) {
 		$url      = "https://waterservices.usgs.gov/nwis/iv?site=$location&parameterCd=00010,00060,00065&format=waterml";
-		$response = wp_remote_get( $url );
+		$args     = array(
+			'sslverify' => false,
+		);
+		$response = wp_remote_get( $url, $args );
 		if ( is_wp_error( $response ) ) {
 			return $response;
 		}
