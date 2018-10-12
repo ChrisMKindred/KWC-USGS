@@ -46,6 +46,13 @@ class SampleTest extends WP_UnitTestCase {
 	 * Test USGS remote call
 	 * @dataProvider provider_get_usgs
 	 * @covers Kwc_Usgs::get_usgs
+	 *
+	 * FIXME:
+	 * This isn't a very good test. It is basically checking to see if there is
+	 * a response from the USGS server but that is outside of our scope and can
+	 * cause failures when the error is on their side.  Not sure of a better
+	 * solution yet.
+	 *
 	 */
 	public function test_get_usgs_call( $location, $response_code ) {
 		$response = $this->plugin->get_usgs( $location );
