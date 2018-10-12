@@ -49,6 +49,13 @@ class SampleTest extends WP_UnitTestCase {
 	 */
 	public function test_get_usgs_call( $location, $response_code ) {
 		$response = $this->plugin->get_usgs( $location );
-		$this->assertEquals( $response_code, $response['response_code'] );
+		if ( ! is_wp_error( $response ) ) {
+			$this->assertEquals( $response_code, $response['response_code'] );
+		} else {
+			$this->markTestSkipped(
+				'Error returned from USGS Call: ' . print_r( $response->get_error_messages(), true )
+			);
+		}
+
 	}
 }

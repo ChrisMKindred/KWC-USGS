@@ -168,7 +168,7 @@ class Kwc_Usgs_Admin {
 	 * @return void
 	 */
 	public function kwcusgsajax_javascript() {
-?>
+		?>
 		<script type="text/javascript" >
 		$j=jQuery.noConflict();
 		$j(document).ready(function() {
@@ -186,7 +186,7 @@ class Kwc_Usgs_Admin {
 			});
 		});
 		</script>
-	<?php
+		<?php
 	}
 	/**
 	 * The kwcusgsajax_callback function
