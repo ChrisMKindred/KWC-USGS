@@ -25,9 +25,9 @@ $usgs_active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'home-settings';
 	<h2><span style="padding-top: 5px;" class="dashicons dashicons-location"></span> <?php echo esc_html( get_admin_page_title() ); ?> </h2><br />
 	<h2 class="nav-tab-wrapper">
 	<?php
-	foreach ( $usgs_tabs as $usgs_tab => $name ) {
+	foreach ( $usgs_tabs as $usgs_tab => $usgs_name ) {
 		$usgs_class = ( $usgs_tab == $usgs_active_tab ) ? ' nav-tab-active' : '';
-		echo "<a class='nav-tab$usgs_class' href='?page=kwcusgs&tab=$usgs_tab'>$name</a>";
+		echo "<a class='nav-tab$usgs_class' href='?page=kwcusgs&tab=$usgs_tab'>$usgs_name</a>";
 	}
 	?>
 	</h2>
@@ -115,7 +115,7 @@ $usgs_active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'home-settings';
 			break;
 
 		case 'home-settings':
-		?>
+			?>
 			<h3 class="">Using USGS Steam Flow Data</h3>
 			<p class="">This plugin uses short codes to allow you to include the USGS infromation for a location on any post or in a Text Widget.</p>
 			<p class="">You can copy and paste the shortcode below to get started.</p>
@@ -132,7 +132,7 @@ $usgs_active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'home-settings';
 			break;
 
 		default:
-		?>
+			?>
 			<center><a href="https://www.kindredwebconsulting.com/"><img src="<?php echo plugins_url( '../assets/kwc-logo.png', __FILE__ ); ?>" alt="Kindred Web Consulting Logo" border="0" /></a><p>Development by: <a href="https://www.kindredwebconsulting.com">Kindred Web Consulting</a></p></center>
 			<div class="sidebar">
 				<h2 class="">Support</h2>
@@ -169,5 +169,5 @@ $usgs_active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'home-settings';
 			<?php
 			break;
 	}
-?>
+	?>
 </div>
