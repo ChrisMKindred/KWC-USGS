@@ -27,7 +27,7 @@ class Kwc_Usgs {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '2.7';
+	const VERSION = '2.7.1';
 
 	/**
 	 * Unique identifier for your plugin.
