@@ -40,7 +40,6 @@ class SampleTest extends WP_UnitTestCase {
 	public function provider_get_usgs() {
 		return array(
 				array( '09080400', 200 ),
-				array( '', '400' ),
 			);
 	}
 	/**
