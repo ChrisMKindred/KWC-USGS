@@ -40,6 +40,7 @@ class SampleTest extends WP_UnitTestCase {
 	public function provider_get_usgs() {
 		return array(
 				array( '09080400', 200 ),
+				array( '', '400' ),
 			);
 	}
 	/**
@@ -63,6 +64,5 @@ class SampleTest extends WP_UnitTestCase {
 				'Error returned from USGS Call: ' . print_r( $response->get_error_messages(), true )
 			);
 		}
-
 	}
 }

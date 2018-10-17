@@ -35,4 +35,33 @@ class AdminTests extends WP_UnitTestCase {
 		$this->assertEquals( 10, has_action( 'wp_ajax_kwcusgsajax', array( $this->instance, 'kwcusgsajax_callback' ) ) );
 	}
 
+	/**
+	 * Test the enqueue_admin_styles method
+	 *
+	 * @covers Kwc_Usgs_Admin::enqueue_admin_styles
+	 */
+	public function test_admin_enqueue_admin_styles() {
+		set_current_screen( 'front' );
+		$this->instance->enqueue_admin_styles();
+		$this->assertFalse( wp_style_is( 'kwcusgs-admin-styles' ) );
+
+		set_current_screen( 'settings_page_kwcusgs' );
+		$this->instance->enqueue_admin_styles();
+		$this->assertTrue( wp_style_is( 'kwcusgs-admin-styles' ) );
+	}
+
+	/**
+	 * Test the enqueue_admin_scripts method
+	 *
+	 * @covers Kwc_Usgs_Admin::enqueue_admin_scripts
+	 */
+	public function test_admin_enqueue_admin_scripts() {
+		set_current_screen( 'front' );
+		$this->instance->enqueue_admin_scripts();
+		$this->assertFalse( wp_script_is( 'kwcusgs-admin-script' ) );
+
+		set_current_screen( 'settings_page_kwcusgs' );
+		$this->instance->enqueue_admin_scripts();
+		$this->assertTrue( wp_script_is( 'kwcusgs-admin-script' ) );
+	}
 }
