@@ -58,7 +58,6 @@ class Kwc_Usgs {
 	 * @since     1.0.0
 	 */
 	private function __construct() {
-
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 		add_action( 'wpmu_new_blog', array( $this, 'activate_new_site' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
@@ -80,17 +79,13 @@ class Kwc_Usgs {
 	/**
 	 * Return an instance of this class.
 	 *
-	 * @since     1.0.0
-	 *
-	 * @return    object    A single instance of this class.
+	 * @since 1.0.0
+	 * @return object
 	 */
 	public static function get_instance() {
-
-		// If the single instance hasn't been set, set it now.
 		if ( null == self::$instance ) {
 			self::$instance = new self;
 		}
-
 		return self::$instance;
 	}
 
@@ -125,16 +120,13 @@ class Kwc_Usgs {
 	 * Fired when the plugin is deactivated.
 	 *
 	 * @since    1.0.0
-	 *
 	 * @param boolean $network_wide True if WPMU superadmin uses
 	 *                                       "Network Deactivate" action, false if
 	 *                                       WPMU is disabled or plugin is
 	 *                                       deactivated on an individual blog.
 	 */
 	public static function deactivate( $network_wide ) {
-
 		if ( function_exists( 'is_multisite' ) && is_multisite() ) {
-
 			if ( $network_wide ) {
 				$blog_ids = self::get_blog_ids();
 				foreach ( $blog_ids as $blog_id ) {
@@ -153,20 +145,16 @@ class Kwc_Usgs {
 	/**
 	 * Fired when a new site is activated with a WPMU environment.
 	 *
-	 * @since    1.0.0
-	 *
+	 * @since 1.0.0
 	 * @param int $blog_id ID of the new blog.
 	 */
 	public function activate_new_site( $blog_id ) {
-
 		if ( 1 !== did_action( 'wpmu_new_blog' ) ) {
 			return;
 		}
-
 		switch_to_blog( $blog_id );
 		self::single_activate();
 		restore_current_blog();
-
 	}
 
 	/**
@@ -175,31 +163,12 @@ class Kwc_Usgs {
 	 * - not spam
 	 * - not deleted
 	 *
-	 * @since    1.0.0
-	 *
-	 * @return   array|false    The blog ids, false if no matches.
+	 * @since 1.0.0
+	 * @return array|false    The blog ids, false if no matches.
 	 */
 	private static function get_blog_ids() {
 		global $wpdb;
 		return $wpdb->get_col( $wpdb->prepare( "SELECT blog_id FROM $wpdb->blogs WHERE archived = %s AND spam = %s AND deleted = %s", array( '0', '0', '0' ) ) );
-	}
-
-	/**
-	 * Fired for each blog when the plugin is activated.
-	 *
-	 * @since    1.0.0
-	 */
-	private static function single_activate() {
-
-	}
-
-	/**
-	 * Fired for each blog when the plugin is deactivated.
-	 *
-	 * @since    1.0.0
-	 */
-	private static function single_deactivate() {
-
 	}
 
 	/**
@@ -208,34 +177,27 @@ class Kwc_Usgs {
 	 * @since    1.0.0
 	 */
 	public function load_plugin_textdomain() {
-
 		$domain = $this->plugin_slug;
 		$locale = apply_filters( 'kwc_usgs_plugin_locale', get_locale(), $domain );
-
 		load_textdomain( $domain, trailingslashit( WP_LANG_DIR ) . $domain . '/' . $domain . '-' . $locale . '.mo' );
-
 	}
 
 	/**
 	 * Register and enqueue public-facing style sheet.
 	 *
-	 * @since    1.0.0
+	 * @since 1.0.0
 	 */
 	public function enqueue_styles() {
-
 		wp_enqueue_style( $this->plugin_slug . '-plugin-styles', plugins_url( 'assets/css/public.css', __FILE__ ), array(), self::VERSION );
-
 	}
 
 	/**
 	 * Register and enqueues public-facing JavaScript files.
 	 *
-	 * @since    1.0.0
+	 * @since 1.0.0
 	 */
 	public function enqueue_scripts() {
-
 		wp_enqueue_script( $this->plugin_slug . '-plugin-script', plugins_url( 'assets/js/public.js', __FILE__ ), array( 'jquery' ), self::VERSION );
-
 	}
 
 	/**

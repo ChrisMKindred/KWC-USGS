@@ -63,6 +63,5 @@ class SampleTest extends WP_UnitTestCase {
 				'Error returned from USGS Call: ' . print_r( $response->get_error_messages(), true )
 			);
 		}
-
 	}
 }
