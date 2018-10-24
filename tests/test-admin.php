@@ -71,9 +71,13 @@ class AdminTests extends WP_UnitTestCase {
 	 * @covers Kwc_Usgs_Admin::add_plugin_admin_menu
 	 */
 	public function test_admin_add_plugin_admin_menu() {
-		wp_set_current_user( self::factory()->user->create( [
-            'role' => 'administrator',
-		] ) );
+		wp_set_current_user(
+			self::factory()->user->create(
+				array(
+            		'role' => 'administrator',
+				)
+			)
+		);
 		$this->instance->add_plugin_admin_menu();
 		$this->assertNotEmpty( menu_page_url( 'kwcusgs', false ) );
 	}
