@@ -81,4 +81,15 @@ class AdminTests extends WP_UnitTestCase {
 		$this->instance->add_plugin_admin_menu();
 		$this->assertNotEmpty( menu_page_url( 'kwcusgs', false ) );
 	}
+
+	/**
+	 * Does the array for the settings link work
+	 *
+	 * @covers Kwc_Usgs_Admin::add_action_links
+	 */
+	public function test_admin_add_action_links() {
+		$actions = array();
+		$actions = $this->instance->add_action_links( $actions );
+		$this->assertNotEmpty( $actions['settings'] );
+	}
 }
