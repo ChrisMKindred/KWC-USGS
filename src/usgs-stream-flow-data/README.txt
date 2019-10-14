@@ -3,8 +3,8 @@ Contributors: ChrisMKindred
 Donate link: //www.kindredwebconsulting.com/wp-plugins/usgs
 Tags: USGS, River Flow, Stream Flow, Fly Fishing, Water Level
 Requires at least: 3.7
-Tested up to: 4.9.8
-Stable tag: 2.7.1
+Tested up to: 5.3
+Stable tag: 2.8
 License: GPLv2 or later
 License URI: //www.gnu.org/licenses/gpl-2.0.html
 
@@ -65,6 +65,9 @@ There is a built in cache for the data.  The data will update every 15 minutes i
 4. Showing USGS Without Graphs in a Post
 
 == Changelog ==
+= 2.8 =
+Tested plugin up to 5.3.
+
 = 2.7.1 =
 Adds additional tests and allows for more trusted call to API Url.
 

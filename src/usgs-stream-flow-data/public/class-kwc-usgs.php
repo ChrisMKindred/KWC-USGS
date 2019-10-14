@@ -83,7 +83,7 @@ class Kwc_Usgs {
 	 * @return object
 	 */
 	public static function get_instance() {
-		if ( null == self::$instance ) {
+		if ( null === self::$instance ) {
 			self::$instance = new self;
 		}
 		return self::$instance;
@@ -116,6 +116,24 @@ class Kwc_Usgs {
 		}
 	}
 
+	/**
+	 * Fired for each blog when the plugin is activated.
+	 *
+	 * @since 2.7
+	 */
+	private static function single_activate() {
+		return;
+	}
+
+	/**
+	 * Fired for each blog when the plugin is deactivated.
+	 *
+	 * @since 2.7
+	 * @return void
+	 */
+	private static function single_deactivate() {
+
+	}
 	/**
 	 * Fired when the plugin is deactivated.
 	 *
