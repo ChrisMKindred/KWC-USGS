@@ -37,8 +37,6 @@ matrix:
       dist: precise
 
 before_script:
-  - export PATH="$HOME/.composer/vendor/bin:$PATH"
-  - composer install
   - |
     if [ -f ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ]; then
       phpenv config-rm xdebug.ini
