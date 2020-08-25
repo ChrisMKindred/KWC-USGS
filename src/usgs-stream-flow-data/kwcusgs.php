@@ -6,13 +6,12 @@
  * @author    Chris Kindred <chris@kindredwebconsulting.com>
  * @license   GPL-2.0+
  * @link      //www.kindredwebconsulting.com
- * @copyright 2015 Kindred Web Consulting
  *
  * @wordpress-plugin
  * Plugin Name:       USGS Steam Flow Data
  * Plugin URI:        //wordpress.org/plugins/usgs-stream-flow-data/
  * Description:       USGS Stream Flow Data
- * Version:           2.8
+ * Version:           20.08.01
  * Author:            Chris Kindred
  * Author URI:        //www.kindredwebconsulting.com
  * Text Domain:       kwcusgs-locale

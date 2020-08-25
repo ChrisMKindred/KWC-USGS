@@ -6,18 +6,16 @@
  * @author     Chris Kindred <Chris@kindredwebconsulting.com>
  * @license    GPL-2.0+
  * @link       //www.kindredwebconsulting.com
- * @copyright  2015 Kindred Web Consulting
  */
 
 /**
  * The main class for the plugin
  *
- * @package   USGS Steam Flow Data
+ * @package    USGS Steam Flow Data
  * @subpackage public
- * @author    Chris Kindred <Chris@kindredwebconsulting.com>
- * @license   GPL-2.0+
- * @link      //www.kindredwebconsulting.com
- * @copyright 2015 Kindred Web Consulting
+ * @author     Chris Kindred <Chris@kindredwebconsulting.com>
+ * @license    GPL-2.0+
+ * @link       //www.kindredwebconsulting.com
  */
 class Kwc_Usgs {
 	/**
@@ -27,7 +25,7 @@ class Kwc_Usgs {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '2.7.1';
+	const VERSION = '20.08.01';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -256,7 +254,7 @@ class Kwc_Usgs {
 			$response = $this->get_usgs( $location );
 
 			if ( is_wp_error( $response ) ) {
-				return get_error_message( $response );
+				return $response->get_error_message();
 			}
 
 			if ( ! $response['response_code'] ) {
@@ -346,8 +344,9 @@ class Kwc_Usgs {
 		$url      = "https://waterservices.usgs.gov/nwis/iv?site=$location&parameterCd=00010,00060,00065&format=waterml";
 		$args     = array(
 			'sslverify' => false,
+			'timeout'   => 45,
 		);
-		$response = wp_remote_get( $url, $args );
+		$response = wp_safe_remote_get( $url, $args );
 		if ( is_wp_error( $response ) ) {
 			return $response;
 		}
