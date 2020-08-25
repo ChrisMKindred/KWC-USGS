@@ -6,7 +6,6 @@
  * @author     Chris Kindred <Chris@kindredwebconsulting.com>
  * @license    GPL-2.0+
  * @link       //www.kindredwebconsulting.com
- * @copyright  2015 Kindred Web Consulting
  */
 
 /**

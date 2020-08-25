@@ -6,18 +6,16 @@
  * @author     Chris Kindred <Chris@kindredwebconsulting.com>
  * @license    GPL-2.0+
  * @link       //www.kindredwebconsulting.com
- * @copyright  2015 Kindred Web Consulting
  */
 
 /**
  * The main class for the plugin
  *
- * @package   USGS Steam Flow Data
+ * @package    USGS Steam Flow Data
  * @subpackage public
- * @author    Chris Kindred <Chris@kindredwebconsulting.com>
- * @license   GPL-2.0+
- * @link      //www.kindredwebconsulting.com
- * @copyright 2015 Kindred Web Consulting
+ * @author     Chris Kindred <Chris@kindredwebconsulting.com>
+ * @license    GPL-2.0+
+ * @link       //www.kindredwebconsulting.com
  */
 class Kwc_Usgs {
 	/**
