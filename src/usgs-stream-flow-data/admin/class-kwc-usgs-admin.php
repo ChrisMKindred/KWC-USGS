@@ -159,7 +159,11 @@ class Kwc_Usgs_Admin {
 	public function kwcusgsajax_callback() {
 		$state = $_POST['state'];
 		$url   = "https://waterservices.usgs.gov/nwis/iv?stateCd=$state&format=waterml&parameterCd=00060";
-		$data  = wp_safe_remote_get( $url );
+		$args     = array(
+			'sslverify' => false,
+			'timeout'   => 45,
+		);
+		$data  = wp_safe_remote_get( $url, $args );
 		if ( is_wp_error( $data ) ) {
 			echo 'Error retrieving: ' . esc_url( $url );
 			echo 'Error message:' . $data->get_error_message();
