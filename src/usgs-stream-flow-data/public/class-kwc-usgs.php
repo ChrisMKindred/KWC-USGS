@@ -25,7 +25,7 @@ class Kwc_Usgs {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '20.08.01';
+	const VERSION = '21.05.01';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -248,11 +248,8 @@ class Kwc_Usgs {
 		$location = $atts['location'];
 		$title    = $atts['title'];
 		$graph    = $atts['graph'];
-		$the_page = get_transient( 'kwc_usgs-' . $location . $graph . $title );
-
-		if ( ! $the_page ) {
+		if ( ! $response = get_transient( 'kwc_usgs-' . $location ) ) {
 			$response = $this->get_usgs( $location );
-
 			if ( is_wp_error( $response ) ) {
 				return $response->get_error_message();
 			}
@@ -261,76 +258,77 @@ class Kwc_Usgs {
 				return $response['response_message'];
 			}
 
-			$data = str_replace( 'ns1:', '', $response['data'] );
+			set_transient( 'kwc_usgs-' . $location, $response, HOUR_IN_SECONDS * 12 );
+		}
 
-			$xml_tree = simplexml_load_string( $data );
-			if ( false === $xml_tree ) {
-				return 'Unable to parse USGS\'s XML';
-			}
+		$data = str_replace( 'ns1:', '', $response['data'] );
 
-			if ( ! isset( $title ) ) {
+		$xml_tree = simplexml_load_string( $data );
+		if ( false === $xml_tree ) {
+			return 'Unable to parse USGS\'s XML';
+		}
+
+		if ( ! isset( $title ) ) {
+			$site_name = $xml_tree->timeSeries->sourceInfo->siteName; //phpcs:ignore
+		} else {
+			if ( '' == $title ) {
 				$site_name = $xml_tree->timeSeries->sourceInfo->siteName; //phpcs:ignore
 			} else {
-				if ( '' == $title ) {
-					$site_name = $xml_tree->timeSeries->sourceInfo->siteName; //phpcs:ignore
-				} else {
-					$site_name = $title;
-				}
+				$site_name = $title;
 			}
-
-			$the_page  = "<div class='KWC_USGS clearfix'>
-							<h3 class='header'>$site_name</h3>
-								<ul class='sitevalues'>";
-			$graphflow = '';
-			$graphgage = '';
-			foreach ( $xml_tree->timeSeries as $site_data ) { //phpcs:ignore
-				if ( '' == $site_data->values->value ) {
-					$value = '-';
-				} elseif ( -999999 == $site_data->values->value ) {
-						$value       = 'UNKNOWN';
-						$provisional = '-';
-				} else {
-					$desc = $site_data->variable->variableName;
-					switch ( $site_data->variable->variableCode ) {
-						case '00010':
-							$value         = $site_data->values->value;
-							$degf          = ( 9 / 5 ) * (float) $value + 32;
-							$watertemp     = $degf;
-							$watertempdesc = '&deg; F';
-							$the_page     .= "<li class='watertemp'>Water Temp: $watertemp $watertempdesc</li>";
-							break;
-
-						case '00060':
-							$split_desc     = explode( ',', $desc );
-							$value          = $site_data->values->value;
-							$streamflow     = $value;
-							$streamflowdesc = $split_desc[1];
-							$the_page      .= "<li class='flow'>Flow: $streamflow $streamflowdesc</li>";
-							$graphflow      = "<img src='https://waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no=$location&parm_cd=00060&rand=" . rand() . "'/>";
-							break;
-
-						case '00065':
-							$split_desc     = explode( ',', $desc );
-							$value          = $site_data->values->value;
-							$gageheight     = $value;
-							$gageheightdesc = $split_desc[1];
-							$the_page      .= "<li class='gageheight'>Water Level: $gageheight $gageheightdesc</li>";
-							$graphgage      = "<img src='https://waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no=$location&parm_cd=00065&rand=" . rand() . "'/>";
-							break;
-					}
-				}
-			}
-			$the_page .= '</ul>';
-			if ( isset( $graph ) ) {
-				if ( 'show' == $graph ) {
-					$the_page .= "<div class='clearfix'>$graphgage . $graphflow</div>";
-				}
-			}
-			$the_page .= "<a class='clearfix' href='https://waterdata.usgs.gov/nwis/uv?$location' target='_blank'>USGS</a>";
-			$the_page .= '</div>';
-
-			set_transient( 'kwc_usgs-' . $location . $graph . $title, $the_page, 60 * 15 );
 		}
+
+		$the_page  = "<div class='KWC_USGS clearfix'>
+						<h3 class='header'>$site_name</h3>
+							<ul class='sitevalues'>";
+		$graphflow = '';
+		$graphgage = '';
+		foreach ( $xml_tree->timeSeries as $site_data ) { //phpcs:ignore
+			if ( '' == $site_data->values->value ) {
+				$value = '-';
+			} elseif ( -999999 == $site_data->values->value ) {
+					$value       = 'UNKNOWN';
+					$provisional = '-';
+			} else {
+				$desc = $site_data->variable->variableName;
+				switch ( $site_data->variable->variableCode ) {
+					case '00010':
+						$value         = $site_data->values->value;
+						$degf          = ( 9 / 5 ) * (float) $value + 32;
+						$watertemp     = $degf;
+						$watertempdesc = '&deg; F';
+						$the_page     .= "<li class='watertemp'>Water Temp: $watertemp $watertempdesc</li>";
+						break;
+
+					case '00060':
+						$split_desc     = explode( ',', $desc );
+						$value          = $site_data->values->value;
+						$streamflow     = $value;
+						$streamflowdesc = $split_desc[1];
+						$the_page      .= "<li class='flow'>Flow: $streamflow $streamflowdesc</li>";
+						$graphflow      = "<img src='https://waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no=$location&parm_cd=00060&rand=" . rand() . "'/>";
+						break;
+
+					case '00065':
+						$split_desc     = explode( ',', $desc );
+						$value          = $site_data->values->value;
+						$gageheight     = $value;
+						$gageheightdesc = $split_desc[1];
+						$the_page      .= "<li class='gageheight'>Water Level: $gageheight $gageheightdesc</li>";
+						$graphgage      = "<img src='https://waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no=$location&parm_cd=00065&rand=" . rand() . "'/>";
+						break;
+				}
+			}
+		}
+		$the_page .= '</ul>';
+		if ( isset( $graph ) ) {
+			if ( 'show' == $graph ) {
+				$the_page .= "<div class='clearfix'>$graphgage . $graphflow</div>";
+			}
+		}
+		$the_page .= "<a class='clearfix' href='https://waterdata.usgs.gov/nwis/uv?$location' target='_blank'>USGS</a>";
+		$the_page .= '</div>';
+
 		return $the_page;
 	}
 

@@ -3,8 +3,9 @@ Contributors: ChrisMKindred
 Donate link: //www.kindredwebconsulting.com/wp-plugins/usgs
 Tags: USGS, River Flow, Stream Flow, Fly Fishing, Water Level
 Requires at least: 3.7
-Tested up to: 5.5.1
-Stable tag: 20.10.01
+Tested up to: 5.7.2
+Requires PHP: 5.6
+Stable tag: 21.05.01
 License: GPLv2 or later
 License URI: //www.gnu.org/licenses/gpl-2.0.html
 
@@ -65,6 +66,10 @@ There is a built in cache for the data.  The data will update every 15 minutes i
 4. Showing USGS Without Graphs in a Post
 
 == Changelog ==
+
+= 21.05.01 = 
+Tested up to 5.7.2.
+Update transient to limit key length.
 
 = 20.08.02 =
 Update admin remote call to allow for 45 seconds before timeout.

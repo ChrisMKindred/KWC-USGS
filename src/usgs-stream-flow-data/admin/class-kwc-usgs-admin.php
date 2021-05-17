@@ -54,7 +54,7 @@ class Kwc_Usgs_Admin {
 	 * @return    object    A single instance of this class.
 	 */
 	public static function get_instance() {
-		if ( null == self::$instance ) {
+		if ( null === self::$instance ) {
 			self::$instance = new self;
 		}
 		return self::$instance;
@@ -68,7 +68,7 @@ class Kwc_Usgs_Admin {
 	 */
 	public function enqueue_admin_styles() {
 		$screen = get_current_screen();
-		if ( 'settings_page_kwcusgs' == $screen->id ) {
+		if ( 'settings_page_kwcusgs' === $screen->id ) {
 			wp_enqueue_style( $this->plugin_slug . '-admin-styles', plugins_url( 'assets/css/admin.css', __FILE__ ), array(), kwc_usgs::VERSION );
 		}
 	}
@@ -81,7 +81,7 @@ class Kwc_Usgs_Admin {
 	 */
 	public function enqueue_admin_scripts() {
 		$screen = get_current_screen();
-		if ( 'settings_page_kwcusgs' == $screen->id ) {
+		if ( 'settings_page_kwcusgs' === $screen->id ) {
 			wp_enqueue_script( $this->plugin_slug . '-admin-script', plugins_url( 'assets/js/admin.js', __FILE__ ), array( 'jquery' ), Kwc_Usgs::VERSION );
 		}
 	}
@@ -165,8 +165,8 @@ class Kwc_Usgs_Admin {
 		);
 		$data  = wp_safe_remote_get( $url, $args );
 		if ( is_wp_error( $data ) ) {
-			echo 'Error retrieving: ' . esc_url( $url );
-			echo 'Error message:' . $data->get_error_message();
+			error_log( 'Error retrieving: ' . esc_url( $url ) );
+			error_log( 'Error message:' . $data->get_error_message() );
 			exit;
 		}
 		$data = $data['body'];
@@ -175,7 +175,7 @@ class Kwc_Usgs_Admin {
 		$xml_tree = simplexml_load_string( $data );
 
 		if ( false === $xml_tree ) {
-			echo 'Unable to parse USGS\'s XML';
+			error_log( 'Unable to parse USGS\'s XML' );
 			exit;
 		}
 

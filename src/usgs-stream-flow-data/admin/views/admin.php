@@ -132,11 +132,17 @@ $usgs_active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'home-settings';
 
 		default:
 			?>
-			<center><a href="https://www.kindredwebconsulting.com/"><img src="<?php echo plugins_url( '../assets/kwc-logo.png', __FILE__ ); ?>" alt="Kindred Web Consulting Logo" border="0" /></a><p>Development by: <a href="https://www.kindredwebconsulting.com">Kindred Web Consulting</a></p></center>
 			<div class="sidebar">
-				<h2 class="">Support</h2>
-				<p class="">Thanks for using our plugin.  We are happy to address any bugs you might find and address suggestions you have by either posting on the plugin page at WordPress.org or through the <a href="https://www.kindredwebconsulting.com/contact-us/">Contact Us</a> on our website.</p>
-				<h2 class="">Donations</h2>
+				<center><a href="https://www.kindredwebconsulting.com/"><img src="<?php echo plugins_url( '../assets/kwc-logo.png', __FILE__ ); ?>" alt="Kindred Web Consulting Logo" border="0" width="200px"/></a><p>Development by: <a href="https://www.kindredwebconsulting.com">Kindred Web Consulting</a></p></center>
+			</div>
+			<h2 class="">About the Plugin</h2>
+			<p class="">We are avid fly fishermen.  We wanted an easier way to find out what the rivers and streams were flowing at besides to going to the USGS website and looking each one up individually every day.  We decided the easiest way would be to write our own plugin to get the data.  We hope you enjoy using it and if you have any suggestions please let us know!</p>
+			<h2 class="">USGS</h2>
+			<p class="">We are dependent on the <a href="//www.usgs.gov/water/">USGS website</a> for the data that this plugin uses.  They do a good job of notifying developers of any updates.  We will quickly update the plugin any time there are updates that effect the API calls.</p>
+			<a href="//www.usgs.gov/water/"><img src="<?php echo plugins_url( '../assets/usgs.jpg', __FILE__ ); ?>" alt="USGS" border="0" height="32px" /></a>
+			<h2 class="">Support</h2>
+			<p class="">Thanks for using our plugin.  We are happy to address any bugs you might find and address suggestions you have by either posting on the plugin page at WordPress.org or through the <a href="https://www.kindredwebconsulting.com/contact-us/">Contact Us</a> on our website.</p>
+			<h2 class="">Donations</h2>
 				<p class="">If you are interested in helping us to add new features and fix bugs please consider donating a few dollars.
 				<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
 				<input type="hidden" name="cmd" value="_s-xclick">
@@ -152,19 +158,6 @@ $usgs_active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'home-settings';
 				<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_paynow_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
 				<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
 				</form></p>
-				<h2 class="">Social Media</h2>
-				<p class="">
-					<a href="https://www.facebook.com/kindredwebconsulting/" ><img src="<?php echo plugins_url( '../assets/facebook.png', __FILE__ ); ?>" alt="Kindred Web Consulting on Facebook" width="" height="32px" border="" align="" /></a>
-					<a href="https://www.google.com/+KindredWebConsulting"><img src="<?php echo plugins_url( '../assets/google.png', __FILE__ ); ?>" alt="Kindred Web Consulting on Google+" width="" height="32px" border="" align="" /></a>
-					<a href="https://www.kindredwebconsulting.com/"><img src="<?php echo plugins_url( '../assets/kwc.png', __FILE__ ); ?>" alt="Kindred Web Consulting" width="" height="32px" border="" align="" /></a>
-				</p>
-			</div>
-			<h2 class="">About the Plugin</h2>
-			<p class="">We are avid fly fishermen.  We wanted an easier way to find out what the rivers and streams were flowing at besides to going to the USGS website and looking each one up individually every day.  We decided the easiest way would be to write our own plugin to get the data.  We hope you enjoy using it and if you have any suggestions please let us know!</p>
-			<p class="">If you would like to receive updates about development and features of USGS Stream Flow Data please <a href="//eepurl.com/JQ68X">click here</a> and enter your email.</p>
-			<h2 class="">USGS</h2>
-			<p class="">We are dependent on the <a href="//www.usgs.gov/water/">USGS website</a> for the data that this plugin uses.  They do a good job of notifying developers of any updates.  We will quickly update the plugin any time there are updates that effect the API calls.</p>
-			<a href="//www.usgs.gov/water/"><img src="<?php echo plugins_url( '../assets/usgs.jpg', __FILE__ ); ?>" alt="USGS" border="0" height="32px" /></a>
 			<?php
 			break;
 	}
