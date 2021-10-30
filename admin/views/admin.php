@@ -8,6 +8,8 @@
  * @link      //www.kindredwebconsulting.com
  */
 
+use Kindred\USGS\Core;
+
 if ( ! current_user_can( 'manage_options' ) ) {
 	wp_die( __( 'You do not have sufficient permissions to access this page.', 'kwc_usgs' ) );
 }
@@ -26,7 +28,12 @@ $usgs_active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'home-settings';
 	<?php
 	foreach ( $usgs_tabs as $usgs_tab => $usgs_name ) {
 		$usgs_class = ( $usgs_tab == $usgs_active_tab ) ? ' nav-tab-active' : '';
-		echo "<a class='nav-tab$usgs_class' href='?page=kwcusgs&tab=$usgs_tab'>$usgs_name</a>";
+		echo sprintf( '<a class="nav-tab%s" href="?page=%s&tab=%s">%s</a>',
+			$usgs_class,
+			Core::PLUGIN_NAME,
+			$usgs_tab,
+			$usgs_name
+		);
 	}
 	?>
 	</h2>

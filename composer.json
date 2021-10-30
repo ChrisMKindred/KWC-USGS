@@ -8,6 +8,16 @@
             "email": "cmkindred@gmail.com"
         }
     ],
+    "autoload": {
+      "psr-4": {
+        "Kindred\\USGS\\": "src"
+      }
+    },
+    "autoload-dev": {
+      "psr-4": {
+        "Tribe\\Tests\\": "tests"
+      }
+    },
     "require": {},
     "require-dev": {
         "phpcompatibility/phpcompatibility-wp": "^2.1",
