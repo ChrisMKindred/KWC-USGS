@@ -117,12 +117,14 @@ class Shortcode {
 			'watertemp'  => $this->watertemp,
 		];
 
-		ob_start();
+
 		$template = locate_template( $templates );
 		if ( empty( $template ) ) {
 			$template = USGS_PATH . '/views/usgs.php';
 		}
-		load_template( $template, true, $site_args );
-		return ob_get_clean();
+		ob_start();
+		load_template( $template, false, $site_args );
+		$output = ob_get_clean();
+		return $output;
 	}
 }
