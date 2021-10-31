@@ -37,6 +37,7 @@ jobs:
         ini-values: post_max_size=256M
         coverage: xdebug #optional, setup coverage driver
         extensions: mysqli, mbstring, intl
+        tools: composer:v1
 
     - name: Check PHP Version
       run: php -v
