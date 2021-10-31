@@ -1,0 +1,32 @@
+name: Deploy to WordPress.org
+on:
+  release:
+    types: [published]
+
+jobs:
+  tag:
+    name: New release
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup PHP, with composer and extensions
+      uses: shivammathur/setup-php@v2 #https://github.com/shivammathur/setup-php
+      with:
+        tools: composer:v1
+        php-version: '7.4'
+
+    # Runs Composer and NPM
+    - name: Composer and NPM
+      run: |
+        composer install --no-dev
+
+    # Ships Plugin to WP.orgs SVN Repo
+    - name: WordPress Plugin Deploy
+      id: deploy
+      uses: 10up/action-wordpress-plugin-deploy@stable
+      env:
+        SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+        SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+        SLUG: ${{ secrets.PLUGIN_SLUG }}

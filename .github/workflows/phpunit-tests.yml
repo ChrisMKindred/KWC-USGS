@@ -1,0 +1,51 @@
+name: Test Suite
+
+on: [push]
+
+jobs:
+  run:
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ubuntu-latest]
+        php-versions: ['7.0', '7.1', '7.2', '7.3', '7.4']
+    name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: wordpress
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
+    env:
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3306
+      MYSQL_USER: root
+      MYSQL_PASSWORD: wordpress
+      MYSQL_DATABASE: wordpress_test
+      WP_VERSION: latest
+      WP_MULTISITE: '0'
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-versions }}
+        ini-values: post_max_size=256M
+        coverage: xdebug #optional, setup coverage driver
+        extensions: mysqli, mbstring, intl
+
+    - name: Check PHP Version
+      run: php -v
+
+    - name: Composer install
+      run: composer install --optimize-autoloader --prefer-dist --no-suggest --no-progress --no-ansi --no-interaction
+
+    - name: Install WP Tests
+      run: ./bin/install-wp-tests.sh ${MYSQL_DATABASE} ${MYSQL_USER} ${MYSQL_PASSWORD} ${DB_HOST}:${DB_PORT} ${WP_VERSION}
+
+    - name: phpunit tests
+      run: ./vendor/bin/phpunit

@@ -1,5 +1,5 @@
 <?php
-Namespace Kindred\USGS\Admin;
+namespace Kindred\USGS\Admin;
 
 use Kindred\USGS\Core;
 use Kindred\USGS\Request\Request;
@@ -17,13 +17,13 @@ class Admin {
 			__( 'Stream Flow Data', 'kwc_usgs' ),
 			'manage_options',
 			Core::PLUGIN_NAME,
-			array( $this, 'display_plugin_admin_page' )
+			[ $this, 'display_plugin_admin_page' ]
 		);
 	}
 
 	public function add_action_links( $links ) {
 		$setting_link = [
-			'settings' =>  '<a href="' . admin_url( 'options-general.php?page=' . Core::PLUGIN_NAME ) . '">' . __( 'Settings', 'kwc_usgs' ) . '</a>',
+			'settings' => '<a href="' . admin_url( 'options-general.php?page=' . Core::PLUGIN_NAME ) . '">' . __( 'Settings', 'kwc_usgs' ) . '</a>',
 		];
 		return array_merge( $setting_link, $links );
 	}

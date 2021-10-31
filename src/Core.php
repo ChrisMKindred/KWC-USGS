@@ -33,7 +33,6 @@ final class Core {
 		add_filter( 'plugin_action_links_' . plugin_basename( $file ), [ $admin, 'add_action_links' ] );
 
 		add_shortcode( 'USGS', [ $shortcode, 'USGS' ] );
-
 	}
 
 	private function __construct() {

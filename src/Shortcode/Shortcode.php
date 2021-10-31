@@ -5,12 +5,12 @@ use Kindred\USGS\Request\Request;
 
 class Shortcode {
 
-	protected $location = '';
-	protected $title = '';
-	protected $graph = '';
+	protected $location   = '';
+	protected $title      = '';
+	protected $graph      = '';
 	protected $gageheight = [];
-	protected $flow = [];
-	protected $watertemp = [];
+	protected $flow       = [];
+	protected $watertemp  = [];
 	private $request;
 
 	public function __construct( Request $request ) {
@@ -25,11 +25,11 @@ class Shortcode {
 	 * @return string           the html for the shortcode.
 	 */
 	public function USGS( $atts, $content = null ) {
-		$defaults = array(
+		$defaults = [
 			'location' => '09080400',
 			'title'    => null,
 			'graph'    => null,
-		);
+		];
 		$atts     = shortcode_atts( $defaults, $atts );
 
 		$this->location = $atts['location'];
@@ -37,7 +37,7 @@ class Shortcode {
 		$this->graph    = $atts['graph'];
 
 		if ( ! $response = get_transient( 'kwc_usgs-' . md5( $this->location ) ) ) {
-			$url = 'https://waterservices.usgs.gov/nwis/iv?site=' . $this->location . '&parameterCd=00010,00060,00065&format=waterml';
+			$url      = 'https://waterservices.usgs.gov/nwis/iv?site=' . $this->location . '&parameterCd=00010,00060,00065&format=waterml';
 			$response = $this->request->get_usgs( $url );
 			if ( is_wp_error( $response ) ) {
 				return $response->get_error_message();
@@ -66,9 +66,9 @@ class Shortcode {
 				$desc = $site_data->variable->variableName;
 				switch ( $site_data->variable->variableCode ) {
 					case '00010':
-						$split_desc     = explode( ',', $desc );
-						$value         = $site_data->values->value;
-						$degf          = ( 9 / 5 ) * (float) $value + 32;
+						$split_desc      = explode( ',', $desc );
+						$value           = $site_data->values->value;
+						$degf            = ( 9 / 5 ) * (float) $value + 32;
 						$this->watertemp = [
 							'class'       => 'watertemp',
 							'name'        => $split_desc[0],
@@ -79,7 +79,7 @@ class Shortcode {
 						break;
 
 					case '00060':
-						$split_desc     = explode( ',', $desc );
+						$split_desc = explode( ',', $desc );
 						$this->flow = [
 							'class'       => 'flow',
 							'name'        => $split_desc[0],
@@ -90,7 +90,7 @@ class Shortcode {
 						break;
 
 					case '00065':
-						$split_desc     = explode( ',', $desc );
+						$split_desc       = explode( ',', $desc );
 						$this->gageheight = [
 							'class'       => 'gageheight',
 							'name'        => $split_desc[0],

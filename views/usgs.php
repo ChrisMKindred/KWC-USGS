@@ -8,7 +8,7 @@
 				esc_attr( $watertemp['class'] ),
 				esc_html__( $watertemp['name'], 'kwcusgs' ),
 				esc_html( $watertemp['value'] ),
-				esc_html( $watertemp['description'] ),
+				esc_html( $watertemp['description'] )
 			);
 		}
 		if ( isset( $args['flow'] ) && count( $args['flow'] ) > 0 ) {
@@ -17,7 +17,7 @@
 				esc_attr( $flow['class'] ),
 				esc_html__( $flow['name'], 'kwcusgs' ),
 				esc_html( $flow['value'] ),
-				esc_html( $flow['description'] ),
+				esc_html( $flow['description'] )
 			);
 		}
 		if ( isset( $args['gageheight'] ) && count( $args['gageheight'] ) > 0 ) {
@@ -26,7 +26,7 @@
 				esc_attr( $gageheight['class'] ),
 				esc_html__( $gageheight['name'], 'kwcusgs' ),
 				esc_html( $gageheight['value'] ),
-				esc_html( $gageheight['description'] ),
+				esc_html( $gageheight['description'] )
 			);
 		}
 	?>

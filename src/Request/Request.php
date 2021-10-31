@@ -1,5 +1,5 @@
 <?php
-Namespace Kindred\USGS\Request;
+namespace Kindred\USGS\Request;
 
 class Request {
 	/**
