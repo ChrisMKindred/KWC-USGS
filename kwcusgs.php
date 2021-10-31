@@ -10,6 +10,8 @@
  * License:           GPL-2.0+
  * License URI:       //www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path:       /languages
+ * Requires at least: 5.5
+ * Requires PHP:      7.0
  */
 
 use Kindred\USGS\Core;
