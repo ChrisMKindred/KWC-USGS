@@ -42,4 +42,4 @@ jobs:
           composer install --prefer-dist --no-suggest --no-progress --no-ansi --no-interaction
           echo "vendor/bin" >> $GITHUB_PATH
       - name: Run PHP compatibility tests
-        run: vendor/bin/phpcs --standard=phpcompat.xml --report=summary
+        run: vendor/bin/phpcs --standard=phpcompat.xml.dist --report=summary

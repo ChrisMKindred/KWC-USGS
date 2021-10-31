@@ -35,7 +35,7 @@ final class Core {
 		add_shortcode( 'USGS', [ $shortcode, 'USGS' ] );
 	}
 
-	private function __construct() {
+	public function __construct() {
 		define( 'USGS_PATH', trailingslashit( plugin_dir_path( dirname( __FILE__ ) ) ) );
 		define( 'USGS_URL', plugin_dir_url( USGS_PATH . self::PLUGIN_NAME ) );
 		define( 'USGS_VERSION', self::VERSION );
