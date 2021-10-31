@@ -11,4 +11,13 @@
 			<directory prefix="test-" suffix=".php">./tests/</directory>
 		</testsuite>
 	</testsuites>
+	<filter>
+        <whitelist addUncoveredFilesFromWhitelist="true">
+            <!-- this is the path of the files included in your clover report -->
+            <directory suffix=".php">./</directory>
+			<exclude>
+			    <directory>vendor</directory>
+            </exclude>
+        </whitelist>
+    </filter>
 </phpunit>
