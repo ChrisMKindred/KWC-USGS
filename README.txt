@@ -67,6 +67,9 @@ There is a built in cache for the data.  The data will update every 15 minutes i
 
 == Changelog ==
 
+= 21.11.04 =
+fixes: Error where you couldn't have multiple shortcodes on a page.
+
 = 21.11.03 =
 adds: version bump.
 
