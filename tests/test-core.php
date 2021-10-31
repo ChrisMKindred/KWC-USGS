@@ -1,6 +1,6 @@
 <?php
 /**
- * Class SampleTest
+ * Class CoreTests
  *
  * @package Plugin_Test
  */
@@ -10,7 +10,7 @@ use Kindred\USGS\Core;
 /**
  * Sample test case.
  */
-class SampleTest extends WP_UnitTestCase {
+class CoreTest extends WP_UnitTestCase {
 	protected $plugin;
 
 	public function setUp(){
@@ -19,10 +19,10 @@ class SampleTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Tests for plugin slug.
+	 * Tests verify the construct set the defines.
 	 * @covers Kindred\USGS\Core::__construct
 	 */
-	public function test_defines() {
+	public function test_Construct() {
 		$this->assertTrue( defined( 'USGS_URL' ) );
 		$this->assertTrue( defined( 'USGS_PATH' ) );
 		$this->assertTrue( defined( 'USGS_VERSION' ) );
