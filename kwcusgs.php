@@ -6,7 +6,7 @@
  * Version:           21.11.01
  * Author:            Chris Kindred
  * Author URI:        //www.kindredwebconsulting.com
- * Text Domain:       kwcusgs
+ * Text Domain:       kwc_usgs
  * License:           GPL-2.0+
  * License URI:       //www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path:       /languages

@@ -59,7 +59,7 @@ class Admin {
 		$xml_tree = simplexml_load_string( $data );
 
 		if ( false === $xml_tree ) {
-			echo __( 'Unable to parse USGS\'s XML', 'kwc_usgs' );
+			_e( 'Unable to parse USGS\'s XML', 'kwc_usgs' );
 			die();
 		}
 

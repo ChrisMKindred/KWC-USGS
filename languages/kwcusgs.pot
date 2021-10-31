@@ -1,35 +1,65 @@
-# Copyright (C) 2013 Kindred Web Consulting
-# This file is distributed under the same license as the USGS Steam Flow package.
+# Copyright (C) 2021 Chris Kindred
+# This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: USGS Steam Flow 0.0.1\n"
-"Report-Msgid-Bugs-To: //wordpress.org/plugins/USGS-Stream-Flow\n"
-"POT-Creation-Date: 2013-05-10 11:23:19+00:00\n"
-"PO-Revision-Date: 2013-05-10 10:37-0500\n"
-"Last-Translator: Chris Kindred <Chris@kindredwebconsulting.com >\n"
-"Language-Team: Kindred Web Consulting <support@kindredwebconsulting.com >\n"
+"Project-Id-Version: USGS Steam Flow Data 21.11.01\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/KWC-USGS\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.7\n"
-"X-Poedit-KeywordsList: __;_e;_n;_x;esc_html_e;esc_html__;esc_attr_e;"
-"esc_attr__;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_x:1,2c;_n:1,2\n"
-"X-Poedit-Basepath: ../\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Poedit-SearchPath-0: .\n"
+"POT-Creation-Date: 2021-10-31T17:57:09+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.5.0\n"
+"X-Domain: kwc_usgs\n"
 
-#: class-kwcusgs-admin.php:154
+#. Plugin Name of the plugin
+msgid "USGS Steam Flow Data"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "//wordpress.org/plugins/usgs-stream-flow-data/"
+msgstr ""
+
+#. Description of the plugin
+#: src/Admin/Admin.php:16
 msgid "USGS Stream Flow Data"
 msgstr ""
 
-#: class-kwcusgs-admin.php:155
-msgid "USGS"
+#. Author of the plugin
+msgid "Chris Kindred"
 msgstr ""
 
-#: class-kwcusgs-admin.php:181
+#. Author URI of the plugin
+msgid "//www.kindredwebconsulting.com"
+msgstr ""
+
+#: src/Admin/Admin.php:17
+msgid "Stream Flow Data"
+msgstr ""
+
+#: src/Admin/Admin.php:26
 msgid "Settings"
 msgstr ""
 
-#: admin/views/admin.php:104
-msgid "Get Stations
+#: src/Admin/Admin.php:62
+#: src/Shortcode/Shortcode.php:57
+msgid "Unable to parse USGS's XML"
+msgstr ""
+
+#: views/admin.php:14
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: views/admin.php:18
+msgid "Usage"
+msgstr ""
+
+#: views/admin.php:19
+msgid "Search Site Codes"
+msgstr ""
+
+#: views/admin.php:117
+msgid "Get Stations"
 msgstr ""

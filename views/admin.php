@@ -15,8 +15,8 @@ if ( ! current_user_can( 'manage_options' ) ) {
 }
 
 $usgs_tabs = [
-	'home-settings' => 'Usage',
-	'search'        => 'Search Site Codes',
+	'home-settings' => __( 'Usage', 'kwc_usgs' ),
+	'search'        => __( 'Search Site Codes', 'kwc_usgs' ),
 ];
 
 $usgs_active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'home-settings';
@@ -27,7 +27,8 @@ $usgs_active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'home-settings';
 	<?php
 	foreach ( $usgs_tabs as $usgs_tab => $usgs_name ) {
 		$usgs_class = ( $usgs_tab == $usgs_active_tab ) ? ' nav-tab-active' : '';
-		echo sprintf( '<a class="nav-tab%s" href="?page=%s&tab=%s">%s</a>',
+		echo sprintf(
+			'<a class="nav-tab%s" href="?page=%s&tab=%s">%s</a>',
 			$usgs_class,
 			Core::PLUGIN_NAME,
 			$usgs_tab,

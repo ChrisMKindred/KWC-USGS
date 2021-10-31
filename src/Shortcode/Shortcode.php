@@ -54,7 +54,7 @@ class Shortcode {
 
 		$xml_tree = simplexml_load_string( $data );
 		if ( false === $xml_tree ) {
-			return __( 'Unable to parse USGS\'s XML', 'kwc-usgs' );
+			return __( 'Unable to parse USGS\'s XML', 'kwc_usgs' );
 		}
 
 		if ( ! $this->title || 0 === strlen( $this->title ) ) {
