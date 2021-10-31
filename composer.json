@@ -1,0 +1,28 @@
+{
+    "name": "kindred/kwc-usgs",
+    "type": "wordpress-plugin",
+    "license": "GPLv2 or later",
+    "authors": [
+        {
+            "name": "Chris Kindred",
+            "email": "cmkindred@gmail.com"
+        }
+    ],
+    "autoload": {
+      "psr-4": {
+        "Kindred\\USGS\\": "src"
+      }
+    },
+    "autoload-dev": {
+      "psr-4": {
+        "Tribe\\Tests\\": "tests"
+      }
+    },
+    "require": {},
+    "require-dev": {
+        "phpcompatibility/phpcompatibility-wp": "^2.1",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
+        "automattic/vipwpcs": "^2.3",
+        "phpunit/phpunit": "^6"
+    }
+}
