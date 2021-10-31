@@ -1,7 +1,22 @@
 <?php
 namespace Kindred\USGS\Shortcode;
 
+use Kindred\USGS\Request\Request;
+
 class Shortcode {
+
+	protected $location = '';
+	protected $title = '';
+	protected $graph = '';
+	protected $gageheight = [];
+	protected $flow = [];
+	protected $watertemp = [];
+	private $request;
+
+	public function __construct( Request $request ) {
+		$this->request = $request;
+	}
+
 	/**
 	 * Undocumented function
 	 *
@@ -9,18 +24,21 @@ class Shortcode {
 	 * @param string $content   the content.
 	 * @return string           the html for the shortcode.
 	 */
-	public function USGS( $atts, $content = null ) { //phpcs:ignore
+	public function USGS( $atts, $content = null ) {
 		$defaults = array(
 			'location' => '09080400',
 			'title'    => null,
 			'graph'    => null,
 		);
 		$atts     = shortcode_atts( $defaults, $atts );
-		$location = $atts['location'];
-		$title    = $atts['title'];
-		$graph    = $atts['graph'];
-		if ( ! $response = get_transient( 'kwc_usgs-' . $location ) ) {
-			$response = $this->get_usgs( $location );
+
+		$this->location = $atts['location'];
+		$this->title    = $atts['title'];
+		$this->graph    = $atts['graph'];
+
+		if ( ! $response = get_transient( 'kwc_usgs-' . md5( $this->location ) ) ) {
+			$url = 'https://waterservices.usgs.gov/nwis/iv?site=' . $this->location . '&parameterCd=00010,00060,00065&format=waterml';
+			$response = $this->request->get_usgs( $url );
 			if ( is_wp_error( $response ) ) {
 				return $response->get_error_message();
 			}
@@ -29,100 +47,82 @@ class Shortcode {
 				return $response['response_message'];
 			}
 
-			set_transient( 'kwc_usgs-' . $location, $response, HOUR_IN_SECONDS * 12 );
+			set_transient( 'kwc_usgs-' . md5( $this->location ), $response, MINUTE_IN_SECONDS * 60 );
 		}
 
-		$data = str_replace( 'ns1:', '', $response['data'] );
+		$data = str_replace( 'ns1:', '', $response['body'] );
 
 		$xml_tree = simplexml_load_string( $data );
 		if ( false === $xml_tree ) {
-			return 'Unable to parse USGS\'s XML';
+			return __( 'Unable to parse USGS\'s XML', 'kwc-usgs' );
 		}
 
-		if ( ! isset( $title ) ) {
-			$site_name = $xml_tree->timeSeries->sourceInfo->siteName; //phpcs:ignore
-		} else {
-			if ( '' == $title ) {
-				$site_name = $xml_tree->timeSeries->sourceInfo->siteName; //phpcs:ignore
-			} else {
-				$site_name = $title;
-			}
+		if ( ! $this->title || 0 === strlen( $this->title ) ) {
+			$this->title = $xml_tree->timeSeries->sourceInfo->siteName;
 		}
 
-		$the_page  = "<div class='KWC_USGS clearfix'>
-						<h3 class='header'>$site_name</h3>
-							<ul class='sitevalues'>";
-		$graphflow = '';
-		$graphgage = '';
 		foreach ( $xml_tree->timeSeries as $site_data ) { //phpcs:ignore
-			if ( '' == $site_data->values->value ) {
-				$value = '-';
-			} elseif ( -999999 == $site_data->values->value ) {
-					$value       = 'UNKNOWN';
-					$provisional = '-';
-			} else {
+			if ( '' !== $site_data->values->value && -999999 !== $site_data->values->value ) {
 				$desc = $site_data->variable->variableName;
 				switch ( $site_data->variable->variableCode ) {
 					case '00010':
+						$split_desc     = explode( ',', $desc );
 						$value         = $site_data->values->value;
 						$degf          = ( 9 / 5 ) * (float) $value + 32;
-						$watertemp     = $degf;
-						$watertempdesc = '&deg; F';
-						$the_page     .= "<li class='watertemp'>Water Temp: $watertemp $watertempdesc</li>";
+						$this->watertemp = [
+							'class'       => 'watertemp',
+							'name'        => $split_desc[0],
+							'value'       => $degf,
+							'description' => '&deg; F',
+							'graph'       => 'https://waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no=' . $this->location . '&parm_cd=00010&rand=' . rand(),
+						];
 						break;
 
 					case '00060':
 						$split_desc     = explode( ',', $desc );
-						$value          = $site_data->values->value;
-						$streamflow     = $value;
-						$streamflowdesc = $split_desc[1];
-						$the_page      .= "<li class='flow'>Flow: $streamflow $streamflowdesc</li>";
-						$graphflow      = "<img src='https://waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no=$location&parm_cd=00060&rand=" . rand() . "'/>";
+						$this->flow = [
+							'class'       => 'flow',
+							'name'        => $split_desc[0],
+							'value'       => $site_data->values->value,
+							'description' => $split_desc[1],
+							'graph'       => 'https://waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no=' . $this->location . '&parm_cd=00060&rand=' . rand(),
+						];
 						break;
 
 					case '00065':
 						$split_desc     = explode( ',', $desc );
-						$value          = $site_data->values->value;
-						$gageheight     = $value;
-						$gageheightdesc = $split_desc[1];
-						$the_page      .= "<li class='gageheight'>Water Level: $gageheight $gageheightdesc</li>";
-						$graphgage      = "<img src='https://waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no=$location&parm_cd=00065&rand=" . rand() . "'/>";
+						$this->gageheight = [
+							'class'       => 'gageheight',
+							'name'        => $split_desc[0],
+							'value'       => $site_data->values->value,
+							'description' => $split_desc[1],
+							'graph'       => 'https://waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no=' . $this->location . '&parm_cd=00065&rand=' . rand(),
+						];
 						break;
 				}
 			}
 		}
-		$the_page .= '</ul>';
-		if ( isset( $graph ) ) {
-			if ( 'show' == $graph ) {
-				$the_page .= "<div class='clearfix'>$graphgage . $graphflow</div>";
-			}
-		}
-		$the_page .= "<a class='clearfix' href='https://waterdata.usgs.gov/nwis/uv?$location' target='_blank'>USGS</a>";
-		$the_page .= '</div>';
 
-		return $the_page;
-	}
+		$templates = [
+			sprintf( 'usgs-%s.php', $this->location ),
+			'usgs.php',
+		];
 
-		/**
-	 * Makes USGS Call
-	 *
-	 * @param string $location  the location to make call with.
-	 * @return mixed|array|WP_Error
-	 */
-	public function get_usgs( $location ) {
-		$url      = "https://waterservices.usgs.gov/nwis/iv?site=$location&parameterCd=00010,00060,00065&format=waterml";
-		$args     = array(
-			'sslverify' => false,
-			'timeout'   => 45,
-		);
-		$response = wp_safe_remote_get( $url, $args );
-		if ( is_wp_error( $response ) ) {
-			return $response;
+		$site_args = [
+			'location'   => $this->location,
+			'title'      => $this->title,
+			'graph'      => $this->graph,
+			'gageheight' => $this->gageheight,
+			'flow'       => $this->flow,
+			'watertemp'  => $this->watertemp,
+		];
+
+		ob_start();
+		$template = locate_template( $templates );
+		if ( empty( $template ) ) {
+			$template = USGS_PATH . '/views/usgs.php';
 		}
-		return array(
-			'response_code'    => wp_remote_retrieve_response_code( $response ),
-			'response_message' => wp_remote_retrieve_response_message( $response ),
-			'data'             => wp_remote_retrieve_body( $response ),
-		);
+		load_template( $template, true, $site_args );
+		return ob_get_clean();
 	}
 }

@@ -1,0 +1,108 @@
+<?php
+Namespace Kindred\USGS\Admin;
+
+use Kindred\USGS\Core;
+use Kindred\USGS\Request\Request;
+
+class Admin {
+	protected $reqeust;
+
+	public function __construct( Request $request ) {
+		$this->request = $request;
+	}
+
+	public function add_plugin_admin_menu() {
+		add_options_page(
+			__( 'USGS Stream Flow Data', 'kwc_usgs' ),
+			__( 'Stream Flow Data', 'kwc_usgs' ),
+			'manage_options',
+			Core::PLUGIN_NAME,
+			array( $this, 'display_plugin_admin_page' )
+		);
+	}
+
+	public function add_action_links( $links ) {
+		$setting_link = [
+			'settings' =>  '<a href="' . admin_url( 'options-general.php?page=' . Core::PLUGIN_NAME ) . '">' . __( 'Settings', 'kwc_usgs' ) . '</a>',
+		];
+		return array_merge( $setting_link, $links );
+	}
+
+	/**
+	 * The kwcusgsajax_callback function
+	 *
+	 * @return void
+	 */
+	public function kwcusgsajax_callback() {
+		$state = $_POST['state'];
+		$url   = "https://waterservices.usgs.gov/nwis/iv?stateCd=$state&format=waterml&parameterCd=00060";
+
+		if ( ! $response = get_transient( 'kwc_usgs_admin-' . md5( $url ) ) ) {
+			$response = $this->request->get_usgs( $url );
+
+			if ( is_wp_error( $response ) ) {
+				echo $response->get_error_message();
+				die();
+			}
+
+			if ( ! $response['response_code'] ) {
+				echo $response['response_message'];
+				die();
+			}
+
+			set_transient( 'kwc_usgs_admin-' . md5( $url ), $response, HOUR_IN_SECONDS * 24 );
+		}
+
+
+		$data = str_replace( 'ns1:', '', $response['body'] );
+		// Load the XML returned into an object for easy parsing.
+		$xml_tree = simplexml_load_string( $data );
+
+		if ( false === $xml_tree ) {
+			echo __( 'Unable to parse USGS\'s XML', 'kwc_usgs' );
+			die();
+		}
+
+		$page = "<table class='widefat'>
+					<thead>
+					    <tr>
+					        <th>Site Code</th>
+					        <th>Site Name</th>
+					        <th>Latitude / Longitude</th>
+					    </tr>
+					</thead>
+					<tfoot>
+						<tr>
+					        <th>Site Code</th>
+					        <th>Site Name</th>
+					        <th>Latitude / Longitude</th>
+						</tr>
+					</tfoot>";
+		$cnt  = 0;
+		// phpcs:disable
+		/**
+		 * phpcs is disabled because the data coming from the api is not formed
+		 * correctly to match the valid snake_case format required by the CS.
+		 */
+		foreach ( $xml_tree->timeSeries as $site_data ) {
+			$cnt = ++$cnt;
+			$site = $site_data->sourceInfo->siteCode;
+			$lat = $site_data->sourceInfo->geoLocation->geogLocation->latitude;
+			$long = $site_data->sourceInfo->geoLocation->geogLocation->longitude;
+				$page .= "<tbody>
+						    <tr>
+						      	<td>" . $site_data->sourceInfo->siteCode ."</td>
+						      	<td><a href='//waterdata.usgs.gov/nwis/uv?" . $site . "' target='_blank'>". ucwords( strtolower( $site_data->sourceInfo->siteName ) ) ."</a></td>
+						      	<td><a href='//maps.google.com/?q=" . $lat . "," . $long ."' target='_blank'>" . $lat . " / " . $long . "</a></td>
+						    </tr>";
+		}
+			$page .= '</tbody></table>';
+		// phpcs:enable
+		echo $page;
+		die();
+	}
+
+	public function display_plugin_admin_page() {
+		include_once( USGS_PATH . '/views/admin.php' );
+	}
+}

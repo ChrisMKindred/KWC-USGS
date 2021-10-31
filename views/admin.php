@@ -14,11 +14,10 @@ if ( ! current_user_can( 'manage_options' ) ) {
 	wp_die( __( 'You do not have sufficient permissions to access this page.', 'kwc_usgs' ) );
 }
 
-$usgs_tabs = array(
+$usgs_tabs = [
 	'home-settings' => 'Usage',
 	'search'        => 'Search Site Codes',
-	'credits'       => 'Credits',
-);
+];
 
 $usgs_active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'home-settings';
 ?>
@@ -40,7 +39,7 @@ $usgs_active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'home-settings';
 	<?php
 	switch ( $usgs_active_tab ) {
 		case 'search':
-			$usgs_state_values = array(
+			$usgs_state_values = [
 				'AL' => 'Alabama',
 				'AK' => 'Alaska',
 				'AZ' => 'Arizona',
@@ -92,7 +91,7 @@ $usgs_active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'home-settings';
 				'WV' => 'West Virginia',
 				'WI' => 'Wisconsin',
 				'WY' => 'Wyoming',
-			);
+			];
 			?>
 			<h3>Search Site Codes</h3>
 			<p class="">You can search for a site by selecting a state and pressing the 'Get Stations' button.  The stations come up in code order directly from USGS.  Once you are showing a states stations the easiest way to find the one you are looking for is to use the browswers built in search.  The search can take as long as two minutes to contact USGS and bring back the data in some cases.</p>
@@ -120,51 +119,23 @@ $usgs_active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'home-settings';
 			<?php
 			break;
 
-		case 'home-settings':
+		default:
 			?>
 			<h3 class="">Using USGS Steam Flow Data</h3>
 			<p class="">This plugin uses short codes to allow you to include the USGS infromation for a location on any post or in a Text Widget.</p>
 			<p class="">You can copy and paste the shortcode below to get started.</p>
-			<p>
-				<code>[USGS location='09080400' title='Great Place To Fish' graph='show' /]</code>
-			</p>
+			<p><code>[USGS location='09080400' title='Great Place To Fish' graph='show' /]</code></p>
 			<h4 class="">Location</h4>
 			<p>The location is the Site Code for the location you want to show. You can get the Site Code by using the Search tab or by finding it on the USGS website.</p>
 			<h4 class="">Title</h4>
 			<p>The title is what you would like to use as a title for the location information.  The title defaults to the Site Name if you leave it blank. </p>
 			<h4 class="">Graph</h4>
 			<p>Graph is for showing graphs with the information (true) or not (false).  If you leave Graph blank it will default to false.</p>
-			<?php
-			break;
-
-		default:
-			?>
-			<div class="sidebar">
-				<center><a href="https://www.kindredwebconsulting.com/"><img src="<?php echo plugins_url( '../assets/kwc-logo.png', __FILE__ ); ?>" alt="Kindred Web Consulting Logo" border="0" width="200px"/></a><p>Development by: <a href="https://www.kindredwebconsulting.com">Kindred Web Consulting</a></p></center>
-			</div>
-			<h2 class="">About the Plugin</h2>
-			<p class="">We are avid fly fishermen.  We wanted an easier way to find out what the rivers and streams were flowing at besides to going to the USGS website and looking each one up individually every day.  We decided the easiest way would be to write our own plugin to get the data.  We hope you enjoy using it and if you have any suggestions please let us know!</p>
 			<h2 class="">USGS</h2>
-			<p class="">We are dependent on the <a href="//www.usgs.gov/water/">USGS website</a> for the data that this plugin uses.  They do a good job of notifying developers of any updates.  We will quickly update the plugin any time there are updates that effect the API calls.</p>
-			<a href="//www.usgs.gov/water/"><img src="<?php echo plugins_url( '../assets/usgs.jpg', __FILE__ ); ?>" alt="USGS" border="0" height="32px" /></a>
+			<p class="">The plugin is dependent on the <a href="//www.usgs.gov/water/">USGS website</a> for the data that is being displayed.</p>
+			<a href="//www.usgs.gov/water/"><img src="<?php echo esc_url( USGS_URL . '/assets/img/usgs.jpg' ); ?>" alt="USGS" border="0" height="32px" /></a>
 			<h2 class="">Support</h2>
-			<p class="">Thanks for using our plugin.  We are happy to address any bugs you might find and address suggestions you have by either posting on the plugin page at WordPress.org or through the <a href="https://www.kindredwebconsulting.com/contact-us/">Contact Us</a> on our website.</p>
-			<h2 class="">Donations</h2>
-				<p class="">If you are interested in helping us to add new features and fix bugs please consider donating a few dollars.
-				<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-				<input type="hidden" name="cmd" value="_s-xclick">
-				<input type="hidden" name="hosted_button_id" value="BUFMZVZ6L358J">
-				<table>
-				<tr><td><input type="hidden" name="on0" value="Donation"></td></tr><tr><td><select name="os0">
-					<option value="Buy Us a Meal">Buy Us a Meal $25.00 USD</option>
-					<option value="Buy Us a Drink">Buy Us a Drink $5.00 USD</option>
-					<option value="Be The Coolest Person We Know">Be The Coolest Person We Know $100.00 USD</option>
-				</select></td></tr>
-				</table>
-				<input type="hidden" name="currency_code" value="USD">
-				<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_paynow_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-				<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-				</form></p>
+			<p class="">Thanks for using the pluging. If you need support, please submit your question on the plugins <a href="https://wordpress.org/support/plugin/usgs-stream-flow-data/" target="_blank" >support forum on WordPress.org</a>.  You can also submit an issue on <a href="https://github.com/ChrisMKindred/KWC-USGS/" target="_blank">GitHub</a>.</p>
 			<?php
 			break;
 	}
