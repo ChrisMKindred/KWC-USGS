@@ -67,6 +67,12 @@ There is a built in cache for the data.  The data will update every 15 minutes i
 
 == Changelog ==
 
+= 21.11.03 =
+adds: version bump.
+
+= 21.11.02 =
+removes: .wordpress-org from deployment
+
 = 21.11.01 =
 adds: refactor the majority of the plugin to allow for easier changes in the future.
 adds: The ability to change the template for the shortcode by includeing a usgs.php file in your theme or plugin.
