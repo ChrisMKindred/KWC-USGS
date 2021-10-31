@@ -5,7 +5,7 @@ Tags: USGS, River Flow, Stream Flow, Fly Fishing, Water Level
 Requires at least: 5.5
 Tested up to: 5.8.1
 Requires PHP: 7.0
-Stable tag: 21.11.01
+Stable tag: 21.11.03
 License: GPLv2 or later
 License URI: //www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,12 @@ There is a built in cache for the data.  The data will update every 15 minutes i
 4. Showing USGS Without Graphs in a Post
 
 == Changelog ==
+
+= 21.11.03 =
+adds: version bump.
+
+= 21.11.02 =
+removes: .wordpress-org from deployment
 
 = 21.11.01 =
 adds: refactor the majority of the plugin to allow for easier changes in the future.
