@@ -15,8 +15,6 @@ class Shortcode {
 
 	public function __construct( Request $request ) {
 		$this->request = $request;
-
-		add_shortcode( 'USGS', [ $this, 'USGS' ] );
 	}
 
 	/**
