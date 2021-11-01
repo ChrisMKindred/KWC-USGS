@@ -9,6 +9,8 @@ use Kindred\USGS\Core;
 
 /**
  * Sample test case.
+ *
+ * @covers Kindred\USGS\Core
  */
 class CoreTest extends WP_UnitTestCase {
 	protected $plugin;
@@ -20,6 +22,7 @@ class CoreTest extends WP_UnitTestCase {
 
 	/**
 	 * Tests verify the construct set the defines.
+	 *
 	 * @covers Kindred\USGS\Core::__construct
 	 */
 	public function test_Construct() {
@@ -30,6 +33,7 @@ class CoreTest extends WP_UnitTestCase {
 
 	/**
 	 * Tests for plugin slug.
+	 *
 	 * @covers Kindred\USGS\Core::init
 	 */
 	public function test_init() {

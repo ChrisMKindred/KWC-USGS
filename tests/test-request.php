@@ -12,30 +12,21 @@ use Kindred\USGS\Request\Request;
 /**
  * Sample test case.
  */
-class AdminTest extends WP_UnitTestCase {
-	protected $admin;
+class RequestTest extends WP_UnitTestCase {
+	protected $request;
 
 	public function setUp(){
 		parent::setUp();
-		$request     = new Request();
-		$this->admin = new Admin( $request );
+		$this->request = new Request();
 	}
 
 	/**
 	 * Does the options page actually exists for the admin user.
 	 *
-	 * @covers Kindred\USGS\Admin\Admin::add_plugin_admin_menu
+	 * @covers Kindred\USGS\Request\Request::get_usgs
 	 */
-	public function test_admin_add_plugin_admin_menu() {
-		wp_set_current_user(
-			self::factory()->user->create(
-				array(
-            		'role' => 'administrator',
-				)
-			)
-		);
-		$this->admin->add_plugin_admin_menu();
-		$this->assertNotEmpty( menu_page_url( Core::PLUGIN_NAME, false ) );
+	public function test_bad_request() {
+		$this->assertInstanceOf( 'WP_Error', $this->request->get_usgs( 'http://badurl' ) );
 	}
 
 	/**
