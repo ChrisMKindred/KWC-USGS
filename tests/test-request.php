@@ -5,8 +5,6 @@
  * @package Plugin_Test
  */
 
-use Kindred\USGS\Admin\Admin;
-use Kindred\USGS\Core;
 use Kindred\USGS\Request\Request;
 
 /**
@@ -27,14 +25,5 @@ class RequestTest extends WP_UnitTestCase {
 	 */
 	public function test_bad_request() {
 		$this->assertInstanceOf( 'WP_Error', $this->request->get_usgs( 'http://badurl' ) );
-	}
-
-	/**
-	 * Tests to make sure that the add action links is adding the settings key.
-	 *
-	 * @covers Kindred\USGS\Admin\Admin::add_action_links
-	 */
-	public function test_add_action_links() {
-		$this->assertArrayHasKey( 'settings', $this->admin->add_action_links( [] ) );
 	}
 }
