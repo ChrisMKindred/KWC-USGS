@@ -15,9 +15,6 @@ use Kindred\USGS\Request\Request;
 class AdminTest extends WP_UnitTestCase {
 	protected $admin;
 
-	/**
-	 * @covers Kindred\USGS\Admin\Admin::__construct
-	 */
 	public function setUp(){
 		parent::setUp();
 		$request     = new Request();

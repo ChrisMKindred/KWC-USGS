@@ -15,9 +15,19 @@ use Kindred\USGS\Core;
 class CoreTest extends WP_UnitTestCase {
 	protected $plugin;
 
+	/**
+	 * @covers Kindred\USGS\Core::instance
+	 */
 	public function setUp(){
 		parent::setUp();
 		$this->plugin = Core::instance();
+	}
+
+	/**
+	 * @covers Kindred\USGS\Core::instance
+	 */
+	public function test_instance(){
+		$this->assertInstanceOf( 'Kindred\USGS\Core', $this->plugin );
 	}
 
 	/**
@@ -37,6 +47,9 @@ class CoreTest extends WP_UnitTestCase {
 	 * @covers Kindred\USGS\Core::init
 	 */
 	public function test_init() {
+		$file = USGS_PATH . '/kwcusgs.php';
+		$this->plugin->init( $file );
+		$this->assertTrue( shortcode_exists( 'USGS' ) );
 		$this->assertEquals( 10, has_action( 'admin_enqueue_scripts', [ $this->plugin, 'register_admin_scripts' ] ) );
 		$this->assertEquals( 10, has_action( 'wp_enqueue_scripts', [ $this->plugin, 'register_public_scripts' ] ) );
 	}
