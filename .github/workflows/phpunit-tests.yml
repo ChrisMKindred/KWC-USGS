@@ -1,6 +1,9 @@
 name: Test Suite
 
-on: [push]
+on:
+  pull_request:
+    branches:
+      - develop
 
 jobs:
   run:
