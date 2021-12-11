@@ -2,7 +2,7 @@
 
 ![PHP Compatibility 7.0+](https://github.com/ChrisMKindred/KWC-USGS/actions/workflows/php-compatiblity.yml/badge.svg?branch=master)
 ![Unit Tests](https://github.com/ChrisMKindred/KWC-USGS/actions/workflows/phpunit-tests.yml/badge.svg?branch=master)
-[![codecov](https://codecov.io/gh/ChrisMKindred/KWC-USGS/branch/master/graph/badge.svg)](https://codecov.io/gh/ChrisMKindred/KWC-USGS)
+![codecov](https://codecov.io/gh/ChrisMKindred/KWC-USGS/branch/master/graph/badge.svg)
 
 This plugin was developed to provide Stream Flow Data to websites I had developed.
 
