@@ -66,16 +66,16 @@ class Admin {
 		$page = "<table class='widefat'>
 					<thead>
 					    <tr>
-					        <th>" . __( 'Site Code', 'kwc_usga' ) . "</th>
-					        <th>" . __( 'Site Name', 'kwc_usga' ) . "</th>
-					        <th>" . __( 'Latitude / Longitude', 'kwc_usga' ) . "</th>
+					        <th>" . __( 'Site Code', 'kwc_usgs' ) . "</th>
+					        <th>" . __( 'Site Name', 'kwc_usgs' ) . "</th>
+					        <th>" . __( 'Latitude / Longitude', 'kwc_usgs' ) . "</th>
 					    </tr>
 					</thead>
 					<tfoot>
 						<tr>
-							<th>" . __( 'Site Code', 'kwc_usga' ) . "</th>
-							<th>" . __( 'Site Name', 'kwc_usga' ) . "</th>
-							<th>" . __( 'Latitude / Longitude', 'kwc_usga' ) . "</th>
+							<th>" . __( 'Site Code', 'kwc_usgs' ) . "</th>
+							<th>" . __( 'Site Name', 'kwc_usgs' ) . "</th>
+							<th>" . __( 'Latitude / Longitude', 'kwc_usgs' ) . "</th>
 						</tr>
 					</tfoot>";
 		$cnt  = 0;
