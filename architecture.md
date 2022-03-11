@@ -11,11 +11,11 @@ sequenceDiagram
     participant USGS
 Plugin->>wpdb: Check for Site Loction Cache
 alt Cache Exists
-	wpdb->>Plugin: Site Location Data
+	wpdb-->>Plugin: Site Location Data
 else No Cached Data
 	wpdb-->>Plugin: No site location cache
 	Plugin->>USGS: Post Site Location
-	USGS->>Plugin: Site Location Data
+	USGS-->>Plugin: Site Location Data
 	Plugin->>wpdb: Cache site data
 end
 ```
