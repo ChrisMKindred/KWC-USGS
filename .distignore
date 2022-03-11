@@ -4,6 +4,7 @@
 .git
 .github
 .gitignore
+architecture.md
 bin
 composer.json
 composer.lock
