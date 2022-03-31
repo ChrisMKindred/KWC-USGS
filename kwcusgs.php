@@ -35,6 +35,7 @@ add_action( 'plugins_loaded', static function () {
  *
  * @return Core
  */
+
 function usgs_core() {
 	return Core::instance();
 }

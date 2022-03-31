@@ -1,6 +1,6 @@
 <?php
 /**
- * @var array $args The args passed from the shortcode.
+ * @var array<string|string[]> $args The args passed from the shortcode.
  */
 ?>
 <div class='KWC_USGS clearfix'>

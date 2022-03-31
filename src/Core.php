@@ -22,10 +22,9 @@ final class Core {
 	}
 
 	public static function instance(): self {
-		if ( ! isset( self::$instance ) ) {
+		if ( ! self::$instance instanceof self ) {
 			self::$instance = new self();
 		}
-
 		return self::$instance;
 	}
 

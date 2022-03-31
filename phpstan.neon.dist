@@ -7,4 +7,5 @@ parameters:
 		- tests
 	bootstrapFiles:
 		- tests/constants.php
+	tmpDir: tests/phpstan-cache/
 	checkAlwaysTrueStrictComparison: true

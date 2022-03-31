@@ -14,6 +14,11 @@ class Admin {
 		$this->request = $request;
 	}
 
+	/**
+	 * Adds the plugin menu to the admin panel.
+	 *
+	 * @return void
+	 */
 	public function add_plugin_admin_menu() {
 		add_options_page(
 			__( 'USGS Stream Flow Data', 'kwc_usgs' ),
@@ -24,6 +29,13 @@ class Admin {
 		);
 	}
 
+	/**
+	 * Adds the action links in the plugin listing.
+	 *
+	 * @param array<int, string> $links
+	 *
+	 * @return array<int, string>
+	 */
 	public function add_action_links( $links ) {
 		$setting_link = [
 			'settings' => '<a href="' . admin_url( 'options-general.php?page=' . Core::PLUGIN_NAME ) . '">' . __( 'Settings', 'kwc_usgs' ) . '</a>',
@@ -105,6 +117,11 @@ class Admin {
 		die();
 	}
 
+	/**
+	 * Displayes the admin page.
+	 *
+	 * @return void
+	 */
 	public function display_plugin_admin_page() {
 		include_once( USGS_PATH . '/views/admin.php' );
 	}

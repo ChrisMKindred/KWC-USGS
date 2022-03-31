@@ -5,6 +5,8 @@ class Request {
 	/**
 	 * Makes USGS Call
 	 *
+	 * @param string $url The url to make the request to.
+	 *
 	 * @return mixed|array|WP_Error
 	 */
 	public function get_usgs( $url ) {

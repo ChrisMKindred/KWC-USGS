@@ -35,5 +35,11 @@
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "phpstan/extension-installer": true
         }
+    },
+    "scripts": {
+      "tests:all": "vendor/bin/phpcs -v && vendor/bin/phpunit && vendor/bin/phpstan",
+      "tests:phpcs": "vendor/bin/phpcs --report=summary -lv",
+      "tests:unit": "vendor/bin/phpunit",
+      "tests:analysis": "vendor/bin/phpstan"
     }
 }
