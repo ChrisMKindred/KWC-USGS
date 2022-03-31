@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var array $args The args passed from the shortcode.
+ */
+?>
 <div class='KWC_USGS clearfix'>
 	<h3 class='header'><?php echo esc_html( $args['title'] ); ?></h3>
 	<ul class='sitevalues'>

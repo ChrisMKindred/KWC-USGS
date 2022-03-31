@@ -101,15 +101,13 @@ $usgs_active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'home-settings';
 			<label>Select State:</label>
 			<?php
 			echo "<select id='state' class='state' name='state'>";
-			if ( ! empty( $usgs_state_values ) ) {
-				$usgs_blnfirst = true;
-				foreach ( $usgs_state_values as $usgs_state_short => $usgs_state_full ) {
-					if ( true == $usgs_blnfirst ) {
-						echo "<option value='$usgs_state_short' SELECTED >$usgs_state_full</option>";
-						$usgs_blnfirst = false;
-					} else {
-						echo "<option value='$usgs_state_short' >$usgs_state_full</option>";
-					}
+			$usgs_blnfirst = true;
+			foreach ( $usgs_state_values as $usgs_state_short => $usgs_state_full ) {
+				if ( true == $usgs_blnfirst ) {
+					echo "<option value='$usgs_state_short' SELECTED >$usgs_state_full</option>";
+					$usgs_blnfirst = false;
+				} else {
+					echo "<option value='$usgs_state_short' >$usgs_state_full</option>";
 				}
 			}
 			echo '</select>';

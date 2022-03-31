@@ -5,6 +5,9 @@ use Kindred\USGS\Core;
 use Kindred\USGS\Request\Request;
 
 class Admin {
+	/**
+	 * @var Request
+	 */
 	protected $request;
 
 	public function __construct( Request $request ) {
