@@ -18,18 +18,22 @@
         "Kindred\\Tests\\": "tests"
       }
     },
-    "require": {},
     "require-dev": {
         "phpcompatibility/phpcompatibility-wp": "^2.1",
         "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
         "automattic/vipwpcs": "^2.3",
         "phpunit/phpunit": "^6",
         "yoast/phpunit-polyfills": "^1.0",
-        "assertwell/wp-core-test-framework": "^0.2.0"
+        "assertwell/wp-core-test-framework": "^0.2.0",
+        "phpstan/phpstan": "^1.5",
+        "php-stubs/wordpress-tests-stubs": "^5.8",
+        "szepeviktor/phpstan-wordpress": "^1.0",
+        "phpstan/extension-installer": "^1.1"
     },
     "config": {
         "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "phpstan/extension-installer": true
         }
     }
 }
