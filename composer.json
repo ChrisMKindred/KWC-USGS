@@ -15,7 +15,7 @@
     },
     "autoload-dev": {
       "psr-4": {
-        "Tribe\\Tests\\": "tests"
+        "Kindred\\Tests\\": "tests"
       }
     },
     "require": {},
@@ -26,5 +26,10 @@
         "phpunit/phpunit": "^6",
         "yoast/phpunit-polyfills": "^1.0",
         "assertwell/wp-core-test-framework": "^0.2.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     }
 }
