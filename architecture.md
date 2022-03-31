@@ -2,7 +2,7 @@
 
 ## Site Location Cache Sequence Diagram
 
-Each site location is cached as a transient in the WordPress database. Below is a sequence diagram of the caching process.
+Each site location is cached as a transient. Below is a sequence diagram of the caching process.
 
 ```mermaid
 sequenceDiagram
