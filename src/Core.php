@@ -7,19 +7,34 @@ use Kindred\USGS\Shortcode\Shortcode;
 
 final class Core {
 
-	const VERSION     = '21.05.01';
+	const VERSION     = '22.04.01';
 	const PLUGIN_NAME = 'usgs-stream-flow-data';
 
+	/**
+	 * @var self
+	 */
 	private static $instance;
 
+	public function __construct() {
+		define( 'USGS_PATH', trailingslashit( plugin_dir_path( dirname( __FILE__ ) ) ) );
+		define( 'USGS_URL', plugin_dir_url( USGS_PATH . self::PLUGIN_NAME ) );
+		define( 'USGS_VERSION', self::VERSION );
+	}
+
 	public static function instance(): self {
-		if ( ! isset( self::$instance ) ) {
+		if ( ! self::$instance instanceof self ) {
 			self::$instance = new self();
 		}
-
 		return self::$instance;
 	}
 
+	/**
+	 * Iinit the plugin
+	 *
+	 * @param string $file
+	 *
+	 * @return void
+	 */
 	public function init( $file ) {
 		$request   = new Request();
 		$admin     = new Admin( $request );
@@ -35,23 +50,26 @@ final class Core {
 		add_shortcode( 'USGS', [ $shortcode, 'USGS' ] );
 	}
 
-	public function __construct() {
-		define( 'USGS_PATH', trailingslashit( plugin_dir_path( dirname( __FILE__ ) ) ) );
-		define( 'USGS_URL', plugin_dir_url( USGS_PATH . self::PLUGIN_NAME ) );
-		define( 'USGS_VERSION', self::VERSION );
-	}
-
 	private function __clone() {
 	}
 
+	/**
+	 * @return void
+	 */
 	public static function activate() {
 		return;
 	}
 
+	/**
+	 * @return void
+	 */
 	public static function deactivate() {
 		return;
 	}
 
+	/**
+	 * @return void
+	 */
 	public function register_admin_scripts() {
 		$screen = get_current_screen();
 		if ( 'settings_page_' . self::PLUGIN_NAME === $screen->id ) {
@@ -60,6 +78,9 @@ final class Core {
 		}
 	}
 
+	/**
+	 * @return void
+	 */
 	public function register_public_scripts() {
 		wp_enqueue_style( self::PLUGIN_NAME . '-plugin-styles', USGS_URL . '/assets/css/public.css', [], self::VERSION );
 	}

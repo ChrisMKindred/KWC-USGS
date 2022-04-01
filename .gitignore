@@ -9,3 +9,5 @@ vendor/*
 \.vscode/
 clover.xml
 coverage.xml
+tests/phpstan-cache/
+tests/phpcs-cache.json

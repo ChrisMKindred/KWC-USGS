@@ -5,12 +5,20 @@ use Kindred\USGS\Core;
 use Kindred\USGS\Request\Request;
 
 class Admin {
-	protected $reqeust;
+	/**
+	 * @var Request
+	 */
+	protected $request;
 
 	public function __construct( Request $request ) {
 		$this->request = $request;
 	}
 
+	/**
+	 * Adds the plugin menu to the admin panel.
+	 *
+	 * @return void
+	 */
 	public function add_plugin_admin_menu() {
 		add_options_page(
 			__( 'USGS Stream Flow Data', 'kwc_usgs' ),
@@ -21,6 +29,13 @@ class Admin {
 		);
 	}
 
+	/**
+	 * Adds the action links in the plugin listing.
+	 *
+	 * @param array<int, string> $links
+	 *
+	 * @return array<int, string>
+	 */
 	public function add_action_links( $links ) {
 		$setting_link = [
 			'settings' => '<a href="' . admin_url( 'options-general.php?page=' . Core::PLUGIN_NAME ) . '">' . __( 'Settings', 'kwc_usgs' ) . '</a>',
@@ -66,42 +81,42 @@ class Admin {
 		$page = "<table class='widefat'>
 					<thead>
 					    <tr>
-					        <th>Site Code</th>
-					        <th>Site Name</th>
-					        <th>Latitude / Longitude</th>
+					        <th>" . __( 'Site Code', 'kwc_usgs' ) . "</th>
+					        <th>" . __( 'Site Name', 'kwc_usgs' ) . "</th>
+					        <th>" . __( 'Latitude / Longitude', 'kwc_usgs' ) . "</th>
 					    </tr>
 					</thead>
 					<tfoot>
 						<tr>
-					        <th>Site Code</th>
-					        <th>Site Name</th>
-					        <th>Latitude / Longitude</th>
+							<th>" . __( 'Site Code', 'kwc_usgs' ) . "</th>
+							<th>" . __( 'Site Name', 'kwc_usgs' ) . "</th>
+							<th>" . __( 'Latitude / Longitude', 'kwc_usgs' ) . "</th>
 						</tr>
 					</tfoot>";
 		$cnt  = 0;
-		// phpcs:disable
-		/**
-		 * phpcs is disabled because the data coming from the api is not formed
-		 * correctly to match the valid snake_case format required by the CS.
-		 */
+
 		foreach ( $xml_tree->timeSeries as $site_data ) {
-			$cnt = ++$cnt;
-			$site = $site_data->sourceInfo->siteCode;
-			$lat = $site_data->sourceInfo->geoLocation->geogLocation->latitude;
-			$long = $site_data->sourceInfo->geoLocation->geogLocation->longitude;
-				$page .= "<tbody>
-						    <tr>
-						      	<td>" . $site_data->sourceInfo->siteCode ."</td>
-						      	<td><a href='//waterdata.usgs.gov/nwis/uv?" . $site . "' target='_blank'>". ucwords( strtolower( $site_data->sourceInfo->siteName ) ) ."</a></td>
-						      	<td><a href='//maps.google.com/?q=" . $lat . "," . $long ."' target='_blank'>" . $lat . " / " . $long . "</a></td>
-						    </tr>";
+			$cnt   = ++$cnt;
+			$site  = $site_data->sourceInfo->siteCode;
+			$lat   = $site_data->sourceInfo->geoLocation->geogLocation->latitude;
+			$long  = $site_data->sourceInfo->geoLocation->geogLocation->longitude;
+			$page .= "<tbody>
+						<tr>
+							<td>" . $site_data->sourceInfo->siteCode ."</td>
+							<td><a href='//waterdata.usgs.gov/nwis/uv?" . $site . "' target='_blank'>". ucwords( strtolower( $site_data->sourceInfo->siteName ) ) ."</a></td>
+							<td><a href='//maps.google.com/?q=" . $lat . "," . $long ."' target='_blank'>" . $lat . " / " . $long . "</a></td>
+						</tr>";
 		}
-			$page .= '</tbody></table>';
-		// phpcs:enable
+		$page .= '</tbody></table>';
 		echo $page;
 		die();
 	}
 
+	/**
+	 * Displayes the admin page.
+	 *
+	 * @return void
+	 */
 	public function display_plugin_admin_page() {
 		include_once( USGS_PATH . '/views/admin.php' );
 	}
