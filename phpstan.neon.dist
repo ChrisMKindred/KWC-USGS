@@ -1,0 +1,11 @@
+parameters:
+	level: 6
+	paths:
+		- .
+	excludePaths:
+		- vendor
+		- tests
+	bootstrapFiles:
+		- tests/constants.php
+	tmpDir: tests/phpstan-cache/
+	checkAlwaysTrueStrictComparison: true

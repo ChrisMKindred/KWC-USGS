@@ -30,6 +30,12 @@ add_action( 'plugins_loaded', static function () {
 	usgs_core()->init( __file__ );
 } );
 
+/**
+ * Returns the core plugin class instance.
+ *
+ * @return Core
+ */
+
 function usgs_core() {
 	return Core::instance();
 }

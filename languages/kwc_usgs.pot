@@ -1,4 +1,4 @@
-# Copyright (C) 2021 Chris Kindred
+# Copyright (C) 2022 Chris Kindred
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
@@ -9,9 +9,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-12-11T15:54:32+00:00\n"
+"POT-Creation-Date: 2022-04-01T04:24:23+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.5.0\n"
+"X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: kwc_usgs\n"
 
 #. Plugin Name of the plugin
@@ -23,7 +23,7 @@ msgid "//wordpress.org/plugins/usgs-stream-flow-data/"
 msgstr ""
 
 #. Description of the plugin
-#: src/Admin/Admin.php:16
+#: src/Admin/Admin.php:24
 msgid "USGS Stream Flow Data"
 msgstr ""
 
@@ -35,31 +35,31 @@ msgstr ""
 msgid "//www.kindredwebconsulting.com"
 msgstr ""
 
-#: src/Admin/Admin.php:17
+#: src/Admin/Admin.php:25
 msgid "Stream Flow Data"
 msgstr ""
 
-#: src/Admin/Admin.php:26
+#: src/Admin/Admin.php:41
 msgid "Settings"
 msgstr ""
 
-#: src/Admin/Admin.php:62
-#: src/Shortcode/Shortcode.php:57
+#: src/Admin/Admin.php:77
+#: src/Shortcode/Shortcode.php:86
 msgid "Unable to parse USGS's XML"
 msgstr ""
 
-#: src/Admin/Admin.php:69
-#: src/Admin/Admin.php:76
+#: src/Admin/Admin.php:84
+#: src/Admin/Admin.php:91
 msgid "Site Code"
 msgstr ""
 
-#: src/Admin/Admin.php:70
-#: src/Admin/Admin.php:77
+#: src/Admin/Admin.php:85
+#: src/Admin/Admin.php:92
 msgid "Site Name"
 msgstr ""
 
-#: src/Admin/Admin.php:71
-#: src/Admin/Admin.php:78
+#: src/Admin/Admin.php:86
+#: src/Admin/Admin.php:93
 msgid "Latitude / Longitude"
 msgstr ""
 
@@ -75,6 +75,6 @@ msgstr ""
 msgid "Search Site Codes"
 msgstr ""
 
-#: views/admin.php:117
+#: views/admin.php:115
 msgid "Get Stations"
 msgstr ""

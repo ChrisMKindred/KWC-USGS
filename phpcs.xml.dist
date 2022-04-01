@@ -1,11 +1,10 @@
 <?xml version="1.0"?>
 <ruleset name="WordPress Coding Standards for Plugins">
-	<file>src</file>
-    <file>tests</file>
+	<file>.</file>
     <arg name="extensions" value="php"/>
     <arg name="severity" value="4"/>
     <arg name="tab-width" value="4"/>
-
+	<arg name="cache" value="tests/phpcs-cache.json"/>
     <!--  Update to the PHP version your production/local docker container runs on -->
     <config name="testVersion" value="7.4.1"/>
     <!-- php -r 'echo PHP_VERSION_ID;' -->
