@@ -5,12 +5,39 @@ use Kindred\USGS\Request\Request;
 
 class Shortcode {
 
-	protected $location   = '';
-	protected $title      = '';
-	protected $graph      = '';
+	/**
+	 * @var string
+	 */
+	protected $location = '';
+
+	/**
+	 * @var string
+	 */
+	protected $title = '';
+
+	/**
+	 * @var string
+	 */
+	protected $graph = '';
+
+	/**
+	 * @var array<string, \SimpleXMLElement|string>
+	 */
 	protected $gageheight = [];
-	protected $flow       = [];
-	protected $watertemp  = [];
+
+	/**
+	 * @var array<string, \SimpleXMLElement|string>
+	 */
+	protected $flow = [];
+
+	/**
+	 * @var array<string, float|string>
+	 */
+	protected $watertemp = [];
+
+	/**
+	 * @var Request
+	 */
 	private $request;
 
 	public function __construct( Request $request ) {
@@ -20,7 +47,7 @@ class Shortcode {
 	/**
 	 * Undocumented function
 	 *
-	 * @param array  $atts      the attributes passed to the shortcode.
+	 * @param array<string, string|null>  $atts the attributes passed to the shortcode.
 	 * @param string $content   the content.
 	 * @return string           the html for the shortcode.
 	 */
@@ -40,11 +67,13 @@ class Shortcode {
 			$url      = 'https://waterservices.usgs.gov/nwis/iv?site=' . $this->location . '&parameterCd=00010,00060,00065&format=waterml';
 			$response = $this->request->get_usgs( $url );
 			if ( is_wp_error( $response ) ) {
-				return $response->get_error_message();
+				error_log( $response->get_error_message() );
+				return '';
 			}
 
 			if ( ! $response['response_code'] ) {
-				return $response['response_message'];
+				error_log( $response['response_message'] );
+				return '';
 			}
 
 			set_transient( 'kwc_usgs-' . md5( $this->location ), $response, MINUTE_IN_SECONDS * 60 );
@@ -57,49 +86,55 @@ class Shortcode {
 			return __( 'Unable to parse USGS\'s XML', 'kwc_usgs' );
 		}
 
-		if ( ! $this->title || 0 === strlen( $this->title ) ) {
+		if ( empty( $this->title ) ) {
 			$this->title = $xml_tree->timeSeries->sourceInfo->siteName;
 		}
 
 		foreach ( $xml_tree->timeSeries as $site_data ) { //phpcs:ignore
-			if ( '' !== $site_data->values->value && -999999 !== $site_data->values->value ) {
-				$desc = $site_data->variable->variableName;
-				switch ( $site_data->variable->variableCode ) {
-					case '00010':
-						$split_desc      = explode( ',', $desc );
-						$value           = $site_data->values->value;
-						$degf            = ( 9 / 5 ) * (float) $value + 32;
-						$this->watertemp = [
-							'class'       => 'watertemp',
-							'name'        => $split_desc[0],
-							'value'       => $degf,
-							'description' => '&deg; F',
-							'graph'       => 'https://waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no=' . $this->location . '&parm_cd=00010&rand=' . rand(),
-						];
-						break;
+			if ( empty( $site_data->values->value ) ) {
+				continue;
+			}
 
-					case '00060':
-						$split_desc = explode( ',', $desc );
-						$this->flow = [
-							'class'       => 'flow',
-							'name'        => $split_desc[0],
-							'value'       => $site_data->values->value,
-							'description' => $split_desc[1],
-							'graph'       => 'https://waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no=' . $this->location . '&parm_cd=00060&rand=' . rand(),
-						];
-						break;
+			if ( -999999 === intval( $site_data->values->value ) ) {
+				continue;
+			}
 
-					case '00065':
-						$split_desc       = explode( ',', $desc );
-						$this->gageheight = [
-							'class'       => 'gageheight',
-							'name'        => $split_desc[0],
-							'value'       => $site_data->values->value,
-							'description' => $split_desc[1],
-							'graph'       => 'https://waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no=' . $this->location . '&parm_cd=00065&rand=' . rand(),
-						];
-						break;
-				}
+			$desc = $site_data->variable->variableName;
+			switch ( $site_data->variable->variableCode ) {
+				case '00010':
+					$split_desc      = explode( ',', $desc );
+					$value           = $site_data->values->value;
+					$degf            = ( 9 / 5 ) * (float) $value + 32;
+					$this->watertemp = [
+						'class'       => 'watertemp',
+						'name'        => $split_desc[0],
+						'value'       => $degf,
+						'description' => '&deg; F',
+						'graph'       => 'https://waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no=' . $this->location . '&parm_cd=00010&rand=' . rand(),
+					];
+					break;
+
+				case '00060':
+					$split_desc = explode( ',', $desc );
+					$this->flow = [
+						'class'       => 'flow',
+						'name'        => $split_desc[0],
+						'value'       => $site_data->values->value,
+						'description' => $split_desc[1],
+						'graph'       => 'https://waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no=' . $this->location . '&parm_cd=00060&rand=' . rand(),
+					];
+					break;
+
+				case '00065':
+					$split_desc       = explode( ',', $desc );
+					$this->gageheight = [
+						'class'       => 'gageheight',
+						'name'        => $split_desc[0],
+						'value'       => $site_data->values->value,
+						'description' => $split_desc[1],
+						'graph'       => 'https://waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no=' . $this->location . '&parm_cd=00065&rand=' . rand(),
+					];
+					break;
 			}
 		}
 
