@@ -10,5 +10,6 @@
 	<arg name="parallel" value="20"/>
 	<arg value="ps"/>
 	<file>./</file>
-	<exclude-pattern type="relative">^vendor\/(?!(symfony|psr|php-di|nikic|jermeamia|composer|bin)).*$</exclude-pattern>
+	<exclude-pattern>./vendor/*</exclude-pattern>
+	<exclude-pattern>./tests/*</exclude-pattern>
 </ruleset>

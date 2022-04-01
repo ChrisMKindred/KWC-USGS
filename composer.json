@@ -38,12 +38,14 @@
     },
     "scripts": {
       "tests:all": [
+        "@tests:compat",
         "@tests:phpcs",
         "@tests:unit",
         "@tests:analysis"
       ],
       "tests:phpcs": "vendor/bin/phpcs",
       "tests:unit": "vendor/bin/phpunit",
-      "tests:analysis": "vendor/bin/phpstan"
+      "tests:analysis": "vendor/bin/phpstan",
+      "tests:compat": "vendor/bin/phpcs --standard=phpcompat.xml.dist --report=summary"
     }
 }
