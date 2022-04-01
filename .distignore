@@ -5,6 +5,7 @@
 .github
 .gitignore
 .wordpress-org
+architecture.md
 composer.json
 composer.lock
 CONTRIBUTING.md
