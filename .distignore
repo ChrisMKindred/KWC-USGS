@@ -16,7 +16,7 @@ phpcompat.xml
 phpcompat.xml.dist
 phpcs.xml
 phpcs.xml.dist
-phpstan.neon
+phpstan.neon.dist
 phpunit.xml
 phpunit.xml.dist
 README.md
