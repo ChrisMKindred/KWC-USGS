@@ -38,7 +38,6 @@ class ShortcodeTest extends WP_UnitTestCase {
 	 * Tests the usgs function in the shortcode.
 	 *
 	 * @covers Kindred\USGS\Shortcode\Shortcode::USGS
-	 * @covers views\usgs.php
 	 */
 	public function test_usgs() {
 		$location = '0209387778';
