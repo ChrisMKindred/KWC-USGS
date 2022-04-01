@@ -7,7 +7,7 @@ use Kindred\USGS\Shortcode\Shortcode;
 
 final class Core {
 
-	const VERSION     = '21.05.01';
+	const VERSION     = '22.04.01';
 	const PLUGIN_NAME = 'usgs-stream-flow-data';
 
 	/**
