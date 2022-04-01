@@ -67,11 +67,13 @@ class Shortcode {
 			$url      = 'https://waterservices.usgs.gov/nwis/iv?site=' . $this->location . '&parameterCd=00010,00060,00065&format=waterml';
 			$response = $this->request->get_usgs( $url );
 			if ( is_wp_error( $response ) ) {
-				return $response->get_error_message();
+				error_log( $response->get_error_message() );
+				return '';
 			}
 
 			if ( ! $response['response_code'] ) {
-				return $response['response_message'];
+				error_log( $response['response_message'] );
+				return '';
 			}
 
 			set_transient( 'kwc_usgs-' . md5( $this->location ), $response, MINUTE_IN_SECONDS * 60 );

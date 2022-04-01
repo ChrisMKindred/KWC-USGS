@@ -94,25 +94,20 @@ class Admin {
 						</tr>
 					</tfoot>";
 		$cnt  = 0;
-		// phpcs:disable
-		/**
-		 * phpcs is disabled because the data coming from the api is not formed
-		 * correctly to match the valid snake_case format required by the CS.
-		 */
+
 		foreach ( $xml_tree->timeSeries as $site_data ) {
-			$cnt = ++$cnt;
-			$site = $site_data->sourceInfo->siteCode;
-			$lat = $site_data->sourceInfo->geoLocation->geogLocation->latitude;
-			$long = $site_data->sourceInfo->geoLocation->geogLocation->longitude;
-				$page .= "<tbody>
-						    <tr>
-						      	<td>" . $site_data->sourceInfo->siteCode ."</td>
-						      	<td><a href='//waterdata.usgs.gov/nwis/uv?" . $site . "' target='_blank'>". ucwords( strtolower( $site_data->sourceInfo->siteName ) ) ."</a></td>
-						      	<td><a href='//maps.google.com/?q=" . $lat . "," . $long ."' target='_blank'>" . $lat . " / " . $long . "</a></td>
-						    </tr>";
+			$cnt   = ++$cnt;
+			$site  = $site_data->sourceInfo->siteCode;
+			$lat   = $site_data->sourceInfo->geoLocation->geogLocation->latitude;
+			$long  = $site_data->sourceInfo->geoLocation->geogLocation->longitude;
+			$page .= "<tbody>
+						<tr>
+							<td>" . $site_data->sourceInfo->siteCode ."</td>
+							<td><a href='//waterdata.usgs.gov/nwis/uv?" . $site . "' target='_blank'>". ucwords( strtolower( $site_data->sourceInfo->siteName ) ) ."</a></td>
+							<td><a href='//maps.google.com/?q=" . $lat . "," . $long ."' target='_blank'>" . $lat . " / " . $long . "</a></td>
+						</tr>";
 		}
-			$page .= '</tbody></table>';
-		// phpcs:enable
+		$page .= '</tbody></table>';
 		echo $page;
 		die();
 	}
