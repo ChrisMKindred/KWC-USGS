@@ -72,6 +72,9 @@ final class Core {
 	 */
 	public function register_admin_scripts() {
 		$screen = get_current_screen();
+		if ( ! $screen ) {
+			return;
+		}
 		if ( 'settings_page_' . self::PLUGIN_NAME === $screen->id ) {
 			wp_enqueue_style( self::PLUGIN_NAME . '-admin-styles', USGS_URL . '/assets/css/admin.css', [], self::VERSION );
 			wp_enqueue_script( self::PLUGIN_NAME . '-admin-script', USGS_URL . '/assets/js/admin.js', [ 'jquery' ], self::VERSION, true );

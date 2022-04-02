@@ -11,12 +11,12 @@ class Shortcode {
 	protected $location = '';
 
 	/**
-	 * @var string
+	 * @var string|null
 	 */
 	protected $title = '';
 
 	/**
-	 * @var string
+	 * @var string|null
 	 */
 	protected $graph = '';
 
