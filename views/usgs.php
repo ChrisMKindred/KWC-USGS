@@ -1,6 +1,13 @@
 <?php
 /**
- * @var array<string|string[]> $args The args passed from the shortcode.
+ * @var array{
+ *	'title': string,
+ *	'graph'?: string,
+ *  'watertemp'?: array<string>,
+ *  'flow'?: array<string>,
+ *  'gageheight'?: array<string>,
+ *	'location': string,
+ * } $args
  */
 ?>
 <div class='KWC_USGS clearfix'>
@@ -39,7 +46,7 @@
 	}
 	?>
 	</ul>
-	<?php if ( $args['graph'] ) { ?>
+	<?php if ( isset( $args['graph'] ) ) { ?>
 		<div class='clearfix'>
 			<?php if ( isset( $args['watertemp']['graph'] ) ) { ?>
 				<img src='<?php echo esc_url( $args['watertemp']['graph'] ); ?>' alt='<?php echo esc_attr( $args['watertemp']['name'] . ' Graph' ); ?>' />

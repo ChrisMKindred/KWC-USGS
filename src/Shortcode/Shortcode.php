@@ -48,8 +48,8 @@ class Shortcode {
 	 * Undocumented function
 	 *
 	 * @param array<string, string|null>  $atts the attributes passed to the shortcode.
-	 * @param string $content   the content.
-	 * @return string           the html for the shortcode.
+	 * @param string $content             the content.
+	 * @return string|false               the html for the shortcode.
 	 */
 	public function USGS( $atts, $content = null ) {
 		$defaults = [
