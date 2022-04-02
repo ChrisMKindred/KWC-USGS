@@ -34,7 +34,7 @@ class Admin {
 	 *
 	 * @param array<int, string> $links
 	 *
-	 * @return array<int, string>
+	 * @return array<int|string, string>
 	 */
 	public function add_action_links( $links ) {
 		$setting_link = [
