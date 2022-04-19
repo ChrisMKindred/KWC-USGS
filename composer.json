@@ -45,7 +45,7 @@
       ],
       "tests:phpcs": "vendor/bin/phpcs",
       "tests:unit": "vendor/bin/phpunit",
-      "tests:analysis": "vendor/bin/phpstan",
+      "tests:analysis": "vendor/bin/phpstan --memory-limit=256M",
       "tests:compat": "vendor/bin/phpcs --standard=phpcompat.xml.dist --report=summary"
     }
 }
