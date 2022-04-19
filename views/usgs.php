@@ -40,7 +40,7 @@
 		 *
 		 * @return {array}	Associative array of the water temp data [ `class`, `name`, `value`, `description`, `graph` ].
 		 */
-		$watertemp = apply_filter( 'kwc_usgs_water_temp', $args['watertemp'], $args['location'] );
+		$watertemp = apply_filters( 'kwc_usgs_water_temp', $args['watertemp'], $args['location'] );
 
 		echo sprintf(
 			"<li class='%s'>%s: %s %s</li>",
@@ -64,7 +64,7 @@
 		 *
 		 * @return {array}	Associative array of the flow data [ `class`, `name`, `value`, `description`, `graph` ].
 		 */
-		$flow = apply_filter( 'kwc_usgs_flow', $args['flow'], $args['location'] );
+		$flow = apply_filters( 'kwc_usgs_flow', $args['flow'], $args['location'] );
 
 		echo sprintf(
 			"<li class='%s'>%s: %s %s</li>",
@@ -88,7 +88,7 @@
 		 *
 		 * @return {array}	Associative array of the gageheight data [ `class`, `name`, `value`, `description`, `graph` ].
 		 */
-		$gageheight = apply_filter( 'kwc_usgs_gageheight', $args['gageheight'], $args['location'] );
+		$gageheight = apply_filters( 'kwc_usgs_gageheight', $args['gageheight'], $args['location'] );
 
 		echo sprintf(
 			"<li class='%s'>%s: %s %s</li>",
