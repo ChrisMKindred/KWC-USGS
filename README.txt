@@ -67,6 +67,11 @@ There is a built in cache for the data.  The data will update every 15 minutes i
 
 == Changelog ==
 
+= 22.05.01 =
+- Added `kwc_usgs_before_sitevalues_list` action before sitevalues list.
+- Added `kwc_usgs_after_sitevalues_list` action after sitevalues list.
+- Added `kwc_usgs_water_temp`, `kwc_usgs_flow`, `kwc_usgs_gageheight` filters.
+
 = 22.04.01 =
 adds:
 - Tested with 5.9.2
