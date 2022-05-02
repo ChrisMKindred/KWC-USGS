@@ -54,6 +54,14 @@ jobs:
     - name: Install WP Tests
       run: ./vendor/bin/install-wp-tests.sh ${MYSQL_DATABASE} ${MYSQL_USER} ${MYSQL_PASSWORD} ${DB_HOST}:${DB_PORT} ${WP_VERSION}
 
+    - name: Run PHP compatibility tests
+      if: ( matrix.php-versions == '7.4' )
+      run: vendor/bin/phpcs --standard=phpcompat.xml.dist --report=summary
+
+    - name: Static Analysis
+      if: ( matrix.php-versions == '7.4' )
+      run: vendor/bin/phpstan --memory-limit=512M
+
     - name: phpunit tests
       run: ./vendor/bin/phpunit --coverage-clover=coverage.xml
 
