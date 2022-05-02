@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-04-02T04:49:57+00:00\n"
+"POT-Creation-Date: 2022-05-02T02:44:30+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: kwc_usgs\n"
@@ -77,4 +77,10 @@ msgstr ""
 
 #: views/admin.php:115
 msgid "Get Stations"
+msgstr ""
+
+#: views/usgs.php:123
+#: views/usgs.php:131
+#: views/usgs.php:139
+msgid "Graph"
 msgstr ""
