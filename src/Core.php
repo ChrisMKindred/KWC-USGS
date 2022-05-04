@@ -50,9 +50,6 @@ final class Core {
 		add_shortcode( 'USGS', [ $shortcode, 'USGS' ] );
 	}
 
-	private function __clone() {
-	}
-
 	/**
 	 * @return void
 	 */
