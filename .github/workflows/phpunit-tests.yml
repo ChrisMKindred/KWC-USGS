@@ -67,11 +67,7 @@ jobs:
 
     - name: Upload coverage to Codecov
       if: ( github.event_name == 'push' && matrix.php-versions == '7.4' )
-      uses: codecov/codecov-action@v1
+      uses: codecov/codecov-action@v2
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         file: ./coverage.xml
-        flags: tests
-        name: codecov-umbrella
-        yml: ./codecov.yml
-        fail_ci_if_error: true
