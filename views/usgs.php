@@ -20,7 +20,7 @@
 	 * @since 22.04.02
 	 * @hook kwc_usgs_before_sitevalues_list
 	 *
-	 * @param array $args An associative array of the data used to build the listing.
+	 * @param {array} $args An associative array of the data used to build the listing.
 	 */
 	do_action( 'kwc_usgs_before_sitevalues_list', $args );
 	?>
@@ -35,10 +35,10 @@
 		 * @since 22.04.02
 		 * @hook kwc_usgs_water_temp
 		 *
-		 * @param array		$watertemp  Associative array of the water temp data [ `class`, `name`, `value`, `description`, `graph` ].
-		 * @param string	$location   The USGS location.
+		 * @param {array}	$watertemp  Associative array of the water temp data [ `class`, `name`, `value`, `description`, `graph` ].
+		 * @param {string}	$location   The USGS location.
 		 *
-		 * @return array	Associative array of the water temp data [ `class`, `name`, `value`, `description`, `graph` ].
+		 * @return {array}	Associative array of the water temp data [ `class`, `name`, `value`, `description`, `graph` ].
 		 */
 		$watertemp = apply_filters( 'kwc_usgs_water_temp', $args['watertemp'], $args['location'] );
 
@@ -59,10 +59,10 @@
 		 * @since 22.04.02
 		 * @hook kwc_usgs_flow
 		 *
-		 * @param array		$flow  		Associative array of the flow data [ `class`, `name`, `value`, `description`, `graph` ].
-		 * @param string	$location   The USGS location.
+		 * @param {array}	$flow  		Associative array of the flow data [ `class`, `name`, `value`, `description`, `graph` ].
+		 * @param {string}	$location   The USGS location.
 		 *
-		 * @return array	Associative array of the flow data [ `class`, `name`, `value`, `description`, `graph` ].
+		 * @return {array}	Associative array of the flow data [ `class`, `name`, `value`, `description`, `graph` ].
 		 */
 		$flow = apply_filters( 'kwc_usgs_flow', $args['flow'], $args['location'] );
 
@@ -83,10 +83,10 @@
 		 * @since 22.04.02
 		 * @hook kwc_usgs_gageheight
 		 *
-		 * @param array		$gageheight	Associative array of the gageheight data [ `class`, `name`, `value`, `description`, `graph` ].
-		 * @param string	$location	The USGS location.
+		 * @param {array}	$gageheight	Associative array of the gageheight data [ `class`, `name`, `value`, `description`, `graph` ].
+		 * @param {string}	$location	The USGS location.
 		 *
-		 * @return array	Associative array of the gageheight data [ `class`, `name`, `value`, `description`, `graph` ].
+		 * @return {array}	Associative array of the gageheight data [ `class`, `name`, `value`, `description`, `graph` ].
 		 */
 		$gageheight = apply_filters( 'kwc_usgs_gageheight', $args['gageheight'], $args['location'] );
 
@@ -103,12 +103,12 @@
 
 	<?php
 	/**
-	 * Filters the taxonomies that should be synced.
+	 * Allows for additional output after the sitevalues list.
 	 *
 	 * @since 22.04.02
 	 * @hook kwc_usgs_after_sitevalues_list
 	 *
-	 * @param array	$args	An array of the data used to build the listing.
+	 * @param {array} $args An array of the data used to build the listing.
 	 */
 	do_action( 'kwc_usgs_after_sitevalues_list', $args );
 

@@ -1,0 +1,27 @@
+{
+  "name": "kwc-usgs",
+  "version": "1.0.0",
+  "description": "USGS Plugin for WordPress",
+  "main": "index.js",
+  "scripts": {
+    "build": "wp-scripts build",
+    "packages-update": "wp-scripts packages-update",
+    "start": "wp-scripts start",
+    "build:docs": "rm -rf docs-pages/ && jsdoc -c hookdoc-conf.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChrisMKindred/KWC-USGS.git"
+  },
+  "author": "Chris Kindred",
+  "license": "GPL-2.0+",
+  "bugs": {
+    "url": "https://github.com/ChrisMKindred/KWC-USGS/issues"
+  },
+  "homepage": "https://github.com/ChrisMKindred/KWC-USGS#readme",
+  "devDependencies": {
+    "@wordpress/scripts": "^22.5.0",
+    "jsdoc": "^3.6.10",
+    "wp-hookdoc": "^0.2.0"
+  }
+}

@@ -22,3 +22,5 @@ phpunit.xml.dist
 README.md
 SECURITY.md
 tests
+.nvmrc
+hookdoc-conf.json

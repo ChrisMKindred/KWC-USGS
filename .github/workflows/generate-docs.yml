@@ -1,0 +1,30 @@
+name: Build Hook Docs
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2.4.0
+
+    - name: Setup node version
+      id: nvm
+      run: echo ::set-output name=NODE_VERSION::$(cat .nvmrc)
+    - uses: actions/setup-node@v2
+      with:
+        node-version: ${{ steps.nvm.outputs.NODE_VERSION }}
+
+    - name: npm install, and build docs
+      run: |
+        npm install
+        npm run build:docs
+      env:
+        CI: true
+
+    - name: Deploy to GH Pages
+      uses: maxheld83/ghpages@v0.2.1
+      env:
+        BUILD_DIR: 'docs-pages/'
+        GH_PAT: ${{ secrets.GITHUB_TOKEN }}

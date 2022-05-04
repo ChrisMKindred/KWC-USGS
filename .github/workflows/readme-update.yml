@@ -1,8 +1,7 @@
 name: Asset & Readme Update
 on:
-  push:
-    branches:
-    - master
+  workflow_dispatch:
+
 jobs:
   master:
     name: Push to master

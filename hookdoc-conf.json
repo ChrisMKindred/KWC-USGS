@@ -1,0 +1,16 @@
+{
+  "opts": {
+    "destination": "docs-pages/",
+    "template": "node_modules/wp-hookdoc/template",
+    "recurse": true
+  },
+  "source": {
+    "include": [ "./" ],
+    "includePattern": ".+\\.(php|inc)?$",
+    "exclude": [ "vendor/", "node_modules/" ]
+  },
+  "plugins": [
+    "node_modules/wp-hookdoc/plugin",
+    "plugins/markdown"
+  ]
+}
