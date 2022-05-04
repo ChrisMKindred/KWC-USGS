@@ -6,6 +6,8 @@
  */
 
 use Kindred\USGS\Core;
+use Kindred\USGS\Admin\Admin;
+use Kindred\USGS\Request\Request;
 
 /**
  * Sample test case.
@@ -33,12 +35,13 @@ class CoreTest extends WP_UnitTestCase {
 	/**
 	 * Tests verify the construct set the defines.
 	 *
-	 * @covers Kindred\USGS\Core::__construct
+	 * @covers Kindred\USGS\Core
 	 */
 	public function test_Construct() {
 		$this->assertTrue( defined( 'USGS_URL' ) );
 		$this->assertTrue( defined( 'USGS_PATH' ) );
 		$this->assertTrue( defined( 'USGS_VERSION' ) );
+		// $this->assertEquals( USGS_VERSION, Core::VERSION );
 	}
 
 	/**
@@ -52,6 +55,24 @@ class CoreTest extends WP_UnitTestCase {
 		$this->assertTrue( shortcode_exists( 'USGS' ) );
 		$this->assertEquals( 10, has_action( 'admin_enqueue_scripts', [ $this->plugin, 'register_admin_scripts' ] ) );
 		$this->assertEquals( 10, has_action( 'wp_enqueue_scripts', [ $this->plugin, 'register_public_scripts' ] ) );
+	}
+
+	/**
+	 * Tests activate
+	 *
+	 * @covers Kindred\USGS\Core::activate
+	 */
+	public function tests_activate() {
+		$this->assertNull( $this->plugin->activate() );
+	}
+
+	/**
+	 * Tests deactivate
+	 *
+	 * @covers Kindred\USGS\Core::deactivate
+	 */
+	public function tests_deactivate() {
+		$this->assertNull( $this->plugin->deactivate() );
 	}
 
 	/**
@@ -69,13 +90,15 @@ class CoreTest extends WP_UnitTestCase {
 		$this->assertContains( Core::PLUGIN_NAME . '-admin-styles', $wp_styles->queue );
 
 		wp_dequeue_script( Core::PLUGIN_NAME . '-admin-script' );
-		wp_dequeue_style( Core::PLUGIN_NAME . '-admin-style' );
+		wp_dequeue_style( Core::PLUGIN_NAME . '-admin-styles' );
 
 		set_current_screen( 'dashboard' );
 		$this->plugin->register_admin_scripts();
 		$this->assertNotContains( Core::PLUGIN_NAME . '-admin-script', $wp_scripts->queue );
-		$this->assertContains( Core::PLUGIN_NAME . '-admin-styles', $wp_styles->queue );
+		$this->assertNotContains( Core::PLUGIN_NAME . '-admin-styles', $wp_styles->queue );
 
+		wp_dequeue_script( Core::PLUGIN_NAME . '-admin-script' );
+		wp_dequeue_style( Core::PLUGIN_NAME . '-admin-styles' );
 	}
 
 	/**
@@ -83,8 +106,11 @@ class CoreTest extends WP_UnitTestCase {
 	 *
 	 * @covers Kindred\USGS\Core::register_public_scripts
 	 */
-	public function tests_register_public_scripts() {		{
-			$this->markTestIncomplete( 'This test has not been implemented yet.' );
-		}
+	public function tests_register_public_scripts() {
+		global $wp_styles;
+		$this->assertNotContains( Core::PLUGIN_NAME . '-plugin-styles', $wp_styles->queue );
+		$this->plugin->register_public_scripts();
+		$this->assertContains( Core::PLUGIN_NAME . '-plugin-styles', $wp_styles->queue );
+		wp_dequeue_style( Core::PLUGIN_NAME . '-plugin-style' );
 	}
 }
