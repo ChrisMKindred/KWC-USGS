@@ -6,8 +6,6 @@
  */
 
 use Kindred\USGS\Core;
-use Kindred\USGS\Admin\Admin;
-use Kindred\USGS\Request\Request;
 
 /**
  * Sample test case.
