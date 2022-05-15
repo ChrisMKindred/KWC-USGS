@@ -2,6 +2,7 @@
 namespace Kindred\USGS;
 
 use Kindred\USGS\Admin\Admin;
+use Kindred\USGS\Blocks\USGS_Block;
 use Kindred\USGS\Request\Request;
 use Kindred\USGS\Shortcode\Shortcode;
 
@@ -40,6 +41,8 @@ final class Core {
 		$admin     = new Admin( $request );
 		$shortcode = new Shortcode( $request );
 
+		( new USGS_Block() )->init() ;
+
 		add_action( 'admin_enqueue_scripts', [ $this, 'register_admin_scripts' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'register_public_scripts' ] );
 		add_action( 'wp_ajax_kwcusgsajax', [ $admin, 'kwcusgsajax_callback' ] );
@@ -73,8 +76,8 @@ final class Core {
 			return;
 		}
 		if ( 'settings_page_' . self::PLUGIN_NAME === $screen->id ) {
-			wp_enqueue_style( self::PLUGIN_NAME . '-admin-styles', USGS_URL . '/assets/css/admin.css', [], self::VERSION );
-			wp_enqueue_script( self::PLUGIN_NAME . '-admin-script', USGS_URL . '/assets/js/admin.js', [ 'jquery' ], self::VERSION, true );
+			wp_enqueue_style( self::PLUGIN_NAME . '-admin-styles', USGS_URL . '/build/usgs-admin.css', [], self::VERSION );
+			wp_enqueue_script( self::PLUGIN_NAME . '-admin-script', USGS_URL . '/build/usgs-admin.js', [ 'jquery' ], self::VERSION, true );
 		}
 	}
 
