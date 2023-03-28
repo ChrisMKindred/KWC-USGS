@@ -67,6 +67,9 @@ There is a built in cache for the data.  The data will update every 15 minutes i
 
 == Changelog ==
 
+= 23.03.01 =
+- Tested up to core 6.2
+
 = 22.05.01 =
 - Added `kwc_usgs_before_sitevalues_list` action before sitevalues list.
 - Added `kwc_usgs_after_sitevalues_list` action after sitevalues list.
