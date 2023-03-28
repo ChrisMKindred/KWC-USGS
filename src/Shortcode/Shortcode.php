@@ -11,12 +11,12 @@ class Shortcode {
 	protected $location = '';
 
 	/**
-	 * @var string
+	 * @var string|null
 	 */
 	protected $title = '';
 
 	/**
-	 * @var string
+	 * @var string|null
 	 */
 	protected $graph = '';
 
@@ -48,8 +48,8 @@ class Shortcode {
 	 * Undocumented function
 	 *
 	 * @param array<string, string|null>  $atts the attributes passed to the shortcode.
-	 * @param string $content   the content.
-	 * @return string           the html for the shortcode.
+	 * @param string $content             the content.
+	 * @return string|false               the html for the shortcode.
 	 */
 	public function USGS( $atts, $content = null ) {
 		$defaults = [
@@ -66,13 +66,9 @@ class Shortcode {
 		if ( ! $response = get_transient( 'kwc_usgs-' . md5( $this->location ) ) ) {
 			$url      = 'https://waterservices.usgs.gov/nwis/iv?site=' . $this->location . '&parameterCd=00010,00060,00065&format=waterml';
 			$response = $this->request->get_usgs( $url );
+
 			if ( is_wp_error( $response ) ) {
 				error_log( $response->get_error_message() );
-				return '';
-			}
-
-			if ( ! $response['response_code'] ) {
-				error_log( $response['response_message'] );
 				return '';
 			}
 

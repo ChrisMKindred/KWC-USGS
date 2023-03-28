@@ -4,6 +4,9 @@ on:
   pull_request:
     branches:
       - develop
+  push:
+    branches:
+      - develop
 
 jobs:
   run:
@@ -11,7 +14,7 @@ jobs:
     strategy:
       matrix:
         operating-system: [ubuntu-latest]
-        php-versions: ['7.4']
+        php-versions: ['7.4', '7.3']
     name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
     services:
       mysql:
@@ -51,15 +54,20 @@ jobs:
     - name: Install WP Tests
       run: ./vendor/bin/install-wp-tests.sh ${MYSQL_DATABASE} ${MYSQL_USER} ${MYSQL_PASSWORD} ${DB_HOST}:${DB_PORT} ${WP_VERSION}
 
+    - name: Run PHP compatibility tests
+      if: ( matrix.php-versions == '7.4' )
+      run: vendor/bin/phpcs --standard=phpcompat.xml.dist --report=summary
+
+    - name: Static Analysis
+      if: ( matrix.php-versions == '7.4' )
+      run: vendor/bin/phpstan --memory-limit=512M
+
     - name: phpunit tests
       run: ./vendor/bin/phpunit --coverage-clover=coverage.xml
 
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v1
+      if: ( github.event_name == 'push' && matrix.php-versions == '7.4' )
+      uses: codecov/codecov-action@v2
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         file: ./coverage.xml
-        flags: tests
-        name: codecov-umbrella
-        yml: ./codecov.yml
-        fail_ci_if_error: true

@@ -27,6 +27,7 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
+
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -38,9 +39,11 @@ jobs:
         run: |
           php --version
           composer --version
+
       - name: Install Composer dependencies
         run: |
           composer install --prefer-dist --no-suggest --no-progress --no-ansi --no-interaction
           echo "vendor/bin" >> $GITHUB_PATH
+
       - name: Run PHP compatibility tests
         run: vendor/bin/phpcs --standard=phpcompat.xml.dist --report=summary

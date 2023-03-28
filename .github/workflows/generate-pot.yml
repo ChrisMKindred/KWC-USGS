@@ -1,9 +1,7 @@
 name: Generate .pot
 
 on:
-  push:
-    branches:
-      - develop
+  workflow_dispatch:
 
 jobs:
   WP_POT_Generator:
